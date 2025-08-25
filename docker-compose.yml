@@ -12,4 +12,17 @@ services:
             - '3000:3000'
         environment:
             NODE_ENV: development
-        command: pnpm dev
+        command: sh -c "pnpm install && pnpm dev"
+
+    storybook:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '6006:6006'
+        volumes:
+            - .:/app
+            - /app/node_modules
+        environment:
+            NODE_ENV: development
+        command: sh -c "pnpm install && pnpm storybook"

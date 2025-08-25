@@ -17,7 +17,4 @@ RUN pnpm install
 COPY . .
 
 # Экспонируем порт Next.js
-EXPOSE 3000
-
-# Dev-команда
-CMD ["pnpm", "dev"]
+EXPOSE 3000 6006
