@@ -1,0 +1,39 @@
+$font-family-base: 'Jost', sans-serif;
+$font-family-heading: 'Actay Wide', 'Actay', sans-serif;
+/* "основной цвет для фона" */
+$color-primary-blue: #0FCCD3;
+/* "цвет для фона и текста" */
+$color-primary-white: #E8F8F8;
+/* "основной цвет для заголовков" */
+$color-text-blue: #0EB3B3;
+/* "основной цвет для обычно текста" */
+$color-text-dark: #0E3F53;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --font-family-base: #{$font-family-base};
+  --font-family-heading: #{$font-family-heading};
+  --color-primary-blue: #{$color-primary-blue};
+  --color-primary-white: #{$color-primary-white};
+  --color-text-blue: #{$color-text-blue};
+  --color-text-dark: #{$color-text-dark};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Доступ к css переменным из js */
+:export {
+  fontFamilyBase: #{$font-family-base};
+  fontFamilyHeading: #{$font-family-heading};
+  colorPrimaryBlue: #{$color-primary-blue};
+  colorPrimaryWhite: #{$color-primary-white};
+  colorTextBlue: #{$color-text-blue};
+  colorTextDark: #{$color-text-dark};
+}
