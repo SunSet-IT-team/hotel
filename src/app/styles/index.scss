@@ -1,5 +1,5 @@
-@use "./clearstyle.scss";
-@use "./variables.module.scss" as *;
+@use "./clearstyle";
+@use "../../shared/assets/styles/variables.module" as *;
 
 html,
 body {
