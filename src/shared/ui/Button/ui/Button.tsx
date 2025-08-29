@@ -6,12 +6,22 @@ import styles from "./Button.module.scss"
 import clsx from "clsx"
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Вариация кнопки
+   */
   variant?: "cyan" | "white" | "glass"
+
+  /**
+   * Растягивать ли компонент на всю ширину родителя
+   */
   fullWidth?: boolean
 }
 
+/**
+ * Компонент кнопки UI-кита
+ */
 export const Button: FC<Props> = ({
-  variant = "outlined",
+  variant = "cyan",
   fullWidth = false,
   className,
   ...rest
@@ -27,7 +37,7 @@ export const Button: FC<Props> = ({
 
           [styles.fullWidth]: fullWidth,
         },
-        className || ""
+        className
       )}
       {...rest}
     ></button>
