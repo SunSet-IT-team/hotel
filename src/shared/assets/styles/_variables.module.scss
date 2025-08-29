@@ -1,13 +1,15 @@
-$font-family-base: 'Jost', sans-serif;
-$font-family-heading: 'Actay Wide', 'Actay', sans-serif;
+$font-family-base: "Jost", sans-serif;
+$font-family-heading: "Actay Wide", "Actay", sans-serif;
 /* "основной цвет для фона" */
-$color-primary-blue: #0FCCD3;
+$color-primary-blue: #0fccd3;
 /* "цвет для фона и текста" */
-$color-primary-white: #E8F8F8;
+$color-primary-white: #e8f8f8;
 /* "основной цвет для заголовков" */
-$color-text-blue: #0EB3B3;
+$color-text-blue: #0eb3b3;
 /* "основной цвет для обычного текста" */
-$color-text-dark: #0E3F53;
+$color-text-dark: #0e3f53;
+/* "цвет для выбранного элемента" */
+$color-text-green: #0eb3b3;
 
 :root {
   --background: #ffffff;
@@ -19,6 +21,7 @@ $color-text-dark: #0E3F53;
   --color-primary-white: #{$color-primary-white};
   --color-text-blue: #{$color-text-blue};
   --color-text-dark: #{$color-text-dark};
+  --color-text-green: #{$color-text-green};
 }
 
 @media (prefers-color-scheme: dark) {
