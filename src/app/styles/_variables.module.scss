@@ -8,6 +8,8 @@ $color-primary-white: #E8F8F8;
 $color-text-blue: #0EB3B3;
 /* "основной цвет для обычно текста" */
 $color-text-dark: #0E3F53;
+/* "цвет для выбранного элемента" */
+$color-text-green: #0EB3B3;
 
 :root {
   --background: #ffffff;
@@ -19,6 +21,7 @@ $color-text-dark: #0E3F53;
   --color-primary-white: #{$color-primary-white};
   --color-text-blue: #{$color-text-blue};
   --color-text-dark: #{$color-text-dark};
+  --color-text-green: #{$color-text-green};
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,4 +39,5 @@ $color-text-dark: #0E3F53;
   colorPrimaryWhite: #{$color-primary-white};
   colorTextBlue: #{$color-text-blue};
   colorTextDark: #{$color-text-dark};
+  colorTextGreen: #{$color-text-green};
 }
