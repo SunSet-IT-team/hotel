@@ -1,12 +1,15 @@
 .root {
   padding: 5px 25px;
-  min-height: 36px;
+  min-height: 33px;
+  border-radius: 12px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-family: var(--font-family-base);
 
   box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.25), 1px 2px 3.9px rgba(9, 25, 20, 0.28), inset 2px 1px 4px rgba(14, 47, 32, 0.23), inset -2px -3px 4px rgba(255, 255, 255, 0.5);
 
@@ -16,9 +19,25 @@
   cursor: pointer;
 }
 
+//========================= sizes =========================
+.small {
+  padding: 5px 10px;
+}
+
+.medium {
+  padding: 14px 25px;
+}
+
+.big {
+  padding: 13px 25px;
+  font-size: 36px;
+}
+
+//========================= sizes =========================
+
+//========================= variants =========================
 .cyan {
   background-color: var(--color-primary-blue);
-  color: white;
 
   &:hover {
     background-color: var(--color-primary-white);
@@ -42,6 +61,8 @@
     color: var(--color-text-dark);
   }
 }
+
+//========================= variants =========================
 
 .fullWidth {
   width: 100%;

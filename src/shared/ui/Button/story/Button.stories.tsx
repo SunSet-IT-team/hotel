@@ -34,6 +34,7 @@ const Template: Story = {
   args: {
     children: "Текст кнопки",
     fullWidth: false,
+    size: "medium",
   },
 }
 
