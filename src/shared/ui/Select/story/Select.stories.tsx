@@ -83,3 +83,5 @@ export const Interactive: Story = {
     options: defaultOptions,
   },
 };
+
+export default meta;
