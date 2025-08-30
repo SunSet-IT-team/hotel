@@ -1,8 +1,8 @@
 .root {
   position: relative;
   display: inline-block;
-  width: 100%;
-  max-width: 429px;
+  width: 429px;
+  min-width: 100%;
   font-family: var(--font-family-base);
 
   &.open .arrow {
@@ -15,15 +15,15 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 12px 60px 12px 58px;
   height: 54px;
 
   background: var(--color-primary-white);
   border: 2px solid rgba(14, 63, 83, 0.08);
   border-radius: 12px;
-  box-shadow: 
-    1px 2px 3.9px 0px rgba(9, 25, 20, 0.28),
-    -2px -3px 4px 0px rgba(255, 255, 255, 0.5);
+  box-shadow:
+    2px 3px 2px 0px rgba(9, 25, 20, 0.2),
+    -2px -3px 2px 0px rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -47,12 +47,12 @@
 
 @media (max-width: 768px) {
   .root {
-    max-width: 335px;
+    width: 335px;
   }
-  
+
   .button {
     height: 42.2px;
-    padding: 8px 12px;
+    padding: 8px 26px 8px 22px;
   }
 }
 
@@ -76,6 +76,7 @@
   flex-shrink: 0;
   width: 10px;
   height: 10px;
+  // padding: 10px;
 
   .button:hover & {
     color: var(--color-primary-white);
@@ -92,7 +93,7 @@
   background: var(--color-primary-white);
   border-radius: 12px;
   padding: 12px;
-  box-shadow: 
+  box-shadow:
     1px 2px 3.9px 0px rgba(9, 25, 20, 0.28),
     -2px -3px 4px 0px rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(14, 63, 83, 0.1);

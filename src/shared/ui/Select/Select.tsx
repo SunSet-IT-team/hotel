@@ -2,7 +2,7 @@
 
 /**
  * Универсальный компонент выпадающего списка для выбора опций
- * Используется в фильтре для цены 
+ * Используется в фильтре для цены
  * Внутри используется Typography для отображения текста
  * @see Typography
  *  * Пропсы:
@@ -11,16 +11,16 @@
  * - onChange?: (value: string) => void — колбэк, вызывается только при явном выборе пользователем.
  * - className?: string — дополнительный CSS-класс для корневого элемента.
  * на всякий добавил изменение размера , по дефоолту будут применяться размеры из макета
- * 
+ *
  * - width?: number | string — ширина. Число трактуется как px (например, 240 → "240px"),
- * 
+ *
  * - height?: number | string — высота кнопки по тем же правилам, что и width.
  */
 
-import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
-import { Typography } from "../Typography"
-import styles from "./Select.module.scss"
+import Image from "next/image";
+import { CSSProperties, useEffect, useRef, useState } from "react";
+import { Typography } from "../Typography";
+import styles from "./Select.module.scss";
 
 export interface SelectOption {
   value: string;
@@ -31,8 +31,8 @@ export interface SelectProps {
   options: SelectOption[];
   onChange?: (value: string) => void;
   className?: string;
-  width?: string | number;
-  height?: string | number;
+  width?: CSSProperties["width"];
+  height?: CSSProperties["height"];
 }
 
 export function Select({
@@ -46,17 +46,35 @@ export function Select({
   const [selectedValue, setSelectedValue] = useState<string>("");
   const selectRef = useRef<HTMLDivElement>(null);
 
+  const [isMobilde, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     if (options.length > 0 && !selectedValue) {
       setSelectedValue(options[0].value);
     }
   }, [options, selectedValue]);
 
-  const selectedOption = options.find(option => option.value === selectedValue);
+  const selectedOption = options.find(
+    (option) => option.value === selectedValue
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -71,9 +89,11 @@ export function Select({
 
   const handleOptionSelect = (optionValue: string) => {
     setSelectedValue(optionValue);
+
     if (onChange) {
       onChange(optionValue);
     }
+
     setIsOpen(false);
   };
 
@@ -81,31 +101,19 @@ export function Select({
     if (selectedOption) {
       return selectedOption.label;
     }
-    return options[0]?.label || "";
-  };
 
-  const customStyles = {
-    width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
-    height: height ? (typeof height === 'number' ? `${height}px` : height) : undefined,
+    return options[0]?.label || "";
   };
 
   if (options.length === 0) {
     return (
-      <div 
-        ref={selectRef} 
-        className={`${styles.root} ${className || ''}`} 
-        style={customStyles}
+      <div
+        ref={selectRef}
+        className={`${styles.root} ${className || ""}`}
+        style={{ width, height }}
       >
-        <button
-          type="button"
-          className={styles.button}
-          disabled={true}
-        >
-          <Typography 
-            variant="h3" 
-            color="dark"
-            className={styles.label}
-          >
+        <button type="button" className={styles.button} disabled={true}>
+          <Typography variant="h3" color="dark" className={styles.label}>
             Нет доступных опций
           </Typography>
         </button>
@@ -114,10 +122,10 @@ export function Select({
   }
 
   return (
-    <div 
-      ref={selectRef} 
-      className={`${styles.root} ${isOpen ? styles.open : ''} ${className || ''}`} 
-      style={customStyles}
+    <div
+      ref={selectRef}
+      className={`${styles.root} ${isOpen ? styles.open : ""} ${className || ""}`}
+      style={{ width, height }}
     >
       <button
         type="button"
@@ -126,16 +134,16 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <Typography 
-          variant="h3" 
+        <Typography
+          variant={isMobilde ? "h2" : "h3"}
           color="dark"
           truncate={true}
           className={styles.label}
         >
           {getDisplayText()}
         </Typography>
-        <Image 
-          src="/icons/select-arrow-icon.svg" 
+        <Image
+          src="/icons/select-arrow-icon.svg"
           alt="Выбрать"
           width={12}
           height={8}
@@ -155,8 +163,8 @@ export function Select({
               role="option"
               aria-selected={selectedValue === option.value}
             >
-              <Typography 
-                variant="h3" 
+              <Typography
+                variant={isMobilde ? "h2" : "h3"}
                 color={selectedValue === option.value ? "dark" : "blue"}
               >
                 {option.label}
