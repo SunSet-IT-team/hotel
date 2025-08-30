@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/nextjs"
-import styles from "./Button.stories.module.scss"
+import type { Meta, StoryObj } from "@storybook/nextjs";
+import styles from "./Button.stories.module.scss";
 
-import { Button } from "../ui/Button"
+import { Button } from "../ui/Button";
 
 const meta = {
-  title: "Buttons",
+  title: "UI/Buttons",
   component: Button,
   parameters: {
     layout: "fullscreen",
@@ -25,10 +25,10 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Button>
+} satisfies Meta<typeof Button>;
 
-export default meta
-type Story = StoryObj<typeof Button>
+export default meta;
+type Story = StoryObj<typeof Button>;
 
 const Template: Story = {
   args: {
@@ -36,21 +36,21 @@ const Template: Story = {
     fullWidth: false,
     size: "medium",
   },
-}
+};
 
 export const Cyan: Story = {
   args: {
     ...Template.args,
     variant: "cyan",
   },
-}
+};
 
 export const White: Story = {
   args: {
     ...Template.args,
     variant: "white",
   },
-}
+};
 
 export const Glass: Story = {
   args: {
@@ -61,4 +61,4 @@ export const Glass: Story = {
   globals: {
     backgrounds: { value: "cyan" },
   },
-}
+};
