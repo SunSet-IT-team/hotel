@@ -74,6 +74,24 @@ export const RangeSlider: FC<Props> = ({
     thumbs: { visibleTime, toggleVisible },
   } = mergedOptions
 
+  const normalizeValue = () => {
+    // Проверка на корректность min/max
+    if (min > max) throw new Error("The prop max cannot be greater than min!")
+
+    // Нормализуем min/max с учётом step
+    const maxValue = min + Math.floor((max - min) / step) * step
+
+    let [currentMin, currentMax] = value
+
+    if (currentMin < min) currentMin = min
+    if (currentMax > maxValue) currentMax = maxValue
+
+    if (currentMin !== value[0] || currentMax !== value[1]) {
+      onChange([currentMin, currentMax])
+    }
+  }
+  normalizeValue()
+
   /** Отвечает за показ конкретной плашки над ползунком */
   const [visibleDisplay, setvisibleDisplay] = useState<"min" | "max" | null>(
     null
