@@ -4,7 +4,7 @@ import styles from "./Input.stories.module.scss";
 import { Input } from "../ui/Input";
 
 const meta = {
-  title: "UI/Inputs",
+  title: "UI/Input",
   component: Input,
   parameters: {
     layout: "fullscreen",
