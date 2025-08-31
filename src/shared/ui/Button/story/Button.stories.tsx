@@ -4,7 +4,7 @@ import styles from "./Button.stories.module.scss";
 import { Button } from "../ui/Button";
 
 const meta = {
-  title: "UI/Buttons",
+  title: "UI/Button",
   component: Button,
   parameters: {
     layout: "fullscreen",
