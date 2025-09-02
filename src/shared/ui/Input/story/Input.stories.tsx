@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/nextjs";
-import styles from "./Input.stories.module.scss";
+import type { Meta, StoryObj } from "@storybook/nextjs"
 
-import { Input } from "../ui/Input";
+import { Input } from "../ui/Input"
+import { WidthContainer } from "../../../../../.storybook/decorators/WidthContainer/WidthContainer"
 
 const meta = {
   title: "UI/Input",
@@ -18,21 +18,15 @@ const meta = {
       description: "Содержимое инпута",
     },
   },
-  decorators: [
-    (Story) => (
-      <div className={styles.storyDecorator}>
-        <Story />
-      </div>
-    ),
-  ],
-} satisfies Meta<typeof Input>;
+  decorators: [WidthContainer],
+} satisfies Meta<typeof Input>
 
-export default meta;
-type Story = StoryObj<typeof Input>;
+export default meta
+type Story = StoryObj<typeof Input>
 
 export const Default: Story = {
   args: {
     placeholder: "Введите текст",
     fullWidth: false,
   },
-};
+}

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/nextjs";
-import styles from "./Button.stories.module.scss";
+import type { Meta, StoryObj } from "@storybook/nextjs"
+import { WidthContainer } from "../../../../../.storybook/decorators/WidthContainer/WidthContainer"
 
-import { Button } from "../ui/Button";
+import { Button } from "../ui/Button"
 
 const meta = {
   title: "UI/Button",
@@ -18,17 +18,11 @@ const meta = {
       description: "Содержимое кнопки",
     },
   },
-  decorators: [
-    (Story) => (
-      <div className={styles.storyDecorator}>
-        <Story />
-      </div>
-    ),
-  ],
-} satisfies Meta<typeof Button>;
+  decorators: [WidthContainer],
+} satisfies Meta<typeof Button>
 
-export default meta;
-type Story = StoryObj<typeof Button>;
+export default meta
+type Story = StoryObj<typeof Button>
 
 const Template: Story = {
   args: {
@@ -36,21 +30,21 @@ const Template: Story = {
     fullWidth: false,
     size: "medium",
   },
-};
+}
 
 export const Cyan: Story = {
   args: {
     ...Template.args,
     variant: "cyan",
   },
-};
+}
 
 export const White: Story = {
   args: {
     ...Template.args,
     variant: "white",
   },
-};
+}
 
 export const Glass: Story = {
   args: {
@@ -61,4 +55,4 @@ export const Glass: Story = {
   globals: {
     backgrounds: { value: "cyan" },
   },
-};
+}
