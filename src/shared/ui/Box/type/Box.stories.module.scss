@@ -1,0 +1,42 @@
+// Стили для интерактивного демонстратора Box компонента
+.interactiveContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-weight: 500;
+    color: #374151;
+  }
+
+  input {
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+}
+
+.controlsRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.previewSection {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
