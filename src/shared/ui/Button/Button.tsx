@@ -1,25 +1,28 @@
-"use client"
+"use client";
 
-import { ButtonHTMLAttributes, FC } from "react"
+import { ButtonHTMLAttributes, CSSProperties, FC, ReactNode } from "react";
 
-import styles from "./Button.module.scss"
-import clsx from "clsx"
+import styles from "./Button.module.scss";
+import clsx from "clsx";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Вариация кнопки
    */
-  variant?: "cyan" | "white" | "glass"
+  variant?: "cyan" | "white" | "glass";
 
   /**
    * Размер кнопки (влияет на внутренние отступы и размер шрифта)
    */
-  size?: "small" | "medium" | "big"
+  size?: "small" | "medium" | "big";
 
   /**
    * Растягивать ли компонент на всю ширину родителя
    */
-  fullWidth?: boolean
+  fullWidth?: boolean;
+
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
 }
 
 /**
@@ -29,6 +32,9 @@ export const Button: FC<Props> = ({
   variant = "cyan",
   size = "medium",
   fullWidth = false,
+  children,
+  iconLeft,
+  iconRight,
   className,
   ...rest
 }) => {
@@ -44,6 +50,10 @@ export const Button: FC<Props> = ({
         className
       )}
       {...rest}
-    />
-  )
-}
+    >
+      {iconLeft && iconLeft}
+      {children}
+      {iconRight && iconRight}
+    </button>
+  );
+};

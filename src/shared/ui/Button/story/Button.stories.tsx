@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import styles from "./Button.stories.module.scss";
 
-import { Button } from "../ui/Button";
+import { Button } from "../Button";
 
 const meta = {
   title: "UI/Button",
