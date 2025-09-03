@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import type { CSSProperties, FC, ReactNode } from 'react'
+import type { CSSProperties, FC, JSX, ReactNode } from 'react'
 import styles from './Box.module.scss'
 
 interface BoxProps {
@@ -8,6 +8,9 @@ interface BoxProps {
   
   /** Дополнительные CSS классы */
   className?: string;
+  
+  /** HTML-элемент или компонент для рендера */
+  as?: keyof JSX.IntrinsicElements;
   
   /** Отступ сверху в пикселях */
   paddingTop?: number;
@@ -20,31 +23,49 @@ interface BoxProps {
   
   /** Отступ слева в пикселях */
   paddingLeft?: number;
+  
+  /** Единый внутренний отступ со всех сторон в пикселях */
+  padding?: number;
+
+  /** Направление расположения дочерних элементов, включает display:flex */
+  flexDirection?: CSSProperties["flexDirection"];
 }
 
 export const Box: FC<BoxProps> = ({ 
   children, 
   className,
-  paddingTop = 16,
-  paddingRight = 8,
-  paddingBottom = 16,
-  paddingLeft = 8
+  as = 'div',
+  paddingTop,
+  paddingRight,
+  paddingBottom,
+  paddingLeft,
+  padding,
+  flexDirection,
 }) => {
+  const resolvedPaddingTop = paddingTop ?? (padding ?? 16);
+  const resolvedPaddingRight = paddingRight ?? (padding ?? 8);
+  const resolvedPaddingBottom = paddingBottom ?? (padding ?? 16);
+  const resolvedPaddingLeft = paddingLeft ?? (padding ?? 8);
+
   const boxStyle: CSSProperties = {
-    paddingTop: `${paddingTop}px`,
-    paddingRight: `${paddingRight}px`,
-    paddingBottom: `${paddingBottom}px`,
-    paddingLeft: `${paddingLeft}px`,
-  }
+    paddingTop: resolvedPaddingTop,
+    paddingRight: resolvedPaddingRight,
+    paddingBottom: resolvedPaddingBottom,
+    paddingLeft: resolvedPaddingLeft,
+    ...(flexDirection ? { display: 'flex', flexDirection } : {}),
+  };
+  
 
   const boxClasses = clsx(
     styles.box,
     className
   )
 
+  const Component = (as ?? 'div') as keyof JSX.IntrinsicElements;
+
   return (
-    <div className={boxClasses} style={boxStyle}>
+    <Component className={boxClasses} style={boxStyle}>
       {children}
-    </div>
+    </Component>
   )
 }
