@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonHTMLAttributes, CSSProperties, FC, ReactNode } from "react";
+import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 
 import styles from "./Button.module.scss";
 import clsx from "clsx";
@@ -21,7 +21,14 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
    */
   fullWidth?: boolean;
 
+  /**
+   * Иконка слева
+   */
   iconLeft?: ReactNode;
+
+  /**
+   * Иконка справа
+   */
   iconRight?: ReactNode;
 }
 
