@@ -1,6 +1,26 @@
 @use "./clearstyle";
 @use "./fonts";
-@use "../../shared/assets/styles/variables.module" as *;
+@use "../../shared/assets/styles/index" as *;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --font-family-base: #{$font-family-base};
+  --font-family-heading: #{$font-family-heading};
+  --color-primary-blue: #{$color-primary-blue};
+  --color-primary-white: #{$color-primary-white};
+  --color-text-blue: #{$color-text-blue};
+  --color-text-dark: #{$color-text-dark};
+  --color-text-green: #{$color-text-green};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
 
 html,
 body {
@@ -20,4 +40,10 @@ body {
   html {
     color-scheme: dark;
   }
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $widthContainer + px;
+  padding: 0 15px;
 }

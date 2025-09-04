@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs"
 import { useArgs } from "storybook/preview-api"
-import styles from "./RangeSlider.stories.module.scss"
 
 import { RangeSlider } from "../ui/RangeSlider"
 import defaultOptions from "../config"
+import { WidthContainer } from "../../../../../.storybook/decorators/WidthContainer/WidthContainer"
 
 const meta = {
   title: "UI/RangeSlider",
@@ -14,13 +14,7 @@ const meta = {
       sort: "requiredFirst",
     },
   },
-  decorators: [
-    (Story) => (
-      <div className={styles.storyDecorator}>
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: [WidthContainer],
 } satisfies Meta<typeof RangeSlider>
 
 export default meta
