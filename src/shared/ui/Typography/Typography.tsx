@@ -1,5 +1,5 @@
-import { createElement, ReactNode } from "react"
-import s from "./Typography.module.scss"
+import { createElement, ReactNode } from 'react'
+import s from './Typography.module.scss'
 
 /**
  * Универсальный типографический компонент для текста.
@@ -22,45 +22,44 @@ import s from "./Typography.module.scss"
  * </Typography>
  */
 
-type Variant = "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "span";
+type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span'
 
-type As = "p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-type Align = "center" | "inherit" | "justify" | "left" | "right";
+type Align = 'center' | 'inherit' | 'justify' | 'left' | 'right'
 
-type Color = "white" | "blue" | "dark" ;
+type Color = 'white' | 'blue' | 'dark'
 
 type TypographyProps = {
-  variant?: Variant;
-  as?: As;
-  children: ReactNode;
-	className?: string;
-	color?: Color;
-	align?: Align;
-	truncate?:boolean;
-};
-
+	variant?: Variant
+	as?: As
+	children: ReactNode
+	className?: string
+	color?: Color
+	align?: Align
+	truncate?: boolean
+}
 
 export const Typography = ({
-  variant = "p",
-  as = "p",
-  children,
-  className = "",
-  align = "inherit",
-  color = "dark",
-  truncate = false,
-  ...props
+	variant = 'p',
+	as = 'p',
+	children,
+	className = '',
+	align = 'inherit',
+	color = 'dark',
+	truncate = false,
+	...props
 }: TypographyProps) => {
-  const classNames = [
-    s.root,
-    s[variant],               
-    s[`align_${align}`],       
-    s[`color_${color}`],
-    truncate && s.truncate,       
-    className,                 
-  ]
-    .filter(Boolean)            
-    .join(" ");
+	const classNames = [
+		s.root,
+		s[variant],
+		s[`align_${align}`],
+		s[`color_${color}`],
+		truncate && s.truncate,
+		className,
+	]
+		.filter(Boolean)
+		.join(' ')
 
-  return createElement(as, { className: classNames, ...props }, children);
-};
+	return createElement(as, { className: classNames, ...props }, children)
+}
