@@ -74,7 +74,6 @@
 @media (max-width: 768px) {
 	.trigger {
 		padding: 20px 11px;
-		justify-content: flex-start;
 	}
 
 	.question {
@@ -82,10 +81,12 @@
 	}
 
 	.arrow {
-		right: 12px;
+		right: -5px;
+		top: 7px;
 		width: 11px;
 		height: 11px;
 		background-color: $color-text-dark;
+		position: inherit;
 	}
 
 	.content {
