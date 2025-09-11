@@ -1,0 +1,21 @@
+/* Базовые стили для MainPage */
+.mainPage {
+	width: 100%;
+	background-color: var(--color-primary-white);
+}
+
+.heroContent {
+	text-align: center;
+	z-index: 2;
+	max-width: 800px;
+	padding: 0 20px;
+}
+
+.title {
+	margin-bottom: 40px;
+}
+
+.container {
+	margin: 0 auto;
+	padding: 0 20px;
+}
