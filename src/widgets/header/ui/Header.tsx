@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import clsx from "clsx"
 import { FC } from "react"
@@ -6,7 +6,7 @@ import { FC } from "react"
 import { LogoIcon } from "@/shared/assets/img/LogoIcon"
 import { Typography } from "@/shared/ui"
 
-import styles from "./Header.module.scss"
+import styles from './Header.module.scss';
 
 interface HeaderProps {
   /** Вариация заднего фона хедера с картинкой/ */
@@ -33,9 +33,9 @@ export const Header: FC<HeaderProps> = ({
 
 // @TODO: В дальнейшем реализовываем фичу менюшки с выбором языков
 const ChangeLaguageMenu = () => {
-  return (
-    <Typography color="white" className={styles.langMenu}>
-      RU/EN
-    </Typography>
-  )
-}
+    return (
+        <Typography color="white" className={styles.langMenu}>
+            RU/EN
+        </Typography>
+    );
+};

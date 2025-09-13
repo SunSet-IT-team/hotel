@@ -1,52 +1,51 @@
-
 .counter {
-  display: flex;
-  align-items: center;
-  gap: 3px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  color: var(--color-text-blue); /* Цвет иконок по умолчанию */
-  
-  &:hover {
-    opacity: 0.7;
-    color: var(--color-primary-blue); /* Цвет при наведении */
-  }
-  
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    color: var(--color-text-dark); /* Цвет для отключенного состояния */
-  }
-    
-  .arrowIcon {
-    width: 9px;
-    height: 9px;
-  }
-  
-  &:first-child .arrowIcon {
-    transform: rotate(90deg);
-  }
-  
-  &:last-child .arrowIcon {
-    transform: rotate(-90deg);
-  }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--color-text-blue); /* Цвет иконок по умолчанию */
+
+    &:hover {
+        opacity: 0.7;
+        color: var(--color-primary-blue); /* Цвет при наведении */
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        color: var(--color-text-dark); /* Цвет для отключенного состояния */
+    }
+
+    .arrowIcon {
+        width: 9px;
+        height: 9px;
+    }
+
+    &:first-child .arrowIcon {
+        transform: rotate(90deg);
+    }
+
+    &:last-child .arrowIcon {
+        transform: rotate(-90deg);
+    }
 }
 
 .valueContainer {
-  text-align: center;
+    text-align: center;
 }
 
 .value {
-  margin: 0;
-  min-width: 15px;
+    margin: 0;
+    min-width: 15px;
 }

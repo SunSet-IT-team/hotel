@@ -1,5 +1,5 @@
-$font-family-base: "Jost", sans-serif;
-$font-family-heading: "Actay Wide", "Actay", sans-serif;
+$font-family-base: 'Jost', sans-serif;
+$font-family-heading: 'Actay Wide', 'Actay', sans-serif;
 /* "основной цвет для фона" */
 $color-primary-blue: #0fccd3;
 /* "цвет для фона и текста" */
@@ -22,10 +22,10 @@ $sm: 439.98; //430px
 
 /* Доступ к css переменным из js */
 :export {
-  fontFamilyBase: #{$font-family-base};
-  fontFamilyHeading: #{$font-family-heading};
-  colorPrimaryBlue: #{$color-primary-blue};
-  colorPrimaryWhite: #{$color-primary-white};
-  colorTextBlue: #{$color-text-blue};
-  colorTextDark: #{$color-text-dark};
+    fontFamilyBase: #{$font-family-base};
+    fontFamilyHeading: #{$font-family-heading};
+    colorPrimaryBlue: #{$color-primary-blue};
+    colorPrimaryWhite: #{$color-primary-white};
+    colorTextBlue: #{$color-text-blue};
+    colorTextDark: #{$color-text-dark};
 }
