@@ -1,387 +1,387 @@
 @use '../../assets/styles/variables.module.scss' as *;
 
 .calendar {
-	background: $color-primary-white;
-	border-radius: 16px;
-	max-width: 894px;
-	min-width: 351px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 0px;
+    background: $color-primary-white;
+    border-radius: 16px;
+    max-width: 894px;
+    min-width: 351px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
 }
 
 .monthsContainer {
-	display: flex;
-	gap: 0px;
-	width: 100%;
-	justify-content: space-between;
+    display: flex;
+    gap: 0px;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .monthContainer {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	gap: 19px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
 
-	&:nth-child(2) {
-		.monthHeader {
-			padding-left: 60px;
-		}
-	}
+    &:nth-child(2) {
+        .monthHeader {
+            padding-left: 60px;
+        }
+    }
 }
 
 .monthHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 0px;
-	gap: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px;
+    gap: 15px;
 }
 
 .navButton {
-	background: transparent;
-	border: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	border-radius: 8px;
-	transition: background-color 0.2s ease;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
 
-	&:hover {
-		background-color: rgba($color-primary-blue, 0.1);
-	}
+    &:hover {
+        background-color: rgba($color-primary-blue, 0.1);
+    }
 }
 
 .navIcon {
-	width: 15px;
-	height: 15px;
-	-webkit-mask: url('/icons/select-arrow-icon.svg') no-repeat center;
-	mask: url('/icons/select-arrow-icon.svg') no-repeat center;
-	-webkit-mask-size: contain;
-	mask-size: contain;
-	background-color: $color-text-blue;
+    width: 15px;
+    height: 15px;
+    -webkit-mask: url('/icons/select-arrow-icon.svg') no-repeat center;
+    mask: url('/icons/select-arrow-icon.svg') no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    background-color: $color-text-blue;
 }
 
 .navButtonLeft .navIcon {
-	transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .navButtonRight .navIcon {
-	transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 .monthTitle {
-	flex: 1;
-	text-align: left;
+    flex: 1;
+    text-align: left;
 }
 
 .weekdaysRow {
-	display: grid;
-	grid-template-columns: repeat(7, max-content);
-	gap: 30px;
-	margin-bottom: 0px;
-	padding-left: 40px;
+    display: grid;
+    grid-template-columns: repeat(7, max-content);
+    gap: 30px;
+    margin-bottom: 0px;
+    padding-left: 40px;
 }
 
 .weekday {
-	text-align: center;
-	padding: 0px 0px;
-	font-weight: 400;
+    text-align: center;
+    padding: 0px 0px;
+    font-weight: 400;
 }
 
 .english .weekday {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 .calendarGrid {
-	display: grid;
-	grid-template-columns: repeat(7, max-content);
-	gap: 10px 10px;
-	margin-bottom: 0px;
-	padding-left: 40px;
+    display: grid;
+    grid-template-columns: repeat(7, max-content);
+    gap: 10px 10px;
+    margin-bottom: 0px;
+    padding-left: 40px;
 }
 
 .day {
-	width: 40px;
-	height: 40px;
-	border: none;
-	background: transparent;
-	cursor: pointer;
-	border-radius: 8px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: all 0.2s ease;
-	position: relative;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    position: relative;
 
-	&:hover {
-		background: rgba($color-primary-blue, 0.1);
-	}
+    &:hover {
+        background: rgba($color-primary-blue, 0.1);
+    }
 
-	&.today,
-	&.rangeEnd {
-		background: $color-primary-blue;
-		border-radius: 8px;
-		position: relative;
+    &.today,
+    &.rangeEnd {
+        background: $color-primary-blue;
+        border-radius: 8px;
+        position: relative;
 
-		&::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: -10.5px;
-			right: 0;
-			bottom: 0;
-			background: rgba($color-primary-blue, 0.15);
-			z-index: 0;
-		}
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10.5px;
+            right: 0;
+            bottom: 0;
+            background: rgba($color-primary-blue, 0.15);
+            z-index: 0;
+        }
 
-		&.singleDay::after {
-			display: none;
-		}
-	}
+        &.singleDay::after {
+            display: none;
+        }
+    }
 
-	&.rangeStart {
-		background: $color-primary-blue;
-		border-radius: 8px;
-		position: relative;
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 1.5px;
-			right: -2px;
-			bottom: 0;
-			background: rgba($color-primary-blue, 0.15);
-			z-index: 0;
-		}
+    &.rangeStart {
+        background: $color-primary-blue;
+        border-radius: 8px;
+        position: relative;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 1.5px;
+            right: -2px;
+            bottom: 0;
+            background: rgba($color-primary-blue, 0.15);
+            z-index: 0;
+        }
 
-		&.singleDay::before {
-			display: none;
-		}
-	}
+        &.singleDay::before {
+            display: none;
+        }
+    }
 
-	&.inRange {
-		background: transparent;
-		border-radius: 0;
-		position: relative;
+    &.inRange {
+        background: transparent;
+        border-radius: 0;
+        position: relative;
 
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: -10.5px;
-			right: 0.5px;
-			bottom: 0;
-			background: rgba($color-primary-blue, 0.15);
-			z-index: 0;
-		}
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10.5px;
+            right: 0.5px;
+            bottom: 0;
+            background: rgba($color-primary-blue, 0.15);
+            z-index: 0;
+        }
 
-		&:only-child {
-			background: $color-primary-blue;
-			border-radius: 8px;
+        &:only-child {
+            background: $color-primary-blue;
+            border-radius: 8px;
 
-			&::before {
-				left: 0;
-				right: 0;
-				border-radius: 8px;
-			}
-		}
-	}
+            &::before {
+                left: 0;
+                right: 0;
+                border-radius: 8px;
+            }
+        }
+    }
 }
 
 .dayNumber {
-	font-weight: 400;
+    font-weight: 400;
 }
 
 .emptyDay {
-	width: 40px;
-	height: 40px;
+    width: 40px;
+    height: 40px;
 }
 
 .applyButton {
-	margin-top: 21px;
-	max-width: 784px;
-	margin-left: 30px;
+    margin-top: 21px;
+    max-width: 784px;
+    margin-left: 30px;
 }
 
 @media (max-width: 768px) {
-	.calendar {
-		width: 351px;
-		padding: 20px;
-		gap: 0px;
-		border-radius: 20px;
-	}
+    .calendar {
+        width: 351px;
+        padding: 20px;
+        gap: 0px;
+        border-radius: 20px;
+    }
 
-	.monthsContainer {
-		flex-direction: column;
-		gap: 0px;
-		justify-content: flex-start;
-	}
+    .monthsContainer {
+        flex-direction: column;
+        gap: 0px;
+        justify-content: flex-start;
+    }
 
-	.monthContainer {
-		gap: 0px;
-		&:nth-child(2) {
-			.monthHeader {
-				padding-left: 29px;
-				padding-top: 33px;
-			}
-		}
-	}
+    .monthContainer {
+        gap: 0px;
+        &:nth-child(2) {
+            .monthHeader {
+                padding-left: 29px;
+                padding-top: 33px;
+            }
+        }
+    }
 
-	.monthHeader {
-		margin-bottom: 7px;
-		gap: 0px;
-		justify-content: center;
-		position: relative;
-		padding-left: 30px;
-	}
+    .monthHeader {
+        margin-bottom: 7px;
+        gap: 0px;
+        justify-content: center;
+        position: relative;
+        padding-left: 30px;
+    }
 
-	.monthTitle {
-		font-size: 36px;
-	}
-	.navButton {
-		width: 32px;
-		height: 32px;
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
+    .monthTitle {
+        font-size: 36px;
+    }
+    .navButton {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
-		&.navButtonLeft {
-			transform: translateY(83px) translateY(-57px);
-		}
+        &.navButtonLeft {
+            transform: translateY(83px) translateY(-57px);
+        }
 
-		&.navButtonRight {
-			transform: translateY(85px) translateY(57px);
-		}
-	}
+        &.navButtonRight {
+            transform: translateY(85px) translateY(57px);
+        }
+    }
 
-	.navIcon {
-		width: 12px;
-		height: 12px;
-	}
+    .navIcon {
+        width: 12px;
+        height: 12px;
+    }
 
-	.navButtonLeft .navIcon {
-		transform: rotate(180deg);
-	}
+    .navButtonLeft .navIcon {
+        transform: rotate(180deg);
+    }
 
-	.navButtonRight .navIcon {
-		transform: rotate(0deg);
-	}
+    .navButtonRight .navIcon {
+        transform: rotate(0deg);
+    }
 
-	.weekdaysRow {
-		gap: 11px;
-		margin-bottom: 0px;
-		padding-left: 36px;
-		grid-template-columns: repeat(7, max-content);
-	}
+    .weekdaysRow {
+        gap: 11px;
+        margin-bottom: 0px;
+        padding-left: 36px;
+        grid-template-columns: repeat(7, max-content);
+    }
 
-	.weekday {
-		padding: 8px 4px;
-		font-weight: 400;
-	}
+    .weekday {
+        padding: 8px 4px;
+        font-weight: 400;
+    }
 
-	.english .weekday {
-		font-size: 15px;
-	}
+    .english .weekday {
+        font-size: 15px;
+    }
 
-	.calendarGrid {
-		gap: 11px 9px;
-		margin-bottom: 0px;
-		padding-left: 40px;
-		grid-template-columns: repeat(7, max-content);
-	}
+    .calendarGrid {
+        gap: 11px 9px;
+        margin-bottom: 0px;
+        padding-left: 40px;
+        grid-template-columns: repeat(7, max-content);
+    }
 
-	.day {
-		width: 26px;
-		height: 26px;
-		border-radius: 8px;
-	}
+    .day {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+    }
 
-	.emptyDay {
-		width: 26px;
-		height: 26px;
+    .emptyDay {
+        width: 26px;
+        height: 26px;
 
-		&.today,
-		&.rangeEnd {
-			background: $color-primary-blue;
-			border-radius: 8px;
-			position: relative;
+        &.today,
+        &.rangeEnd {
+            background: $color-primary-blue;
+            border-radius: 8px;
+            position: relative;
 
-			&::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -9.5px;
-				right: 0;
-				bottom: 0;
-				background: rgba($color-primary-blue, 0.15);
-				z-index: 0;
-			}
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -9.5px;
+                right: 0;
+                bottom: 0;
+                background: rgba($color-primary-blue, 0.15);
+                z-index: 0;
+            }
 
-			&.singleDay::after {
-				display: none;
-			}
-		}
-		&.rangeStart {
-			background: $color-primary-blue;
-			border-radius: 8px;
-			position: relative;
-			&::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 1.5px;
-				right: -2px;
-				bottom: 0;
-				background: rgba($color-primary-blue, 0.15);
-				z-index: 0;
-			}
+            &.singleDay::after {
+                display: none;
+            }
+        }
+        &.rangeStart {
+            background: $color-primary-blue;
+            border-radius: 8px;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 1.5px;
+                right: -2px;
+                bottom: 0;
+                background: rgba($color-primary-blue, 0.15);
+                z-index: 0;
+            }
 
-			&.singleDay::before {
-				display: none;
-			}
-		}
-		&.rangeStart:only-child {
-			&::before {
-				left: 0;
-				right: 0;
-				border-radius: 8px;
-			}
-		}
+            &.singleDay::before {
+                display: none;
+            }
+        }
+        &.rangeStart:only-child {
+            &::before {
+                left: 0;
+                right: 0;
+                border-radius: 8px;
+            }
+        }
 
-		&.inRange {
-			background: transparent;
-			border-radius: 0;
-			position: relative;
+        &.inRange {
+            background: transparent;
+            border-radius: 0;
+            position: relative;
 
-			&::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -10.5px;
-				right: 0.5px;
-				bottom: 0;
-				background: rgba($color-primary-blue, 0.15);
-				z-index: 0;
-			}
-		}
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -10.5px;
+                right: 0.5px;
+                bottom: 0;
+                background: rgba($color-primary-blue, 0.15);
+                z-index: 0;
+            }
+        }
 
-		&.inRange:only-child {
-			&::before {
-				left: 0;
-				right: 0;
-				border-radius: 8px;
-			}
-		}
-	}
+        &.inRange:only-child {
+            &::before {
+                left: 0;
+                right: 0;
+                border-radius: 8px;
+            }
+        }
+    }
 
-	.applyButton {
-		margin-top: 16px;
-		width: 241px;
-		height: 36px;
-		margin-left: 35px;
-	}
+    .applyButton {
+        margin-top: 16px;
+        width: 241px;
+        height: 36px;
+        margin-left: 35px;
+    }
 }

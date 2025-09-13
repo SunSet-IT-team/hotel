@@ -1,0 +1,41 @@
+# deps/lockfiles
+node_modules
+.pnp.cjs
+.pnp.loader.mjs
+
+# Next.js
+.next
+out
+# Turborepo / Vercel build cache (если используешь)
+.turbo
+.vercel
+
+# builds
+build
+dist
+coverage
+
+# env/config/secrets
+.env
+.env.*
+!.env.example
+
+# package managers
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea
+.vscode/*
+
+# generated assets
+public/vendor
+public/*.min.*
+
+
+# misc
+*.snap
