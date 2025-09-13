@@ -1,5 +1,6 @@
-import styles from "./page.module.scss";
+"use client"
+import styles from "./page.module.scss"
 
 export default function Home() {
-  return <div className={styles.root}></div>;
+  return <div className={styles.root}></div>
 }
