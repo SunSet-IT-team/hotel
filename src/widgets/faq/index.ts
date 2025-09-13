@@ -1,1 +1,1 @@
-export { FaqSection } from './ui/FaqSection'
+export { FaqSection } from './ui/FaqSection';

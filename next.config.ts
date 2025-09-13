@@ -1,15 +1,15 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      use: ["@svgr/webpack"],
-    });
+    output: 'standalone',
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/i,
+            use: ['@svgr/webpack'],
+        });
 
-    return config;
-  },
+        return config;
+    },
 };
 
 export default nextConfig;

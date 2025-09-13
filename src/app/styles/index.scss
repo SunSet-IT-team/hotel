@@ -1,49 +1,49 @@
-@use "./clearstyle";
-@use "./fonts";
-@use "../../shared/assets/styles/index" as *;
+@use './clearstyle';
+@use './fonts';
+@use '../../shared/assets/styles/index' as *;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 
-  --font-family-base: #{$font-family-base};
-  --font-family-heading: #{$font-family-heading};
-  --color-primary-blue: #{$color-primary-blue};
-  --color-primary-white: #{$color-primary-white};
-  --color-text-blue: #{$color-text-blue};
-  --color-text-dark: #{$color-text-dark};
-  --color-text-green: #{$color-text-green};
+    --font-family-base: #{$font-family-base};
+    --font-family-heading: #{$font-family-heading};
+    --color-primary-blue: #{$color-primary-blue};
+    --color-primary-white: #{$color-primary-white};
+    --color-text-blue: #{$color-text-blue};
+    --color-text-dark: #{$color-text-dark};
+    --color-text-green: #{$color-text-green};
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-family-base);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+    html {
+        color-scheme: dark;
+    }
 }
 
 .container {
-  margin: 0 auto;
-  max-width: $widthContainer + px;
-  padding: 0 15px;
+    margin: 0 auto;
+    max-width: $widthContainer + px;
+    padding: 0 15px;
 }

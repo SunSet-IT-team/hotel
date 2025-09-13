@@ -1,1 +1,1 @@
-export { default as SelectArrowIcon } from "./select-arrow-icon.svg";
+export { default as SelectArrowIcon } from './select-arrow-icon.svg';

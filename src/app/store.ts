@@ -1,11 +1,11 @@
-import { searchFormReducer } from '@/widgets/search-form'
-import { configureStore } from '@reduxjs/toolkit'
+import { searchFormReducer } from '@/widgets/search-form';
+import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
-	reducer: {
-		searchForm: searchFormReducer,
-	},
-})
+    reducer: {
+        searchForm: searchFormReducer,
+    },
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

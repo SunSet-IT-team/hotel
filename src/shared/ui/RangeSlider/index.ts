@@ -1,1 +1,1 @@
-export { RangeSlider } from "./ui/RangeSlider"
+export { RangeSlider } from './ui/RangeSlider';
