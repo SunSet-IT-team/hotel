@@ -1,12 +1,5 @@
 @use './variables.module' as vars;
 
-// Миксин для плавного изменения свойства от $startSize к $endSize
-// $startSize, $endSize: number, без суффикса px
-// $minWidth и $maxWidth задают диапазон ширины экрана, на котором будет адаптация
-// $mode: "down" – уменьшается к минимальному размеру, "up" – увеличивается к максимальному
-// По умолчанию: minWidth = vars.$sm, maxWidth = vars.$widthContainer, mode="down"
-
-// PS: Миксин работает только с css свойствами, которые задаются как [value]px!
 @mixin magicAdapt(
     $property,
     $startSize,
@@ -15,46 +8,53 @@
     $minWidth: vars.$sm,
     $mode: 'down'
 ) {
-    $delta: $startSize - $endSize;
+    & {
+        #{$property}: #{$startSize}px;
+    }
 
-    // Начальное значение
-    #{$property}: #{$startSize}px;
+    $delta: $startSize - $endSize;
 
     // ----------------
     // MODE: DOWN
-    // width <= maxWidth: value высчитывается по формуле
-    // width < minWidth: value = endSize
+    // width <= maxWidth: вычисление по формуле
+    // width <  minWidth: фиксируем endSize
     // ----------------
     @if $mode == 'down' {
-        // При ширине <= maxWidht, значение высчитывается по формуле startValue →
         @media (max-width: #{$maxWidth}px) {
-            #{$property}: calc(
-                #{$endSize}px + #{$delta} *
-                    ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
-            );
+            & {
+                #{$property}: calc(
+                    #{$endSize}px + #{$delta} *
+                        ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
+                );
+            }
         }
 
-        // Когда дошли до минимальной ширины, значение применяется
         @media (max-width: #{$minWidth}px) {
-            #{$property}: #{$endSize}px;
+            & {
+                #{$property}: #{$endSize}px;
+            }
         }
     }
 
     // ----------------
     // MODE: UP
-    // width >= minWidth: value высчитывается по формуле
-    // width >= maxWidth: value = endSize
+    // width >= minWidth: вычисление по формуле
+    // width >= maxWidth: фиксируем endSize
     // ----------------
     @else if $mode == 'up' {
         @media (min-width: #{$minWidth}px) {
-            #{$property}: calc(
-                #{$endSize}px + #{$delta} *
-                    ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
-            );
+            & {
+                #{$property}: calc(
+                    #{$endSize}px + #{$delta} *
+                        ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
+                );
+            }
         }
 
         @media (min-width: #{$maxWidth}px) {
-            #{$property}: #{$endSize}px;
+            & {
+                #{$property}: #{$endSize}px;
+            }
         }
     }
 }
