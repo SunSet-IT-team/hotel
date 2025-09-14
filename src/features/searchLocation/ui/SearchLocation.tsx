@@ -1,0 +1,83 @@
+"use client"
+
+import { useRef, useState } from "react"
+import clsx from "clsx"
+
+import { Button, Typography, Box, SearchInput } from "@/shared/ui"
+import { FetchData, Option } from "../model/types"
+
+import styles from "./SearchLocation.module.scss"
+import { useOutsideClick } from "@/shared/hooks/useOutsideClick"
+import { Skeleton } from "@/shared/ui/Skeleton"
+
+interface Props<T extends Option> {
+  fetchData: FetchData<T>
+  onSelect?: (option: T) => void
+}
+
+export const SearchLocation = <T extends Option>({
+  onSelect,
+  fetchData,
+}: Props<T>) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [responseData, setResponseData] = useState<T[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  const rootRef = useRef<HTMLDivElement>(null)
+  useOutsideClick(rootRef, () => {
+    setIsOpen(false)
+  })
+
+  const isShowResults = !isLoading && responseData.length
+  const isZeroResults = !isLoading && !responseData.length
+
+  return (
+    <div className={styles.root} ref={rootRef}>
+      <SearchInput
+        fetchData={fetchData}
+        onData={setResponseData}
+        className={styles.searchInput}
+        onClick={() => setIsOpen(true)}
+        onLoadingChange={(v) => setIsLoading(v)}
+      />
+      {isOpen && (
+        <Box className={styles.searchMenu} padding={10}>
+          <Typography color="blue" className={styles.searchMenu__title}>
+            Город или страна
+          </Typography>
+          <div className={styles.searchMenu__resultOptions}>
+            {isLoading && (
+              <>
+                <Skeleton className={styles.searchMenu__resultOption} />
+                <Skeleton className={styles.searchMenu__resultOption} />
+                <Skeleton className={styles.searchMenu__resultOption} />
+              </>
+            )}
+
+            {isShowResults &&
+              responseData.map((item) => (
+                <Button
+                  key={item.id}
+                  className={clsx(
+                    styles.searchMenu__resultOption,
+                    styles.resultOption
+                  )}
+                  onClick={() => onSelect?.(item)}
+                  fullWidth
+                >
+                  <Typography as="span" color="white" variant="h2">
+                    {item.name}
+                  </Typography>
+                  <Typography as="span" color="white">
+                    {item.city}
+                  </Typography>
+                </Button>
+              ))}
+
+            {isZeroResults && <Typography>Ничего не нашлось</Typography>}
+          </div>
+        </Box>
+      )}
+    </div>
+  )
+}

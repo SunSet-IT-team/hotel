@@ -7,9 +7,9 @@
         background-color: var(--color-primary-blue);
     }
 
-    &.withBgImage {
-        background-color: transparent;
-    }
+  &.transparent {
+    background-color: transparent;
+  }
 
     .main {
         display: flex;
@@ -21,43 +21,9 @@
         @include magicAdapt('padding-right', 50+15, 39);
         @include magicAdapt('padding-bottom', 40, 22);
 
-        .langMenu {
-            font-size: 40px;
-            line-height: 58px;
-        }
+    .langMenu {
+      font-size: 40px;
+      line-height: 58px;
     }
-
-    .content {
-        @include magicAdapt('padding-left', 50+15, 39);
-        @include magicAdapt('padding-right', 50+15, 39);
-    }
-}
-
-.background {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-
-    img {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-
-        // При изменении ширины, положение изображения остается 80% по гроизонтали и по вертиали - в центре.
-        // Таким образом мы всегда видим нужную часть изображения с домом примерно как на макете
-        object-position: 80% center;
-    }
-
-    // Синий фон на бекграунде перед изображением
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: rgba(45, 193, 219, 0.6);
-    }
+  }
 }

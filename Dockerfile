@@ -4,6 +4,9 @@ FROM node:20-slim
 # Устанавливаем pnpm глобально
 RUN npm install -g pnpm
 
+# Устанавливаем чтобы pnpm использовал глобальный .pnpm-store
+RUN pnpm config set store-dir $(pnpm store path) --global
+
 # Создаем рабочую директорию
 WORKDIR /app
 
