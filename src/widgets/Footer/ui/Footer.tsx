@@ -21,7 +21,7 @@ export const Footer = () => {
                         as="a"
                         color="white"
                         className={s.navLink}
-                        {...({ href: '#' } as any)}
+                        {...{ href: '#' }}
                     >
                         Политика использования файлов cookie
                     </Typography>
@@ -30,7 +30,7 @@ export const Footer = () => {
                         as="a"
                         color="white"
                         className={s.navLink}
-                        {...({ href: '#' } as any)}
+                        {...{ href: '#' }}
                     >
                         Политика конфиденциальности
                     </Typography>
@@ -39,7 +39,7 @@ export const Footer = () => {
                         as="a"
                         color="white"
                         className={s.navLink}
-                        {...({ href: '#' } as any)}
+                        {...{ href: '#' }}
                     >
                         Наши контакты
                     </Typography>
