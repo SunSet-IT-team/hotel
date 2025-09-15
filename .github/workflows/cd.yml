@@ -15,24 +15,37 @@ concurrency:
 jobs:
     deploy:
         runs-on: ubuntu-latest
-        timeout-minutes: 20
+        timeout-minutes: 60
 
         steps:
             - name: Decide target (dir/project/services)
               id: cfg
+              shell: bash
               run: |
-                  BRANCH="${GITHUB_REF##*/}"
+                  set -e
+                  BRANCH="${GITHUB_REF_NAME:-${GITHUB_REF##*/}}"
                   if [ "$BRANCH" = "main" ]; then
-                    echo "DIR=hotel" >> $GITHUB_OUTPUT
-                    echo "PROJECT=hotel-prod" >> $GITHUB_OUTPUT
-                    echo "SERVICES=app-prod" >> $GITHUB_OUTPUT
-                    echo "ENV_FILE=.env" >> $GITHUB_OUTPUT
+                    echo "DIR=hotel"              >> "$GITHUB_OUTPUT"   # путь к worktree main
+                    echo "PROJECT=hotel"          >> "$GITHUB_OUTPUT"   # имя compose-проекта для prod
+                    echo "SERVICES=app-prod"      >> "$GITHUB_OUTPUT"   # какие сервисы деплоим
+                    echo "ENV_FILE=.env"          >> "$GITHUB_OUTPUT"
                   else
-                    echo "DIR=hotel-dev" >> $GITHUB_OUTPUT
-                    echo "PROJECT=hotel-dev" >> $GITHUB_OUTPUT
-                    echo "SERVICES=app storybook" >> $GITHUB_OUTPUT
-                    echo "ENV_FILE=.env.dev" >> $GITHUB_OUTPUT
+                    echo "DIR=hotel-dev"          >> "$GITHUB_OUTPUT"   # путь к worktree dev
+                    echo "PROJECT=hotel-dev"      >> "$GITHUB_OUTPUT"   # имя compose-проекта для dev
+                    echo "SERVICES=app storybook" >> "$GITHUB_OUTPUT"
+                    echo "ENV_FILE=.env.dev"      >> "$GITHUB_OUTPUT"
                   fi
+
+            - name: Precheck secrets
+              env:
+                  SSH_HOST: ${{ secrets.SERVER_HOST }}
+                  SSH_USER: ${{ secrets.SERVER_USER }}
+                  SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+              run: |
+                  set -e
+                  [ -n "$SSH_HOST" ] || { echo "Missing SERVER_HOST secret"; exit 1; }
+                  [ -n "$SSH_USER" ] || { echo "Missing SERVER_USER secret"; exit 1; }
+                  [ -n "$SSH_KEY"  ] || { echo "Missing SERVER_SSH_KEY secret"; exit 1; }
 
             - name: Deploy over SSH
               uses: appleboy/ssh-action@v1.2.0
@@ -40,10 +53,13 @@ jobs:
                   host: ${{ secrets.SERVER_HOST }}
                   username: ${{ secrets.SERVER_USER }}
                   key: ${{ secrets.SERVER_SSH_KEY }}
+                  port: 22
+                  debug: true
+                  command_timeout: 45m
                   script: |
                       set -Eeuo pipefail
 
-                      BRANCH="${GITHUB_REF##*/}"
+                      BRANCH="${{ github.ref_name }}"
                       DIR="${{ steps.cfg.outputs.DIR }}"
                       PROJECT="${{ steps.cfg.outputs.PROJECT }}"
                       SERVICES="${{ steps.cfg.outputs.SERVICES }}"
@@ -55,27 +71,45 @@ jobs:
                       echo "Project:  $PROJECT"
                       echo "Services: $SERVICES"
                       echo "Env file: $ENV_FILE"
-
-                      # каталог ворктри должен существовать
                       test -d "$HOME/$DIR" || { echo "ERROR: $HOME/$DIR not found"; exit 1; }
                       cd "$HOME/$DIR"
-
-                      # для отладки — покажем ворктри
-                      git worktree list --porcelain || true
-
-                      # env must exist (fail fast)
                       test -f "$ENV_FILE" || { echo "ERROR: $ENV_FILE not found in $PWD"; exit 1; }
                       echo "::endgroup::"
 
                       echo "::group::Git sync"
                       git fetch --all --prune
                       git reset --hard "origin/$BRANCH"
-                      git clean -fdx
+                      # очищаем мусор, но не трогаем env-файлы
+                      git clean -fd -e .env -e .env.dev
                       echo "HEAD: $(git rev-parse --short HEAD)"
                       echo "::endgroup::"
 
                       echo "::group::Compose build"
                       docker compose -p "$PROJECT" build --pull $SERVICES
+                      echo "::endgroup::"
+
+                      echo "::group::Stop old app"
+                      # Останавливаем и удаляем ТОЛЬКО целевые сервисы этого проекта,
+                      # чтобы освободить порты и избежать конфликтов имён контейнеров
+                      docker compose -p "$PROJECT" stop $SERVICES || true
+                      docker compose -p "$PROJECT" rm -f $SERVICES || true
+                      echo "::endgroup::"
+
+                      echo "::group::Free ports if occupied"
+                      # На всякий случай освобождаем нужные порты, если их держит "чужой" контейнер
+                      if [ "$BRANCH" = "main" ]; then
+                        PORTS="8080"           # prod
+                      else
+                        PORTS="3000 6006"      # dev + storybook
+                      fi
+                      for P in $PORTS; do
+                        # Находим любые контейнеры, публикующие порт P, и гасим их
+                        CID=$(docker ps --filter "publish=$P" --format '{{.ID}}' | xargs -r echo)
+                        if [ -n "$CID" ]; then
+                          echo "Stopping container(s) using port $P: $CID"
+                          docker stop $CID || true
+                        fi
+                      done
                       echo "::endgroup::"
 
                       echo "::group::Compose up"
