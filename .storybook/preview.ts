@@ -1,5 +1,6 @@
-import type { Preview } from '@storybook/nextjs';
 import './preview.style.scss';
+
+import type { Preview } from '@storybook/nextjs';
 
 const preview: Preview = {
     parameters: {
