@@ -1,0 +1,41 @@
+.root {
+    padding: 5px 25px;
+    min-height: 36px;
+    min-width: 156px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 12px;
+
+    box-shadow:
+        -2px -2px 4px rgba(255, 255, 255, 0.25),
+        1px 2px 3.9px rgba(9, 25, 20, 0.28),
+        inset 2px 1px 4px rgba(14, 47, 32, 0.23),
+        inset -2px -3px 4px rgba(255, 255, 255, 0.5);
+
+    transition: 0.3s ease 0s;
+    transition-property: color, background-color;
+
+    background-color: var(--color-primary-white);
+    color: var(--color-text-dark);
+
+    font-family: var(--font-family-base);
+    font-size: 18px;
+
+    &::placeholder {
+        font-family: inherit;
+        color: var(--color-text-dark);
+        text-align: center;
+    }
+
+    &:focus::placeholder {
+        color: transparent;
+    }
+
+    cursor: pointer;
+}
+
+.fullWidth {
+    width: 100%;
+}

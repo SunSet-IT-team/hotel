@@ -1,0 +1,31 @@
+$font-family-base: 'Jost', sans-serif;
+$font-family-heading: 'Actay Wide', 'Actay', sans-serif;
+/* "основной цвет для фона" */
+$color-primary-blue: #0fccd3;
+/* "цвет для фона и текста" */
+$color-primary-white: #e8f8f8;
+/* "основной цвет для заголовков" */
+$color-text-blue: #0eb3b3;
+/* "основной цвет для обычного текста" */
+$color-text-dark: #0e3f53;
+/* "цвет для выбранного элемента" */
+$color-text-green: #0eb3b3;
+
+//<Брейкпоинты>=========
+// Ширина для .container - макс. возможная ширина контента на сайте + 30px зарезервированного отступа по бокам для мобильных устройств
+$widthContainer: 1690 + 30;
+$xl: 1279.98; // 1280px
+$lg: 1023.98; // 1024px
+$md: 767.98; // 768px
+$sm: 439.98; //430px
+//</Брейкпоинты>========
+
+/* Доступ к css переменным из js */
+:export {
+    fontFamilyBase: #{$font-family-base};
+    fontFamilyHeading: #{$font-family-heading};
+    colorPrimaryBlue: #{$color-primary-blue};
+    colorPrimaryWhite: #{$color-primary-white};
+    colorTextBlue: #{$color-text-blue};
+    colorTextDark: #{$color-text-dark};
+}

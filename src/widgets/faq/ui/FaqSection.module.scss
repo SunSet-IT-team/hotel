@@ -1,0 +1,51 @@
+@use '../../../shared/assets/styles/_variables.module.scss' as *;
+
+.section {
+    padding: 128px 0;
+    background: $color-primary-white;
+}
+
+.title {
+    grid-column: 1 / -1;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: space-evenly;
+    gap: 30px 0px;
+    justify-items: start;
+}
+
+.cell {
+    width: 100%;
+    max-width: 666px;
+}
+@media (max-width: 768px) {
+    .section {
+        padding: 20px 0;
+        width: 100%;
+        align-items: center;
+    }
+    .title {
+        margin-bottom: 12px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 12px;
+        align-items: center;
+    }
+    .cell {
+        width: 100%;
+        max-width: 351px;
+        justify-self: center;
+        margin-bottom: 15px;
+    }
+    .accord {
+        margin: 0;
+    }
+}

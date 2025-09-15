@@ -1,0 +1,29 @@
+@use '../../../shared/assets/styles/index' as *;
+
+.root {
+    position: relative;
+
+    &.withSolidBg {
+        background-color: var(--color-primary-blue);
+    }
+
+  &.transparent {
+    background-color: transparent;
+  }
+
+    .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include magicAdapt('padding-top', 54, 39);
+        @include magicAdapt('padding-left', 50+15, 39);
+        @include magicAdapt('padding-right', 50+15, 39);
+        @include magicAdapt('padding-bottom', 40, 22);
+
+    .langMenu {
+      font-size: 40px;
+      line-height: 58px;
+    }
+  }
+}

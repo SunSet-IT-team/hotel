@@ -1,0 +1,128 @@
+@use '@/shared/assets/styles/variables.module.scss' as *;
+
+.footer {
+    background-color: $color-primary-blue;
+    padding: 42px 160px;
+    width: 100%;
+    max-height: 320px;
+}
+
+.container {
+    max-width: $widthContainer;
+    margin: 0 auto;
+    width: 100%;
+}
+
+// Десктопная версия - Grid разметка с 3 частями
+.grid {
+    display: grid;
+    align-content: space-around;
+    grid-template-columns: 980px max-content;
+    grid-template-rows: minmax(100px, max-content) max-content;
+}
+
+// 1. Заголовок - всегда первая позиция (1,1)
+.title {
+    grid-column: 1;
+    grid-row: 1;
+    line-height: 1.2;
+}
+
+// 2. Ссылки - на десктопе 5 место (2,2), на остальных 2 место (1,2)
+.nav {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 87px;
+    margin-left: -8px;
+}
+
+.navLink {
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+// 3. Логотип - всегда третья позиция (1,3)
+.logo {
+    margin-top: -35px;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+// Промежуточная версия (планшеты) - ссылки под заголовком
+@media (max-width: 1900px) {
+    .footer {
+        max-height: 433px;
+    }
+    .container {
+        max-width: 980px;
+    }
+    .grid {
+        grid-template-columns: 980px;
+        grid-template-rows: auto auto auto;
+    }
+
+    // 1. Заголовок - первая позиция (1,1)
+    .title {
+        grid-column: 1;
+        grid-row: 1;
+        margin: 0;
+    }
+
+    // 2. Ссылки - вторая позиция (1,2) - под заголовком
+    .nav {
+        grid-column: 1;
+        grid-row: 2;
+        align-items: flex-start;
+        margin-top: 16px;
+        margin-left: 1px;
+        gap: 0;
+    }
+
+    // 3. Логотип - третья позиция (1,3) - последний
+    .logo {
+        grid-column: 1;
+        grid-row: 3;
+        margin-top: 10px;
+    }
+}
+
+// Мобильная версия - ссылки под заголовком
+@media (max-width: 768px) {
+    .footer {
+        padding: 21px 26px;
+        height: auto;
+        max-height: 430px;
+    }
+
+    .grid {
+        grid-template-columns: 370px;
+        grid-template-rows: auto auto auto;
+    }
+
+    // 1. Заголовок - первая позиция (1,1)
+    .title {
+        text-align: left;
+    }
+
+    // 2. Ссылки - вторая позиция (1,2) - под заголовком
+    .nav {
+        grid-column: 1;
+        grid-row: 2;
+        margin-top: 8px;
+        gap: 7px;
+    }
+
+    // 3. Логотип - третья позиция (1,3) - последний
+    .logo {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}

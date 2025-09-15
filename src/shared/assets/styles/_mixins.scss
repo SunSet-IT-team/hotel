@@ -1,0 +1,60 @@
+@use './variables.module' as vars;
+
+@mixin magicAdapt(
+    $property,
+    $startSize,
+    $endSize,
+    $maxWidth: vars.$widthContainer,
+    $minWidth: vars.$sm,
+    $mode: 'down'
+) {
+    & {
+        #{$property}: #{$startSize}px;
+    }
+
+    $delta: $startSize - $endSize;
+
+    // ----------------
+    // MODE: DOWN
+    // width <= maxWidth: вычисление по формуле
+    // width <  minWidth: фиксируем endSize
+    // ----------------
+    @if $mode == 'down' {
+        @media (max-width: #{$maxWidth}px) {
+            & {
+                #{$property}: calc(
+                    #{$endSize}px + #{$delta} *
+                        ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
+                );
+            }
+        }
+
+        @media (max-width: #{$minWidth}px) {
+            & {
+                #{$property}: #{$endSize}px;
+            }
+        }
+    }
+
+    // ----------------
+    // MODE: UP
+    // width >= minWidth: вычисление по формуле
+    // width >= maxWidth: фиксируем endSize
+    // ----------------
+    @else if $mode == 'up' {
+        @media (min-width: #{$minWidth}px) {
+            & {
+                #{$property}: calc(
+                    #{$endSize}px + #{$delta} *
+                        ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
+                );
+            }
+        }
+
+        @media (min-width: #{$maxWidth}px) {
+            & {
+                #{$property}: #{$endSize}px;
+            }
+        }
+    }
+}
