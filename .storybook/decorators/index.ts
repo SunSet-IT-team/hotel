@@ -1,1 +1,3 @@
-export { WidthContainer } from './WidthContainer/WidthContainer';
+import WidthContainer from './WidthContainer/WidthContainer';
+
+export { WidthContainer };
