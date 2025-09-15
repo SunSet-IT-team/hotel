@@ -1,11 +1,11 @@
 'use client';
 
+import clsx from 'clsx';
 import { FC, InputHTMLAttributes } from 'react';
 
 import styles from './Input.module.scss';
-import clsx from 'clsx';
 
-interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
+export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
     /**
      * Растягивать ли компонент на всю ширину родителя
      */

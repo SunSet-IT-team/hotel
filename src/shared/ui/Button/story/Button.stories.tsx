@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { WidthContainer } from '../../../../../.storybook/decorators/WidthContainer/WidthContainer';
 
+import WidthContainer from '../../../../../.storybook/decorators/WidthContainer/WidthContainer';
 import { Button } from '../ui/Button';
 
 const meta = {

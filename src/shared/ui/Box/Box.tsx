@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import type { CSSProperties, FC, JSX, ReactNode } from 'react';
+
 import styles from './Box.module.scss';
 
 interface BoxProps {
