@@ -1,11 +1,20 @@
-// @ts-ignore
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { useEffect, useState } from 'react';
+
 import type { DateRange } from '../Calendar';
 import { Calendar } from '../Calendar';
 import styles from './Calendar.stories.module.scss';
 
-const meta: Meta<typeof Calendar> = {
+type CalendarProps = React.ComponentProps<typeof Calendar>;
+
+type InteractiveArgs = {
+    language: CalendarProps['language'];
+    initialStartDate: number | null;
+    initialEndDate: number | null;
+    className?: string;
+};
+
+const meta: Meta<InteractiveArgs> = {
     title: 'UI/Calendar',
     component: Calendar,
     parameters: {
@@ -31,18 +40,20 @@ const meta: Meta<typeof Calendar> = {
         },
     },
 };
-
 export default meta;
-type Story = StoryObj<typeof Calendar>;
+
+type Story = StoryObj<InteractiveArgs>;
 
 export const Interactive: Story = {
-    render: (args: any) => {
+    render: (args) => {
+        const startDate = args.initialStartDate ? new Date(args.initialStartDate) : null;
+        const endDate = args.initialEndDate ? new Date(args.initialEndDate) : null;
+
         const [dateRange, setDateRange] = useState<DateRange>({
-            startDate: args.initialStartDate ? new Date(args.initialStartDate) : null,
-            endDate: args.initialEndDate ? new Date(args.initialEndDate) : null,
+            startDate,
+            endDate,
         });
 
-        // Обновляем состояние при изменении пропсов
         useEffect(() => {
             setDateRange({
                 startDate: args.initialStartDate ? new Date(args.initialStartDate) : null,
@@ -52,7 +63,12 @@ export const Interactive: Story = {
 
         return (
             <div className={styles.interactiveContainer}>
-                <Calendar {...args} value={dateRange} onChange={setDateRange} />
+                <Calendar
+                    language={args.language}
+                    className={args.className}
+                    value={dateRange}
+                    onChange={setDateRange}
+                />
 
                 <div className={styles.infoPanel}>
                     <h4 className={styles.infoTitle}>Информация о выбранном периоде:</h4>
