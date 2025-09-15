@@ -1,4 +1,3 @@
-// Flat config for ESLint v9
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
@@ -14,7 +13,22 @@ const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
-export default [
+const storybookForStories = storybook.configs['flat/recommended'].map((cfg) => ({
+    ...cfg,
+    files: ['**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+}));
+
+// Конфиги Storybook
+const storybookForConfigs = {
+    files: ['.storybook/**/*.{js,ts,tsx,mjs,cjs}'],
+    plugins: { storybook },
+    rules: {
+        'storybook/story-exports': 'off',
+        'storybook/no-uninstalled-addons': 'off',
+    },
+};
+
+const config = [
     // Игноры общие
     {
         ignores: [
@@ -45,7 +59,8 @@ export default [
         rules: {
             'no-console': ['warn', { allow: ['warn', 'error'] }],
 
-            // Чистим мусор
+            // Оставляем только unused-imports, отключаем дубликат из @typescript-eslint
+            '@typescript-eslint/no-unused-vars': 'off',
             'unused-imports/no-unused-imports': 'error',
             'unused-imports/no-unused-vars': [
                 'warn',
@@ -63,14 +78,9 @@ export default [
             'simple-import-sort/exports': 'warn',
         },
     },
+    ...storybookForStories,
+    storybookForConfigs,
 
-    // Storybook (ограничим только сторис и .storybook)
-    ...storybook.configs['flat/recommended'].map((cfg) => ({
-        ...cfg,
-        files: ['**/*.stories.@(js|jsx|ts|tsx|mdx)', '.storybook/**/*'],
-    })),
-
-    // Конфиги/скрипты для Node (next.config.*, postcss.config.* и т.п.)
     {
         files: [
             '**/*.config.{js,cjs,mjs,ts}',
@@ -79,7 +89,6 @@ export default [
             'eslint.config.{js,mjs,ts}',
         ],
         languageOptions: {
-            // облегчённые node-глобалы
             globals: {
                 process: 'readonly',
                 module: 'readonly',
@@ -90,11 +99,10 @@ export default [
             sourceType: 'module',
         },
         rules: {
-            // обычно консоль в конфиге ок
             'no-console': 'off',
         },
     },
-
-    // Должен быть ПОСЛЕДНИМ: вырубает конфликтующие с Prettier правила
     eslintConfigPrettier,
 ];
+
+export default config;
