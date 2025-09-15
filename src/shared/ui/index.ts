@@ -5,7 +5,7 @@ import { Counter } from './Counter';
 import { Input } from './Input';
 import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
-import { Select } from './Select/Select';
+import { Select } from './Select';
 import { Typography } from './Typography';
 
 export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography };

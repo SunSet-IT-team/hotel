@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectValues, setAdults, setChildren } from '@/features/search-form';
 import { Button, Counter, Typography } from '@/shared/ui';
-import { Box } from '@/shared/ui/Box/Box';
+import { Box } from '@/shared/ui/Box/ui/Box';
 
 import s from './GuestsField.module.scss';
 

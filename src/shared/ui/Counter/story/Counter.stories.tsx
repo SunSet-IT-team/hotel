@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import React, { useEffect, useState } from 'react';
 
-import { Counter } from '../Counter';
+import { Counter } from '../';
 import styles from './Counter.stories.module.scss';
 
 type CounterProps = React.ComponentProps<typeof Counter>;

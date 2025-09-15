@@ -28,7 +28,7 @@ const mockData: Option[] = [
     },
 ];
 
-const fetchData: FetchData<Option> = (q: string) =>
+const fetchData: FetchData<Option> = () =>
     new Promise((resolve) => setTimeout(() => resolve(mockData), 1000));
 
 const meta = {
@@ -48,7 +48,7 @@ type Story = StoryObj<typeof SearchLocation>;
 export const Interactive: Story = {
     args: {},
 
-    render: (args) => {
+    render: () => {
         return <SearchLocation fetchData={fetchData} />;
     },
 };
