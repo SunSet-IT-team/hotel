@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BookingButtons } from '@/widgets/BookingButtons';
-import { FaqSection } from '@/widgets/Faq';
+import { FaqSection } from '@/widgets/faq';
 
 import styles from './MainPage.module.scss';
 
