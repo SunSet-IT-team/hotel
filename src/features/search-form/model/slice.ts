@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import type { Destination, ISODate, SearchFormState, SearchFormValues } from './types';
 
 const initialValues: SearchFormValues = {
