@@ -1,9 +1,11 @@
-import { BookingButtons } from '@/widgets/booking-buttons';
-import { FaqSection } from '@/widgets/faq';
 import React from 'react';
+
+import { BookingButtons } from '@/widgets/BookingButtons';
+import { FaqSection } from '@/widgets/Faq';
+
 import styles from './MainPage.module.scss';
 
-export const MainPage: React.FC = () => {
+const MainPage: React.FC = () => {
     return (
         <main className={styles.mainPage}>
             <section className={styles.hero}>
@@ -16,3 +18,5 @@ export const MainPage: React.FC = () => {
         </main>
     );
 };
+
+export default MainPage;
