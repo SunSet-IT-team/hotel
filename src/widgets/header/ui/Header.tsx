@@ -23,7 +23,7 @@ export const Header: FC<HeaderProps> = ({
 }) => {
   return (
     <header className={clsx(styles.root, styles[variant], className)}>
-      <div className={clsx("container", styles.main)}>
+      <div className={clsx("container", styles.body)}>
         <LogoIcon />
         <ChangeLaguageMenu />
       </div>

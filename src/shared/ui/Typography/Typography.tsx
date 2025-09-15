@@ -1,6 +1,73 @@
-import { createElement, ReactNode } from 'react';
+import { createElement, FC, ReactNode } from 'react';
 
-import s from './Typography.module.scss';
+import styles from './Typography.module.scss';
+
+type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type Align = 'center' | 'inherit' | 'justify' | 'left' | 'right';
+type Color = 'white' | 'blue' | 'dark';
+
+interface Props {
+    /**
+     * Визуальный стиль текста (например, h1, h2, p, span).
+     * @defaultValue "p"
+     * @see {@link Variant}
+     */
+    variant?: Variant;
+
+    /**
+     * HTML-тег, в котором будет отрендерен текст.
+     *
+     * @defaultValue "p"
+     * @see {@link As}
+     */
+    as?: As;
+
+    /**
+     * Содержимое текста или вложенные элементы.
+     */
+    children: ReactNode;
+
+    /**
+     * Дополнительные CSS-классы.
+     */
+    className?: string;
+
+    /**
+     * Цвет текста.
+     *
+     * Возможные значения:
+     * - `"white"`
+     * - `"blue"`
+     * - `"dark"`
+     *
+     * @defaultValue "dark"
+     * @see {@link Color}
+     */
+    color?: Color;
+
+    /**
+     * Выравнивание текста.
+     *
+     * Возможные значения:
+     * - `"center"`
+     * - `"inherit"`
+     * - `"justify"`
+     * - `"left"`
+     * - `"right"`
+     *
+     * @defaultValue "inherit"
+     * @see {@link Align}
+     */
+    align?: Align;
+
+    /**
+     * Обрезка текста с добавлением многоточия.
+     *
+     * @defaultValue false
+     */
+    truncate?: boolean;
+}
 
 /**
  * Универсальный типографический компонент для текста.
@@ -9,39 +76,14 @@ import s from './Typography.module.scss';
  *
  * Используется везде, где нужен текст.
  *
- * @prop {Variant} [variant="p"] — визуальный стиль текста (h1, h2, p, span и т.д.)
- * @prop {As} [as="p"] — HTML-тег, в котором будет отрендерен текст
- * @prop {ReactNode} children — содержимое текста/элементов
- * @prop {string} [className] — дополнительные CSS-классы
- * @prop {Color} [color="dark"] — цвет текста (white, blue, dark)
- * @prop {Align} [align="inherit"] — выравнивание текста
- * @prop {boolean} [truncate=false] — обрезка текста с многоточием
- *
- * @example
+ *  @example
+ * ```tsx
  * <Typography variant="h1" as="h2" color="blue" align="center">
- *   Заголовок
+ *     Заголовок
  * </Typography>
+ * ```
  */
-
-type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
-
-type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-
-type Align = 'center' | 'inherit' | 'justify' | 'left' | 'right';
-
-type Color = 'white' | 'blue' | 'dark';
-
-type TypographyProps = {
-    variant?: Variant;
-    as?: As;
-    children: ReactNode;
-    className?: string;
-    color?: Color;
-    align?: Align;
-    truncate?: boolean;
-};
-
-export const Typography = ({
+export const Typography: FC<Props> = ({
     variant = 'p',
     as = 'p',
     children,
@@ -50,13 +92,13 @@ export const Typography = ({
     color = 'dark',
     truncate = false,
     ...props
-}: TypographyProps) => {
+}) => {
     const classNames = [
-        s.root,
-        s[variant],
-        s[`align_${align}`],
-        s[`color_${color}`],
-        truncate && s.truncate,
+        styles.root,
+        styles[variant],
+        styles[`align_${align}`],
+        styles[`color_${color}`],
+        truncate && styles.truncate,
         className,
     ]
         .filter(Boolean)

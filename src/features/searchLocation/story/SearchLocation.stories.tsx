@@ -28,7 +28,7 @@ const mockData: Option[] = [
     },
 ];
 
-const fetchData: FetchData<Option> = (q: string) =>
+export const fetchData: FetchData<Option> = (q: string) =>
     new Promise((resolve) => setTimeout(() => resolve(mockData), 1000));
 
 const meta = {

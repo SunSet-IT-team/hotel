@@ -32,7 +32,7 @@ export default function RootLayout({
         <html lang="ru">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <Providers>
-                    <Header variant="withSolidBg" />
+                    <Header />
                     {children}
                     <Footer />
                 </Providers>

@@ -1,15 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectValues, setAdults, setChildren } from '@/features/search-form';
+import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/Box';
 
-import s from './GuestsField.module.scss';
+import styles from './GuestsField.module.scss';
+import clsx from 'clsx';
 
-export const GuestsField = () => {
+interface Props {
+    className?: string;
+}
+
+export const GuestsField: FC<Props> = ({ className }) => {
     const { adults, children } = useSelector(selectValues);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
@@ -31,14 +36,15 @@ export const GuestsField = () => {
     const borderRadius = isMobile ? '12px' : '24px';
 
     return (
-        <div className={s.root}>
+        <div className={clsx(styles.root, className)}>
             <Button
                 type="button"
                 variant="white"
                 size="big"
-                className={s.trigger}
+                className={styles.trigger}
                 onClick={() => setOpen((v) => !v)}
                 style={{ borderRadius }}
+                fullWidth
             >
                 <Typography as="span" variant="h2" color="dark">
                     {label}
@@ -52,11 +58,16 @@ export const GuestsField = () => {
                     paddingRight={isMobile ? 19 : 25}
                     paddingTop={isMobile ? 22 : 19}
                     paddingBottom={isMobile ? 14 : 19}
-                    className={s.panel}
+                    className={styles.panel}
                 >
-                    <div className={s.row}>
-                        <div className={s.title}>
-                            <Typography className={s.mobileSize} as="h5" variant="h2" color="blue">
+                    <div className={styles.row}>
+                        <div className={styles.title}>
+                            <Typography
+                                className={styles.mobileSize}
+                                as="h5"
+                                variant="h2"
+                                color="blue"
+                            >
                                 Взрослые
                             </Typography>
                             <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="dark">
@@ -70,13 +81,18 @@ export const GuestsField = () => {
                             }}
                             min={1}
                             max={10}
-                            className={s.count}
+                            className={styles.count}
                         />
                     </div>
 
-                    <div className={s.row}>
-                        <div className={s.title}>
-                            <Typography className={s.mobileSize} as="h5" variant="h2" color="blue">
+                    <div className={styles.row}>
+                        <div className={styles.title}>
+                            <Typography
+                                className={styles.mobileSize}
+                                as="h5"
+                                variant="h2"
+                                color="blue"
+                            >
                                 Дети
                             </Typography>
                             <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="dark">
@@ -90,13 +106,13 @@ export const GuestsField = () => {
                             }}
                             min={0}
                             max={10}
-                            className={s.count}
+                            className={styles.count}
                         />
                     </div>
 
-                    <div className={s.textBlock}>
+                    <div className={styles.textBlock}>
                         <Typography
-                            className={s.customLineHeight}
+                            className={styles.customLineHeight}
                             as="p"
                             variant={isMobile ? 'h2' : 'h3'}
                             color="dark"
@@ -117,11 +133,11 @@ export const GuestsField = () => {
                         </Typography>
                     </div>
 
-                    <div className={s.footer}>
+                    <div className={styles.footer}>
                         <Button
                             size="medium"
                             variant="cyan"
-                            className={s.footerButton}
+                            className={styles.footerButton}
                             onClick={() => {
                                 setApplied(true);
                                 setOpen(false);

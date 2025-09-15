@@ -13,12 +13,13 @@ import styles from './SearchLocation.module.scss';
 interface Props<T extends Option> {
     fetchData: FetchData<T>;
     onSelect?: (option: T) => void;
+    className?: string;
 }
 
-export const SearchLocation = <T extends Option>({ onSelect, fetchData }: Props<T>) => {
+export const SearchLocation = <T extends Option>({ onSelect, fetchData, className }: Props<T>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [responseData, setResponseData] = useState<T[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const rootRef = useRef<HTMLDivElement>(null);
     useOutsideClick(rootRef, () => {
@@ -29,13 +30,14 @@ export const SearchLocation = <T extends Option>({ onSelect, fetchData }: Props<
     const isZeroResults = !isLoading && !responseData.length;
 
     return (
-        <div className={styles.root} ref={rootRef}>
+        <div className={clsx(styles.root, className)} ref={rootRef}>
             <SearchInput
                 fetchData={fetchData}
                 onData={setResponseData}
                 className={styles.searchInput}
                 onClick={() => setIsOpen(true)}
                 onLoadingChange={(v) => setIsLoading(v)}
+                fullWidth
             />
             {isOpen && (
                 <Box className={styles.searchMenu} padding={10}>

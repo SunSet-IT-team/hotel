@@ -1,1 +1,1 @@
-export { GuestsField } from './GuestsField';
+export { GuestsField } from './ui/GuestsField';
