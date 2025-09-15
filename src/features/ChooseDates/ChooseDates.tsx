@@ -1,64 +1,35 @@
 'use client';
 
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/redux';
 import { Button, Calendar, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box';
 import type { DateRange } from '@/shared/ui/Calendar';
-import { setDates } from '@/widgets/search-form/model';
-import { toISODate } from '@/widgets/search-form/model/types';
-import { useEffect, useState } from 'react';
+import { normalizeDate } from '@/shared/utils/date/normalizeDate';
+import { setDates } from '@/widgets/SearchForm/model';
+import { toISODate } from '@/widgets/SearchForm/model/types';
+import { useIsMobile } from '@/shared/hooks/useMediaQuery';
 import styles from './ChooseDates.module.scss';
+import { formatDateRuShort } from '@/shared/utils/date/formatDate';
 
 export const ChooseDates = () => {
     const dispatch = useAppDispatch();
-    const { checkIn, checkOut } = useAppSelector((state) => state.searchForm.values);
+    const { checkIn, checkOut } = useAppSelector((s) => s.searchForm.values);
+
     const [open, setOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useIsMobile(768);
+
     const [selectedRange, setSelectedRange] = useState<DateRange>({
         startDate: checkIn ? new Date(checkIn) : null,
         endDate: checkOut ? new Date(checkOut) : null,
     });
 
-    useEffect(() => {
-        const checkIsMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        checkIsMobile();
-        window.addEventListener('resize', checkIsMobile);
-
-        return () => window.removeEventListener('resize', checkIsMobile);
-    }, []);
-
-    const formatDate = (date: Date | null) => {
-        if (!date) return '';
-        return date.toLocaleDateString('ru-RU', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-    };
-
-    // Функция для нормализации даты (убираем время)
-    const normalizeDate = (dateString: string) => {
-        const date = new Date(dateString);
-        date.setHours(0, 0, 0, 0); // Устанавливаем время в 00:00:00.000
-        return date;
-    };
-
-    const getCheckInLabel = () => {
-        if (!checkIn) return 'Дата заезда';
-        return formatDate(selectedRange.startDate);
-    };
-
-    const getCheckOutLabel = () => {
-        if (!checkOut) return 'Дата выезда';
-        return formatDate(selectedRange.endDate);
-    };
+    const getCheckInLabel = () =>
+        !checkIn ? 'Дата заезда' : formatDateRuShort(selectedRange.startDate);
+    const getCheckOutLabel = () =>
+        !checkOut ? 'Дата выезда' : formatDateRuShort(selectedRange.endDate);
 
     const handleOpenCalendar = () => {
-        // При открытии календаря всегда синхронизируем с актуальным Redux состоянием
-        // Нормализуем даты, чтобы время было одинаковым
         setSelectedRange({
             startDate: checkIn ? normalizeDate(checkIn) : null,
             endDate: checkOut ? normalizeDate(checkOut) : null,
@@ -68,9 +39,6 @@ export const ChooseDates = () => {
 
     const handleDateRangeChange = (dateRange: DateRange) => {
         setSelectedRange(dateRange);
-
-        // Когда пользователь нажимает "Применить" в календаре,
-        // Calendar вызывает onChange с финальным диапазоном
         if (dateRange.startDate && dateRange.endDate) {
             dispatch(
                 setDates({
@@ -124,7 +92,7 @@ export const ChooseDates = () => {
                     className={styles.panel}
                 >
                     <Calendar
-                        key={`${checkIn}-${checkOut}-${Date.now()}`} // Уникальный key для принудительного пересоздания
+                        key={`${checkIn}-${checkOut}`}
                         language="ru"
                         value={selectedRange}
                         onChange={handleDateRangeChange}
