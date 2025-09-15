@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { useArgs } from 'storybook/preview-api';
 
-import { RangeSlider } from '../ui/RangeSlider';
+import WidthContainer from '../../../../../.storybook/decorators/WidthContainer/WidthContainer';
 import defaultOptions from '../config';
-import { WidthContainer } from '../../../../../.storybook/decorators/WidthContainer/WidthContainer';
+import { RangeSlider } from '../ui/RangeSlider';
 
 const meta = {
     title: 'UI/RangeSlider',

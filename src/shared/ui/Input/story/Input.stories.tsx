@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
+import WidthContainer from '../../../../../.storybook/decorators/WidthContainer/WidthContainer';
 import { Input } from '../ui/Input';
-import { WidthContainer } from '../../../../../.storybook/decorators/WidthContainer/WidthContainer';
 
 const meta = {
     title: 'UI/Input',

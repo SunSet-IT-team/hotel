@@ -19,6 +19,7 @@
 
 import Image from 'next/image';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
+
 import { Typography } from '../Typography';
 import styles from './Select.module.scss';
 

@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
+
 import arrowIcon from '../../../../public/icons/select-arrow-icon.svg';
 import { Typography } from '../Typography';
 import s from './Counter.module.scss';

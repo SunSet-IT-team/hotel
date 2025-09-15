@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
+
 import { Box } from '../Box';
 
 const meta: Meta<typeof Box> = {

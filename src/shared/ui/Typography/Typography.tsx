@@ -1,4 +1,5 @@
 import { createElement, ReactNode } from 'react';
+
 import s from './Typography.module.scss';
 
 /**

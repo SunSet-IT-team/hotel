@@ -1,9 +1,9 @@
 'use client';
 
+import clsx from 'clsx';
 import { ButtonHTMLAttributes, FC } from 'react';
 
 import styles from './Button.module.scss';
-import clsx from 'clsx';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     /**

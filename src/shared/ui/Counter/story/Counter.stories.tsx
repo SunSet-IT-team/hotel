@@ -1,9 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { Counter } from '../Counter';
 import styles from './Counter.stories.module.scss';
 
-const meta: Meta<typeof Counter> = {
+type CounterProps = React.ComponentProps<typeof Counter>;
+
+const meta = {
     title: 'UI/Counter',
     component: Counter,
     parameters: {
@@ -20,55 +23,48 @@ const meta: Meta<typeof Counter> = {
         value: {
             control: { type: 'number' },
             description: 'Текущее значение счетчика',
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '0' },
-            },
+            table: { type: { summary: 'number' }, defaultValue: { summary: '0' } },
         },
         min: {
             control: { type: 'number' },
             description: 'Минимальное значение',
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '0' },
-            },
+            table: { type: { summary: 'number' }, defaultValue: { summary: '0' } },
         },
         max: {
             control: { type: 'number' },
             description: 'Максимальное значение',
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '100' },
-            },
+            table: { type: { summary: 'number' }, defaultValue: { summary: '100' } },
         },
         step: {
             control: { type: 'number', step: 0.1 },
             description: 'Шаг изменения',
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '1' },
-            },
+            table: { type: { summary: 'number' }, defaultValue: { summary: '1' } },
         },
         className: {
             control: { type: 'text' },
             description: 'Дополнительные CSS классы',
-            table: {
-                type: { summary: 'string' },
-            },
+            table: { type: { summary: 'string' } },
+        },
+        onChange: {
+            action: 'changed',
+            control: false,
+            description: 'Колбэк изменения значения',
+            table: { type: { summary: '(value: number) => void' } },
         },
     },
-};
+} satisfies Meta<typeof Counter>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Интерактивный компонент-обертка
-const InteractiveCounter = (args: any) => {
-    const [value, setValue] = useState(args.value || 0);
+// Обёртка: управляем value внутри, onChange берём свой
+type InteractiveArgs = Partial<Omit<CounterProps, 'onChange'>>;
 
-    // Обновляем значение при изменении args
-    React.useEffect(() => {
-        setValue(args.value || 0);
+const InteractiveCounter: React.FC<InteractiveArgs> = (args) => {
+    const [value, setValue] = useState<number>(args.value ?? 0);
+
+    useEffect(() => {
+        setValue(args.value ?? 0);
     }, [args.value]);
 
     return (
@@ -96,16 +92,19 @@ const InteractiveCounter = (args: any) => {
     );
 };
 
-// Единственная интерактивная Story
 export const Interactive: Story = {
-    render: (args) => <InteractiveCounter {...args} />,
+    render: (args) => {
+        const { onChange: _omit, ...rest } = args as CounterProps;
+        return <InteractiveCounter {...rest} />;
+    },
     args: {
         value: 5,
         min: 0,
         max: 20,
         step: 1,
         className: '',
-    },
+        onChange: () => {},
+    } satisfies Partial<CounterProps>,
     parameters: {
         docs: {
             description: {
