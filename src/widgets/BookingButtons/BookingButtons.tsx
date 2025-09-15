@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/shared/ui/Button';
 import { Typography } from '@/shared/ui/Typography'; // ← типографика
-import { useEffect, useState } from 'react';
+
 import styles from './BookingButtons.module.scss';
 
 type Item = { label: string; href: string };
