@@ -1,5 +1,6 @@
-import { searchFormReducer } from '@/widgets/search-form';
 import { configureStore } from '@reduxjs/toolkit';
+
+import { searchFormReducer } from '@/widgets/SearchForm';
 
 export const store = configureStore({
     reducer: {
