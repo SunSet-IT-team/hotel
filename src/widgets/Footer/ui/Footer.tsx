@@ -1,4 +1,5 @@
 import { Typography } from '@/shared/ui/Typography';
+
 import s from './Footer.module.scss';
 
 export const Footer = () => {

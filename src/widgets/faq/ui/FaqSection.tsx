@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { Typography } from '@/shared/ui';
 import { Accordion } from '@/shared/ui/Accordion';
-import React from 'react';
+
 import s from './FaqSection.module.scss';
 
 type FaqItem = {
