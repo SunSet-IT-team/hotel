@@ -1,10 +1,12 @@
 'use client';
 
-import { Button, Counter, Typography } from '@/shared/ui';
-import { Box } from '@/shared/ui/Box/Box';
-import { selectValues, setAdults, setChildren } from '@/widgets/search-form';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Button, Counter, Typography } from '@/shared/ui';
+import { Box } from '@/shared/ui/Box/Box';
+import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
+
 import s from './GuestsField.module.scss';
 
 export const GuestsField = () => {
