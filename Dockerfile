@@ -1,5 +1,5 @@
 # Используем Node 20 (slim лучше для Windows)
-FROM node:20-slim
+FROM node:23-slim
 
 # Устанавливаем pnpm глобально
 RUN npm install -g pnpm

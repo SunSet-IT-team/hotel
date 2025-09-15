@@ -1,0 +1,88 @@
+name: SSH Deploy
+
+on:
+    push:
+        branches: [main, dev]
+    workflow_dispatch: {}
+
+permissions:
+    contents: read
+
+concurrency:
+    group: deploy-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+
+        steps:
+            - name: Decide target (dir/project/services)
+              id: cfg
+              run: |
+                  BRANCH="${GITHUB_REF##*/}"
+                  if [ "$BRANCH" = "main" ]; then
+                    echo "DIR=hotel" >> $GITHUB_OUTPUT
+                    echo "PROJECT=hotel-prod" >> $GITHUB_OUTPUT
+                    echo "SERVICES=app-prod" >> $GITHUB_OUTPUT
+                    echo "ENV_FILE=.env" >> $GITHUB_OUTPUT
+                  else
+                    echo "DIR=hotel-dev" >> $GITHUB_OUTPUT
+                    echo "PROJECT=hotel-dev" >> $GITHUB_OUTPUT
+                    echo "SERVICES=app storybook" >> $GITHUB_OUTPUT
+                    echo "ENV_FILE=.env.dev" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Deploy over SSH
+              uses: appleboy/ssh-action@v1.2.0
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  script: |
+                      set -Eeuo pipefail
+
+                      BRANCH="${GITHUB_REF##*/}"
+                      DIR="${{ steps.cfg.outputs.DIR }}"
+                      PROJECT="${{ steps.cfg.outputs.PROJECT }}"
+                      SERVICES="${{ steps.cfg.outputs.SERVICES }}"
+                      ENV_FILE="${{ steps.cfg.outputs.ENV_FILE }}"
+
+                      echo "::group::Preflight"
+                      echo "Branch:   $BRANCH"
+                      echo "Dir:      $HOME/$DIR"
+                      echo "Project:  $PROJECT"
+                      echo "Services: $SERVICES"
+                      echo "Env file: $ENV_FILE"
+
+                      # каталог ворктри должен существовать
+                      test -d "$HOME/$DIR" || { echo "ERROR: $HOME/$DIR not found"; exit 1; }
+                      cd "$HOME/$DIR"
+
+                      # для отладки — покажем ворктри
+                      git worktree list --porcelain || true
+
+                      # env must exist (fail fast)
+                      test -f "$ENV_FILE" || { echo "ERROR: $ENV_FILE not found in $PWD"; exit 1; }
+                      echo "::endgroup::"
+
+                      echo "::group::Git sync"
+                      git fetch --all --prune
+                      git reset --hard "origin/$BRANCH"
+                      git clean -fdx
+                      echo "HEAD: $(git rev-parse --short HEAD)"
+                      echo "::endgroup::"
+
+                      echo "::group::Compose build"
+                      docker compose -p "$PROJECT" build --pull $SERVICES
+                      echo "::endgroup::"
+
+                      echo "::group::Compose up"
+                      docker compose -p "$PROJECT" up -d --remove-orphans $SERVICES
+                      docker compose -p "$PROJECT" ps
+                      echo "::endgroup::"
+
+                      echo "::group::Cleanup"
+                      docker image prune -f
+                      echo "::endgroup::"
