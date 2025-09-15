@@ -1,10 +1,13 @@
+import './styles/index.scss';
+
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+
 import { Container } from '@/shared/ui/Container';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/header/ui/Header';
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+
 import { Providers } from './providers';
-import './styles/index.scss';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -30,13 +33,9 @@ export default function RootLayout({
         <html lang="ru">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <Providers>
-                    <Container>
-                        <Header variant="transparent" />
-                    </Container>
+                    <Header variant="transparent" />
                     <Container>{children}</Container>
-                    <Container>
-                        <Footer />
-                    </Container>
+                    <Footer />
                 </Providers>
             </body>
         </html>

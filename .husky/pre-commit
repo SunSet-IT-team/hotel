@@ -1,2 +1,2 @@
-set -e
+pnpm lint --fix
 pnpm exec lint-staged
