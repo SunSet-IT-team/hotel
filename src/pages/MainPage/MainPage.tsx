@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { BookingButtons } from '@/widgets/BookingButtons';
-import { FaqSection } from '@/widgets/faq';
 
 import styles from './MainPage.module.scss';
 
@@ -13,7 +12,7 @@ const MainPage: React.FC = () => {
             </section>
             <div className={styles.container}>
                 <BookingButtons />
-                <FaqSection />
+                {/* <FaqSection /> */}
             </div>
         </main>
     );
