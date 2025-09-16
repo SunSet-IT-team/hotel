@@ -1,3 +1,4 @@
+@use '../../../assets/styles/index' as *;
 .root {
     margin: 0;
     color: var(--color-text-dark);
@@ -6,13 +7,14 @@
 .h1 {
     font-family: var(--font-family-heading);
     font-weight: 700;
-    font-size: 64px;
+    @include magicAdapt(font-size, 64, 32, 1920, 430);
     line-height: 100%;
 }
 
 .h2 {
     font-family: var(--font-family-base);
     font-weight: 400;
+    @include magicAdapt(font-size, 36, 18, 1920, 430);
     font-size: 36px;
     line-height: 100%;
 }
@@ -20,7 +22,7 @@
 .h3 {
     font-family: var(--font-family-base);
     font-weight: 400;
-    font-size: 20px;
+    @include magicAdapt(font-size, 20, 12, 1920, 430);
     line-height: 100%;
 }
 
@@ -33,7 +35,7 @@
 .h5 {
     font-family: var(--font-family-base);
     font-weight: 400;
-    font-size: 48px;
+    @include magicAdapt(font-size, 48, 32, 1920, 430);
     line-height: 100%;
 }
 
@@ -46,39 +48,23 @@
     text-decoration: none;
 }
 
-.align_left {
-    text-align: left;
-}
-.align_right {
-    text-align: right;
-}
-.align_center {
-    text-align: center;
-}
-.align_justify {
-    text-align: justify;
-}
-.align_inherit {
-    text-align: inherit;
-}
-
 .truncate {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 430px) {
     .h1 {
-        font-size: 32px;
+        @include magicAdapt(font-size, 32, 18, 430, 320);
         line-height: 100%;
     }
     .h2 {
-        font-size: 18px;
+        @include magicAdapt(font-size, 18, 12, 430, 320);
         line-height: 100%;
     }
     .h3 {
-        font-size: 12px;
+        @include magicAdapt(font-size, 12, 9, 430, 320);
         line-height: 100%;
     }
     .h4 {

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { createElement, CSSProperties, FC, ReactNode } from 'react';
+import { createElement, CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
 
 import styles from './Typography.module.scss';
 
@@ -27,14 +27,14 @@ type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
 
 type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLElement> {
     variant?: Variant;
     as?: As;
     children: ReactNode;
     className?: string;
     color?: CSSProperties['color'];
     truncate?: boolean;
-};
+}
 
 export const Typography: FC<Props> = ({
     variant = 'p',
@@ -43,14 +43,11 @@ export const Typography: FC<Props> = ({
     className = '',
     color = 'dark',
     truncate = false,
-    ...props
+    ...rest
 }) => {
-    const classNames = clsx(
-        styles.root,
-        styles[variant],
-        { [styles.truncate]: truncate },
-        className,
-    );
+    const classNames = clsx(className, styles.root, styles[variant], {
+        [styles.truncate]: truncate,
+    });
 
-    return createElement(as, { className: classNames, style: { color }, ...props }, children);
+    return createElement(as, { className: classNames, style: { color }, ...rest }, children);
 };
