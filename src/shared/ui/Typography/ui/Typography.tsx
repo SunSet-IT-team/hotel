@@ -1,6 +1,7 @@
-import { createElement, ReactNode } from 'react';
+import clsx from 'clsx';
+import { createElement, CSSProperties, FC, ReactNode } from 'react';
 
-import s from './Typography.module.scss';
+import styles from './Typography.module.scss';
 
 /**
  * Универсальный типографический компонент для текста.
@@ -14,7 +15,6 @@ import s from './Typography.module.scss';
  * @prop {ReactNode} children — содержимое текста/элементов
  * @prop {string} [className] — дополнительные CSS-классы
  * @prop {Color} [color="dark"] — цвет текста (white, blue, dark)
- * @prop {Align} [align="inherit"] — выравнивание текста
  * @prop {boolean} [truncate=false] — обрезка текста с многоточием
  *
  * @example
@@ -27,40 +27,30 @@ type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
 
 type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-type Align = 'center' | 'inherit' | 'justify' | 'left' | 'right';
-
-type Color = 'white' | 'blue' | 'dark';
-
-type TypographyProps = {
+type Props = {
     variant?: Variant;
     as?: As;
     children: ReactNode;
     className?: string;
-    color?: Color;
-    align?: Align;
+    color?: CSSProperties['color'];
     truncate?: boolean;
 };
 
-export const Typography = ({
+export const Typography: FC<Props> = ({
     variant = 'p',
     as = 'p',
     children,
     className = '',
-    align = 'inherit',
     color = 'dark',
     truncate = false,
     ...props
-}: TypographyProps) => {
-    const classNames = [
-        s.root,
-        s[variant],
-        s[`align_${align}`],
-        s[`color_${color}`],
-        truncate && s.truncate,
+}) => {
+    const classNames = clsx(
+        styles.root,
+        styles[variant],
+        { [styles.truncate]: truncate },
         className,
-    ]
-        .filter(Boolean)
-        .join(' ');
+    );
 
-    return createElement(as, { className: classNames, ...props }, children);
+    return createElement(as, { className: classNames, style: { color }, ...props }, children);
 };
