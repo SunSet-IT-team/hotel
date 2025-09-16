@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { SelectArrowIcon } from '@/shared/assets/icons';
 
 import { Typography } from '../../Typography';
-import s from './Counter.module.scss';
+import styles from './Counter.module.scss';
 
 interface CounterProps {
     /** Текущее значение счетчика */
@@ -48,31 +48,31 @@ export const Counter: FC<CounterProps> = ({
     const isIncreaseDisabled = value >= max;
 
     return (
-        <div className={`${s.counter} ${className}`}>
+        <div className={`${styles.counter} ${className}`}>
             <button
                 type="button"
-                className={s.button}
+                className={styles.button}
                 onClick={handleDecrease}
                 disabled={isDecreaseDisabled}
                 aria-label="Уменьшить значение"
             >
-                <SelectArrowIcon color="#ff0000" style={{ rotate: '90deg', scale: 0.6 }} />
+                <SelectArrowIcon className={styles.arrowIcon} />
             </button>
 
-            <div className={s.valueContainer}>
-                <Typography variant="h2" as="span" color="blue" className={s.value}>
+            <div className={styles.valueContainer}>
+                <Typography variant="h2" as="span" color="blue" className={styles.value}>
                     {value}
                 </Typography>
             </div>
 
             <button
                 type="button"
-                className={s.button}
+                className={styles.button}
                 onClick={handleIncrease}
                 disabled={isIncreaseDisabled}
                 aria-label="Увеличить значение"
             >
-                <SelectArrowIcon color="#ff0000" style={{ rotate: '-90deg', scale: 0.6 }} />
+                <SelectArrowIcon className={styles.arrowIcon} />
             </button>
         </div>
     );

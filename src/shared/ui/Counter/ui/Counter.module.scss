@@ -28,8 +28,7 @@
     }
 
     .arrowIcon {
-        width: 9px;
-        height: 9px;
+        transform: scale(0.5);
     }
 
     &:first-child .arrowIcon {
