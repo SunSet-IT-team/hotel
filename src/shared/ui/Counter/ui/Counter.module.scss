@@ -32,11 +32,11 @@
     }
 
     &:first-child .arrowIcon {
-        transform: rotate(90deg);
+        transform: scale(0.5) rotate(90deg);
     }
 
     &:last-child .arrowIcon {
-        transform: rotate(-90deg);
+        transform: scale(0.5) rotate(-90deg);
     }
 }
 

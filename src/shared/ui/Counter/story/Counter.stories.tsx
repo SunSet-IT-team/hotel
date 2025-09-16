@@ -47,7 +47,7 @@ type Story = StoryObj<typeof Counter>;
 
 export const Default: Story = {
     args: {
-        value: 5,
+        value: 2,
         min: 0,
         max: 10,
         step: 1,
