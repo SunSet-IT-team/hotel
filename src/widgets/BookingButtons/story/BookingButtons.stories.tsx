@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { BookingButtons } from '../BookingButtons';
+import { BookingButtons } from '../ui/BookingButtons';
 import s from './BookingButtons.stories.module.scss';
 
 const meta: Meta<typeof BookingButtons> = {

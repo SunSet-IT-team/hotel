@@ -8,5 +8,6 @@ import { SearchInput } from './SearchInput';
 import { Select } from './Select';
 import { Typography } from './Typography';
 import { Container } from './Container';
+import { Accordion } from './Accordion';
 
-export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography, Container };
+export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography, Container, Accordion };

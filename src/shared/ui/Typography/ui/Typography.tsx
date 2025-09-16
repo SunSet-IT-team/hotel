@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { createElement, FC, ReactNode } from 'react';
 
 import styles from './Typography.module.scss';
@@ -88,21 +89,16 @@ export const Typography: FC<Props> = ({
     as = 'p',
     children,
     className = '',
-    align = 'inherit',
     color = 'dark',
     truncate = false,
     ...props
 }) => {
-    const classNames = [
+    const classNames = clsx(
         styles.root,
         styles[variant],
-        styles[`align_${align}`],
-        styles[`color_${color}`],
-        truncate && styles.truncate,
+        { [styles.truncate]: truncate },
         className,
-    ]
-        .filter(Boolean)
-        .join(' ');
+    );
 
-    return createElement(as, { className: classNames, ...props }, children);
+    return createElement(as, { className: classNames, style: { color }, ...props }, children);
 };

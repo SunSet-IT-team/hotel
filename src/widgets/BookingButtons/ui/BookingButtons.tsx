@@ -2,8 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 
-import { Button } from '@/shared/ui/Button';
-import { Typography } from '@/shared/ui/Typography'; // ← типографика
+import { Button, Container, Typography } from '@/shared/ui/';
 
 import styles from './BookingButtons.module.scss';
 import clsx from 'clsx';
@@ -38,7 +37,7 @@ export const BookingButtons: FC<Props> = ({ className }) => {
 
     return (
         <section className={clsx(styles.root, className)}>
-            <div className={styles.container}>
+            <Container variant="header">
                 <div className={styles.grid}>
                     {items.map((it) => (
                         <a
@@ -63,7 +62,7 @@ export const BookingButtons: FC<Props> = ({ className }) => {
                         </a>
                     ))}
                 </div>
-            </div>
+            </Container>
         </section>
     );
 };

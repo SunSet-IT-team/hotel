@@ -35,6 +35,33 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-primary-blue);
+        border-radius: 5px;
+        transition: background 0.2s ease;
+        border: 1px solid #fff;
+
+        &:hover {
+            background: color-mix(
+                in srgb,
+                var(--color-primary-blue) 80%,
+                var(--color-text-dark) 20%
+            );
+        }
+    }
+
+    /* Для Firefox */
+    scrollbar-color: var(--color-primary-blue);
 }
 
 @media (prefers-color-scheme: dark) {

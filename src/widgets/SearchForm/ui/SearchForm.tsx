@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Calendar, Container, Typography } from '@/shared/ui';
+import { Button, Container, Typography } from '@/shared/ui';
 import clsx from 'clsx';
 import { FC } from 'react';
 
