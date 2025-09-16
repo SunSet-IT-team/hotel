@@ -30,6 +30,7 @@
     font-size: 24px;
     line-height: 120%;
 }
+
 .h5 {
     font-family: var(--font-family-base);
     font-weight: 400;
@@ -49,15 +50,19 @@
 .align_left {
     text-align: left;
 }
+
 .align_right {
     text-align: right;
 }
+
 .align_center {
     text-align: center;
 }
+
 .align_justify {
     text-align: justify;
 }
+
 .align_inherit {
     text-align: inherit;
 }
@@ -68,19 +73,34 @@
     text-overflow: ellipsis;
 }
 
+.color_dark {
+    color: var(--color-text-dark);
+}
+
+.color_white {
+    color: var(--color-primary-white);
+}
+
+.color_blue {
+    color: var(--color-text-blue);
+}
+
 @media (max-width: 768px) {
     .h1 {
         font-size: 32px;
         line-height: 100%;
     }
+
     .h2 {
         font-size: 18px;
         line-height: 100%;
     }
+
     .h3 {
         font-size: 12px;
         line-height: 100%;
     }
+
     .h4 {
         font-size: 24px;
         line-height: 100%;

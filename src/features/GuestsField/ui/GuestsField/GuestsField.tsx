@@ -33,7 +33,6 @@ export const GuestsField: FC<Props> = ({ className }) => {
     }, []);
 
     const label = !applied ? 'Кол-во гостей' : `${adults} взрос. ${children} реб.`;
-    const borderRadius = isMobile ? '12px' : '24px';
 
     return (
         <div className={clsx(styles.root, className)}>
@@ -43,7 +42,6 @@ export const GuestsField: FC<Props> = ({ className }) => {
                 size="big"
                 className={styles.trigger}
                 onClick={() => setOpen((v) => !v)}
-                style={{ borderRadius }}
                 fullWidth
             >
                 <Typography as="span" variant="h2" color="dark">

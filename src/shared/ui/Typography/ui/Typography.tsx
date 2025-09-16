@@ -11,6 +11,14 @@ type Color = 'white' | 'blue' | 'dark';
 interface Props {
     /**
      * Визуальный стиль текста (например, h1, h2, p, span).
+     * Возможные значения:
+     * - `"h1"` 64px
+     * - `"h2"` 36px
+     * - `"h3"` 20px
+     * - `"h4"` 24px
+     * - `"h5"` 48px
+     * - `"p"` 16px
+     * - `"span"` 16px
      * @defaultValue "p"
      * @see {@link Variant}
      */
@@ -96,9 +104,10 @@ export const Typography: FC<Props> = ({
     const classNames = clsx(
         styles.root,
         styles[variant],
+        styles[`color_${color}`],
         { [styles.truncate]: truncate },
         className,
     );
 
-    return createElement(as, { className: classNames, style: { color }, ...props }, children);
+    return createElement(as, { className: classNames, ...props }, children);
 };

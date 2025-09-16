@@ -18,7 +18,7 @@ const items: Item[] = [
 
 interface Props {
     /** Дополнительный класс для стилей */
-    className: string;
+    className?: string;
 }
 
 export const BookingButtons: FC<Props> = ({ className }) => {
