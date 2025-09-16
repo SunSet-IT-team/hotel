@@ -93,11 +93,18 @@
         margin-top: 10px;
     }
 }
-
+@media (max-width: 1440px) {
+    .container {
+        max-width: 977px;
+    }
+    .footer {
+        padding: 42px 9vw;
+    }
+}
 // Мобильная версия - ссылки под заголовком
 @media (max-width: 768px) {
     .footer {
-        padding: 21px 26px;
+        padding: 21px clamp(16px, 10%, 26px);
         height: auto;
         max-height: 430px;
     }
