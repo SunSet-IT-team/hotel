@@ -1,9 +1,9 @@
 'use client';
-import Image from 'next/image';
 import React from 'react';
 
-import arrowIcon from '../../../../public/icons/select-arrow-icon.svg';
-import { Typography } from '../Typography';
+import { SelectArrowIcon } from '@/shared/assets/icons';
+
+import { Typography } from '../../Typography';
 import s from './Counter.module.scss';
 
 interface CounterProps {
@@ -55,7 +55,7 @@ export const Counter: React.FC<CounterProps> = ({
                 disabled={isDecreaseDisabled}
                 aria-label="Уменьшить значение"
             >
-                <Image src={arrowIcon} alt="Уменьшить" className={s.arrowIcon} />
+                <SelectArrowIcon />
             </button>
 
             <div className={s.valueContainer}>
@@ -71,7 +71,7 @@ export const Counter: React.FC<CounterProps> = ({
                 disabled={isIncreaseDisabled}
                 aria-label="Увеличить значение"
             >
-                <Image src={arrowIcon} alt="Увеличить" className={s.arrowIcon} />
+                <SelectArrowIcon />
             </button>
         </div>
     );
