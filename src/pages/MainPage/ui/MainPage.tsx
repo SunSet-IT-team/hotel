@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BookingButtons } from '@/widgets/BookingButtons';
-import { FaqSection } from '@/widgets/faq';
+import { FaqSection } from '@/widgets/Faq';
 
 import styles from './MainPage.module.scss';
 import { SearchForm } from '@/widgets/SearchForm';
@@ -18,14 +18,13 @@ const MainPage: React.FC = () => {
                         src={HeaderBg}
                         alt="Красивый пейзаж"
                         className={styles.headerContent__img}
+                        priority
                     />
                 </div>
                 <SearchForm />
             </section>
-            <div className={styles.container}>
-                <BookingButtons />
-                <FaqSection />
-            </div>
+            <BookingButtons className={styles.bookingButtons} />
+            <FaqSection />
         </main>
     );
 };

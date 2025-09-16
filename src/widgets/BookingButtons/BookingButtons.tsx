@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/shared/ui/Button';
 import { Typography } from '@/shared/ui/Typography'; // ← типографика
 
 import styles from './BookingButtons.module.scss';
+import clsx from 'clsx';
 
 type Item = { label: string; href: string };
 
@@ -16,7 +17,12 @@ const items: Item[] = [
     { label: 'Бронирование e-sim', href: 'https://example.com/esim' },
 ];
 
-export const BookingButtons = () => {
+interface Props {
+    /** Дополнительный класс для стилей */
+    className: string;
+}
+
+export const BookingButtons: FC<Props> = ({ className }) => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -31,7 +37,7 @@ export const BookingButtons = () => {
     const textColor = isMobile ? 'dark' : 'white';
 
     return (
-        <section className={styles.section}>
+        <section className={clsx(styles.root, className)}>
             <div className={styles.container}>
                 <div className={styles.grid}>
                     {items.map((it) => (

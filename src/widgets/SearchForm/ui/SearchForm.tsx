@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Calendar, Typography } from '@/shared/ui';
+import { Button, Calendar, Container, Typography } from '@/shared/ui';
 import clsx from 'clsx';
 import { FC } from 'react';
 
@@ -11,7 +11,7 @@ import { GuestsField } from '@/features/GuestsField';
 export const SearchForm: FC = () => {
     return (
         <div className={styles.root}>
-            <div className={clsx('container')}>
+            <Container variant="header">
                 <Typography color="white" variant="h1" as="h1">
                     Открой мир и путешествуй легко
                 </Typography>
@@ -31,7 +31,7 @@ export const SearchForm: FC = () => {
                         <Button className={styles.formBody__item}>Поиск</Button>
                     </div>
                 </form>
-            </div>
+            </Container>
         </div>
     );
 };
