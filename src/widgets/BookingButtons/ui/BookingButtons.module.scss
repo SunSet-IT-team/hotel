@@ -1,0 +1,19 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.buttons {
+    max-width: 666px;
+    width: calc(50% - 5px);
+}
+
+@media (max-width: 768px) {
+    .buttons {
+        max-width: unset;
+        width: 100%;
+    }
+}
