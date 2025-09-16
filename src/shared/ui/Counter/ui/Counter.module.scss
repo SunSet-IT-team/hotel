@@ -28,16 +28,15 @@
     }
 
     .arrowIcon {
-        width: 9px;
-        height: 9px;
+        transform: scale(0.5);
     }
 
     &:first-child .arrowIcon {
-        transform: rotate(90deg);
+        transform: scale(0.5) rotate(90deg);
     }
 
     &:last-child .arrowIcon {
-        transform: rotate(-90deg);
+        transform: scale(0.5) rotate(-90deg);
     }
 }
 

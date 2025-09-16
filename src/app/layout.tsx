@@ -3,6 +3,7 @@ import './styles/index.scss';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import { Container } from '@/shared/ui/Container';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/header/ui/Header';
 

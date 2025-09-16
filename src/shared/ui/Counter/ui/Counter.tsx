@@ -1,10 +1,11 @@
 'use client';
-import Image from 'next/image';
-import React from 'react';
 
-import arrowIcon from '../../../../public/icons/select-arrow-icon.svg';
-import { Typography } from '../Typography';
-import s from './Counter.module.scss';
+import { FC } from 'react';
+
+import { SelectArrowIcon } from '@/shared/assets/icons';
+
+import { Typography } from '../../Typography';
+import styles from './Counter.module.scss';
 
 interface CounterProps {
     /** Текущее значение счетчика */
@@ -21,7 +22,7 @@ interface CounterProps {
     className?: string;
 }
 
-export const Counter: React.FC<CounterProps> = ({
+export const Counter: FC<CounterProps> = ({
     value,
     onChange,
     min = 0,
@@ -47,31 +48,31 @@ export const Counter: React.FC<CounterProps> = ({
     const isIncreaseDisabled = value >= max;
 
     return (
-        <div className={`${s.counter} ${className}`}>
+        <div className={`${styles.counter} ${className}`}>
             <button
                 type="button"
-                className={s.button}
+                className={styles.button}
                 onClick={handleDecrease}
                 disabled={isDecreaseDisabled}
                 aria-label="Уменьшить значение"
             >
-                <Image src={arrowIcon} alt="Уменьшить" className={s.arrowIcon} />
+                <SelectArrowIcon className={styles.arrowIcon} />
             </button>
 
-            <div className={s.valueContainer}>
-                <Typography variant="h2" as="span" color="blue" className={s.value}>
+            <div className={styles.valueContainer}>
+                <Typography variant="h2" as="span" color="blue" className={styles.value}>
                     {value}
                 </Typography>
             </div>
 
             <button
                 type="button"
-                className={s.button}
+                className={styles.button}
                 onClick={handleIncrease}
                 disabled={isIncreaseDisabled}
                 aria-label="Увеличить значение"
             >
-                <Image src={arrowIcon} alt="Увеличить" className={s.arrowIcon} />
+                <SelectArrowIcon className={styles.arrowIcon} />
             </button>
         </div>
     );

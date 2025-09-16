@@ -3,9 +3,9 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 
-import { Box } from '../Box';
-import { Button } from '../Button';
-import { Typography } from '../Typography';
+import { Box } from '../../Box';
+import { Button } from '../../Button';
+import { Typography } from '../../Typography';
 import styles from './Calendar.module.scss';
 
 export type Language = 'ru' | 'en';
@@ -106,7 +106,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
     const getWeekdays = useCallback(() => {
         return texts.weekdays;
-    }, [texts.weekdays, isUSWeek]);
+    }, [texts.weekdays]);
 
     const getFirstDayOfMonth = useCallback(
         (date: Date) => {

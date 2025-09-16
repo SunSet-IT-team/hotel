@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from 'react';
 
-import { Box } from '@/shared/ui/Box/Box';
+import { Box } from '@/shared/ui/Box/ui/Box';
 import { Button } from '@/shared/ui/Button';
 import { Typography } from '@/shared/ui/Typography';
 

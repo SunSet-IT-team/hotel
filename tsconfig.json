@@ -20,12 +20,14 @@
         ],
         "paths": {
             "@/*": ["./src/*"]
-        }
+        },
+        "typeRoots": ["./node_modules/@types", "./src/shared/types"]
     },
     "include": [
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
+        "src/**/types/*.ts",
         ".next/types/**/*.ts",
         ".storybook/decorators/**/*.tsx"
     ],

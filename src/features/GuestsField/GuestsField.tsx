@@ -1,20 +1,14 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Button, Counter, Typography, Box } from '@/shared/ui';
 import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
-import { Button, Counter, Typography } from '@/shared/ui';
-import { Box } from '@/shared/ui/Box/ui/Box';
 
-import styles from './GuestsField.module.scss';
-import clsx from 'clsx';
+import s from './GuestsField.module.scss';
 
-interface Props {
-    className?: string;
-}
-
-export const GuestsField: FC<Props> = ({ className }) => {
+export const GuestsField = () => {
     const { adults, children } = useSelector(selectValues);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
@@ -36,15 +30,14 @@ export const GuestsField: FC<Props> = ({ className }) => {
     const borderRadius = isMobile ? '12px' : '24px';
 
     return (
-        <div className={clsx(styles.root, className)}>
+        <div className={s.root}>
             <Button
                 type="button"
                 variant="white"
                 size="big"
-                className={styles.trigger}
+                className={s.trigger}
                 onClick={() => setOpen((v) => !v)}
                 style={{ borderRadius }}
-                fullWidth
             >
                 <Typography as="span" variant="h2" color="dark">
                     {label}
@@ -58,16 +51,11 @@ export const GuestsField: FC<Props> = ({ className }) => {
                     paddingRight={isMobile ? 19 : 25}
                     paddingTop={isMobile ? 22 : 19}
                     paddingBottom={isMobile ? 14 : 19}
-                    className={styles.panel}
+                    className={s.panel}
                 >
-                    <div className={styles.row}>
-                        <div className={styles.title}>
-                            <Typography
-                                className={styles.mobileSize}
-                                as="h5"
-                                variant="h2"
-                                color="blue"
-                            >
+                    <div className={s.row}>
+                        <div className={s.title}>
+                            <Typography className={s.mobileSize} as="h5" variant="h2" color="blue">
                                 Взрослые
                             </Typography>
                             <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="dark">
@@ -81,18 +69,13 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             }}
                             min={1}
                             max={10}
-                            className={styles.count}
+                            className={s.count}
                         />
                     </div>
 
-                    <div className={styles.row}>
-                        <div className={styles.title}>
-                            <Typography
-                                className={styles.mobileSize}
-                                as="h5"
-                                variant="h2"
-                                color="blue"
-                            >
+                    <div className={s.row}>
+                        <div className={s.title}>
+                            <Typography className={s.mobileSize} as="h5" variant="h2" color="blue">
                                 Дети
                             </Typography>
                             <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="dark">
@@ -106,38 +89,38 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             }}
                             min={0}
                             max={10}
-                            className={styles.count}
+                            className={s.count}
                         />
                     </div>
 
-                    <div className={styles.textBlock}>
+                    <div className={s.textBlock}>
                         <Typography
-                            className={styles.customLineHeight}
+                            className={s.customLineHeight}
                             as="p"
                             variant={isMobile ? 'h2' : 'h3'}
                             color="dark"
                         >
                             Ваш возраст на момент поездки должен соответствовать категории
                             забронированного билета. У авиакомпаний есть ограничения для пассажиров
-                            младше 18 лет, путешествующих без сопровождения. У авиакомпаний есть
+                            младше 18 лет, путешествующих без сопровожденияУ авиакомпаний есть
                             ограничения для пассажиров младше 18 лет, путешествующих без
-                            сопровождения. Ваш возраст на момент поездки должен соответствовать
+                            сопровождения Ваш возраст на момент поездки должен соответствовать
                             категории забронированного билета. У авиакомпаний есть ограничения для
-                            пассажиров младше 18 лет, путешествующих без сопровождения. У
-                            авиакомпаний есть ограничения для пассажиров младше 18 лет,
-                            путешествующих без сопровождения. Ваш возраст на момент поездки должен
-                            соответствовать категории забронированного билета. У авиакомпаний есть
-                            ограничения для пассажиров младше 18 лет, путешествующих без
-                            сопровождения. У авиакомпаний есть ограничения для пассажиров младше 18
-                            лет, путешествующих без сопровождения.
+                            пассажиров младше 18 лет, путешествующих без сопровожденияУ авиакомпаний
+                            есть ограничения для пассажиров младше 18 лет, путешествующих без
+                            сопровождения Ваш возраст на момент поездки должен соответствовать
+                            категории забронированного билета. У авиакомпаний есть ограничения для
+                            пассажиров младше 18 лет, путешествующих без сопровожденияУ авиакомпаний
+                            есть ограничения для пассажиров младше 18 лет, путешествующих без
+                            сопровождения
                         </Typography>
                     </div>
 
-                    <div className={styles.footer}>
+                    <div className={s.footer}>
                         <Button
                             size="medium"
                             variant="cyan"
-                            className={styles.footerButton}
+                            className={s.footerButton}
                             onClick={() => {
                                 setApplied(true);
                                 setOpen(false);
