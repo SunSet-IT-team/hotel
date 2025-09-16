@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+
+import { FC } from 'react';
 
 import { SelectArrowIcon } from '@/shared/assets/icons';
 
@@ -21,7 +22,7 @@ interface CounterProps {
     className?: string;
 }
 
-export const Counter: React.FC<CounterProps> = ({
+export const Counter: FC<CounterProps> = ({
     value,
     onChange,
     min = 0,
@@ -55,7 +56,7 @@ export const Counter: React.FC<CounterProps> = ({
                 disabled={isDecreaseDisabled}
                 aria-label="Уменьшить значение"
             >
-                <SelectArrowIcon />
+                <SelectArrowIcon color="#ff0000" style={{ rotate: '90deg', scale: 0.6 }} />
             </button>
 
             <div className={s.valueContainer}>
@@ -71,7 +72,7 @@ export const Counter: React.FC<CounterProps> = ({
                 disabled={isIncreaseDisabled}
                 aria-label="Увеличить значение"
             >
-                <SelectArrowIcon />
+                <SelectArrowIcon color="#ff0000" style={{ rotate: '-90deg', scale: 0.6 }} />
             </button>
         </div>
     );
