@@ -5,9 +5,9 @@ import { FC } from 'react';
 
 import { LogoIcon } from '@/shared/assets/img/LogoIcon';
 import { Typography } from '@/shared/ui';
+import { Container } from '@/shared/ui/';
 
 import styles from './Header.module.scss';
-import { Container } from '@/shared/ui/';
 
 interface HeaderProps {
     /** Вариация заднего фона хедера с синим фоном/прозрачный
@@ -23,7 +23,7 @@ interface HeaderProps {
 export const Header: FC<HeaderProps> = ({ className, variant = 'transparent' }) => {
     return (
         <header className={clsx(styles.root, styles[variant], className)}>
-            <Container variant='header'>
+            <Container variant="header">
                 <div className={styles.body}>
                     <LogoIcon />
                     <ChangeLaguageMenu />
