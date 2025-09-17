@@ -16,6 +16,8 @@ COPY package.json pnpm-lock.yaml ./
 # Устанавливаем зависимости
 RUN pnpm install
 
+ENV PATH=/app/node_modules/.bin:$PATH
+
 # Копируем проект (без node_modules)
 COPY . .
 
