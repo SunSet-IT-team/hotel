@@ -34,16 +34,37 @@ body {
     font-family: var(--font-family-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    &::-webkit-scrollbar {
+        width: 8px;
+        background: #fff;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-primary-blue);
+        border-radius: 4px;
+        transition: background 0.2s ease;
+        border: 2px solid #ffff;
+
+        &:hover {
+            background: color-mix(
+                in srgb,
+                var(--color-primary-blue) 90%,
+                var(--color-text-dark) 10%
+            );
+        }
+    }
+
+    /* Для Firefox */
+    scrollbar-color: var(--color-primary-blue);
 }
 
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;
     }
-}
-
-.container {
-    margin: 0 auto;
-    max-width: $widthContainer + px;
-    padding: 0 15px;
 }

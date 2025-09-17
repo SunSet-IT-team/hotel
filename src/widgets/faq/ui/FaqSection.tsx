@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Typography } from '@/shared/ui';
-import { Accordion } from '@/shared/ui/Accordion';
+import { Accordion,Container, Typography } from '@/shared/ui';
 
-import s from './FaqSection.module.scss';
+import styles from './FaqSection.module.scss';
 
 type FaqItem = {
     id: string;
@@ -48,24 +47,60 @@ const FAQ_STUBS: FaqItem[] = [
 ];
 
 export const FaqSection = () => {
+    // Разделяем FAQ на две колонки
+    const leftColumn = FAQ_STUBS.filter((_, index) => index % 2 === 0);
+    const rightColumn = FAQ_STUBS.filter((_, index) => index % 2 === 1);
+
     return (
-        <section className={s.section}>
-            <div className={s.grid}>
-                <Typography as="h2" variant="h1" color="blue" className={s.title}>
+        <section className={styles.section}>
+            <Container>
+                <Typography as="h2" variant="h1" color="blue" className={styles.title}>
                     Ответы на часто задаваемые вопросы
                 </Typography>
-                {FAQ_STUBS.map((item) => (
-                    <div className={s.cell} key={item.id}>
-                        <Accordion title={item.question} className={s.accord}>
-                            {Array.isArray(item.answer)
-                                ? item.answer.map((text, idx) => (
-                                      <React.Fragment key={idx}>{text}</React.Fragment>
-                                  ))
-                                : item.answer}
-                        </Accordion>
+                <div className={styles.grid}>
+                    <div className={styles.column}>
+                        {leftColumn.map((item) => (
+                            <div className={styles.cell} key={item.id}>
+                                <Accordion title={item.question} className={styles.accord}>
+                                    {Array.isArray(item.answer)
+                                        ? item.answer.map((text, idx) => (
+                                              <React.Fragment key={idx}>{text}</React.Fragment>
+                                          ))
+                                        : item.answer}
+                                </Accordion>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                    <div className={styles.column}>
+                        {rightColumn.map((item) => (
+                            <div className={styles.cell} key={item.id}>
+                                <Accordion title={item.question} className={styles.accord}>
+                                    {Array.isArray(item.answer)
+                                        ? item.answer.map((text, idx) => (
+                                              <React.Fragment key={idx}>{text}</React.Fragment>
+                                          ))
+                                        : item.answer}
+                                </Accordion>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Мобильная версия - одна колонка со всеми аккордеонами */}
+                    <div className={styles.mobileColumn}>
+                        {FAQ_STUBS.map((item) => (
+                            <div className={styles.cell} key={item.id}>
+                                <Accordion title={item.question} className={styles.accord}>
+                                    {Array.isArray(item.answer)
+                                        ? item.answer.map((text, idx) => (
+                                              <React.Fragment key={idx}>{text}</React.Fragment>
+                                          ))
+                                        : item.answer}
+                                </Accordion>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Container>
         </section>
     );
 };

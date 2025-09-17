@@ -1,0 +1,29 @@
+@use "../../../assets/styles/index" as *;
+
+.root {
+    margin: 0 auto;
+    max-width: $widthContainer + px;
+    // Не влияет на макс. ширину контейнера, т.к. он учтен.
+    // Ширина для .container - макс. возможная ширина контента на сайте + 30px зарезервированного отступа по бокам для мобильных устройств
+    padding: 0 15px;
+}
+
+.header {
+    max-width: 1600px + 100 + 30px;
+    @include magicAdapt('padding-left', 50+15, 40);
+    @include magicAdapt('padding-right', 50+15, 40);
+}
+
+.footer {
+    max-width: 1600px + 100 + 30px;
+    @include magicAdapt('padding-left', 50+15, 30);
+    @include magicAdapt('padding-right', 50+15, 30);
+}
+
+.mobile {
+    padding: 0 40px;
+}
+
+.mobileBig {
+    padding: 0 15px;
+}

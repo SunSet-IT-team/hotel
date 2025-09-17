@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { Box } from '../Box';
+import { Box } from '../ui/Box';
 
 const meta: Meta<typeof Box> = {
     title: 'UI/Box',
@@ -58,7 +58,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Interactive: Story = {
-    name: 'Interactive',
     args: {
         children:
             'Изменяй as, padding / paddingTop|Right|Bottom|Left и flexDirection в Controls. ' +

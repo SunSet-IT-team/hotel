@@ -1,16 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/redux';
+import { useIsMobile } from '@/shared/hooks/useMediaQuery';
 import { Button, Calendar, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box';
 import type { DateRange } from '@/shared/ui/Calendar';
+import { formatDateRuShort } from '@/shared/utils/date/formatDate';
 import { normalizeDate } from '@/shared/utils/date/normalizeDate';
 import { setDates } from '@/widgets/SearchForm/model';
 import { toISODate } from '@/widgets/SearchForm/model/types';
-import { useIsMobile } from '@/shared/hooks/useMediaQuery';
+
 import styles from './ChooseDates.module.scss';
-import { formatDateRuShort } from '@/shared/utils/date/formatDate';
 
 export const ChooseDates = () => {
     const dispatch = useAppDispatch();
