@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import { Footer } from '@/widgets/Footer';
-import { Header } from '@/widgets/header';
+import { Header } from '@/widgets/header/ui/Header';
 
 import { Providers } from './providers';
 
@@ -32,7 +32,7 @@ export default function RootLayout({
         <html lang="ru">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <Providers>
-                    <Header />
+                    <Header variant="withSolidBg" />
                     {children}
                     <Footer />
                 </Providers>

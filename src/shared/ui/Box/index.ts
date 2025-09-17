@@ -1,1 +1,1 @@
-export { Box } from './ui/Box';
+export { Box } from './Box';

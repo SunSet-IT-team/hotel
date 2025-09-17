@@ -5,9 +5,7 @@ import { Counter } from './Counter';
 import { Input } from './Input';
 import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
-import { Select } from './Select';
+import { Select } from './Select/Select';
 import { Typography } from './Typography';
-import { Container } from './Container';
-import { Accordion } from './Accordion';
 
-export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography, Container, Accordion };
+export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography };

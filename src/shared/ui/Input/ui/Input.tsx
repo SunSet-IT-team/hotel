@@ -8,7 +8,6 @@ import styles from './Input.module.scss';
 export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
     /**
      * Растягивать ли компонент на всю ширину родителя
-     * @default false
      */
     fullWidth?: boolean;
 

@@ -1,0 +1,134 @@
+.root {
+    position: relative;
+}
+
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    width: 400px;
+    height: 90px;
+}
+
+.panel {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 0;
+    z-index: 0;
+    padding: 19px 25px;
+    background: var(--color-primary-white);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.title {
+    margin-bottom: 17px;
+}
+
+.title :first-child {
+    margin-bottom: 5px;
+}
+
+.count {
+    margin-top: -42px;
+}
+.textBlock {
+    max-height: 189px;
+    overflow-y: auto;
+    padding: 1px 0px;
+
+    /* Кастомный скролл */
+    &::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+        color: #fff;
+        border-radius: 1px;
+        box-shadow: 1px 2px 3.9px 0px rgba(9, 25, 20, 0.28);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-primary-blue);
+        border-radius: 1px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: var(--color-primary-blue);
+        }
+    }
+
+    /* Для Firefox */
+    scrollbar-color: var(--color-primary-blue);
+}
+
+.customLineHeight {
+    line-height: 1.5;
+}
+
+.footer {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+}
+.footerButton {
+    min-width: 344px;
+}
+@media (max-width: 768px) {
+    .trigger {
+        width: 351px;
+        height: 36px;
+    }
+    .mobileSize {
+        font-size: 36px;
+    }
+    .panel {
+        width: 100%;
+        max-width: 351px;
+        padding: 15px 20px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    .row {
+        gap: 8px;
+        padding: 6px 0;
+    }
+
+    .title {
+        margin-bottom: 22px;
+    }
+
+    .count {
+        margin-top: -47px;
+
+        /* Переопределяем размер шрифта для Typography внутри Counter */
+        span {
+            font-size: 36px;
+        }
+    }
+
+    .textBlock {
+        max-height: 189px;
+        padding: 4px 0;
+    }
+
+    .footer {
+        margin-top: 20px;
+    }
+
+    .footerButton {
+        min-width: 303px;
+        max-height: 36px;
+    }
+}

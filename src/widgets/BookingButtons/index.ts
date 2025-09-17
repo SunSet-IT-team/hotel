@@ -1,1 +1,1 @@
-export { BookingButtons } from './ui/BookingButtons';
+export { BookingButtons } from './BookingButtons';

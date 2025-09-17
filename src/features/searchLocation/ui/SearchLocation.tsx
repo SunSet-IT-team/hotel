@@ -3,29 +3,22 @@
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 
-import { FetchData, Option } from '@/features/SearchLocation/model/types';
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick';
 import { Box, Button, SearchInput, Typography } from '@/shared/ui';
 import { Skeleton } from '@/shared/ui/Skeleton';
 
+import { FetchData, Option } from '../model/types';
 import styles from './SearchLocation.module.scss';
 
 interface Props<T extends Option> {
     fetchData: FetchData<T>;
     onSelect?: (option: T) => void;
-    className?: string;
-    placeholder?: string;
 }
 
-export const SearchLocation = <T extends Option>({
-    onSelect,
-    fetchData,
-    className,
-    placeholder,
-}: Props<T>) => {
+export const SearchLocation = <T extends Option>({ onSelect, fetchData }: Props<T>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [responseData, setResponseData] = useState<T[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const rootRef = useRef<HTMLDivElement>(null);
     useOutsideClick(rootRef, () => {
@@ -36,15 +29,13 @@ export const SearchLocation = <T extends Option>({
     const isZeroResults = !isLoading && !responseData.length;
 
     return (
-        <div className={clsx(styles.root, className)} ref={rootRef}>
+        <div className={styles.root} ref={rootRef}>
             <SearchInput
                 fetchData={fetchData}
                 onData={setResponseData}
                 className={styles.searchInput}
                 onClick={() => setIsOpen(true)}
                 onLoadingChange={(v) => setIsLoading(v)}
-                placeholder={placeholder}
-                fullWidth
             />
             {isOpen && (
                 <Box className={styles.searchMenu} padding={10}>

@@ -1,59 +1,47 @@
-@use '../../../shared/assets/styles/index' as *;
-
 .root {
-    display: inline-block;
-    position: relative;
+  display: inline-block;
+  position: relative;
 
-    .searchInput {
-        padding: 15px 0;
-        color: var(--color-text-dark);
-
-        @include magicAdapt('padding-left', 60, 25, 1600);
-        @include magicAdapt('padding-right', 60, 25, 1600);
-        @include magicAdapt('font-size', 36, 18, 1600);
-    }
+  .searchInput {
+    padding: 15px 60px;
+    font-size: 36px;
+    color: var(--color-text-dark);
+  }
 }
 
 .root .searchMenu {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 30px);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 30px);
+  width: 100%;
+  background-color: var(--color-primary-white);
+  z-index: 1;
 
-    width: 100%;
-    background-color: var(--color-primary-white);
-    z-index: 1;
+  &__title {
+    font-size: 24px;
+  }
 
-    &__title {
-        font-size: 24px;
-    }
-
-    &__resultOptions {
-        margin-top: 10px;
-    }
-
-    @media (max-width: #{$sm+px}) {
-        & {
-            top: calc(100% + 12px);
-        }
-    }
+  &__resultOptions {
+    margin-top: 10px;
+  }
 }
 
-// .searchMenu__resultOptions {
-.searchMenu__resultOption {
+.searchMenu__resultOptions {
+  .searchMenu__resultOption {
     height: 84px;
     flex-direction: column;
     align-items: start;
 
     span {
-        color: inherit;
+      color: inherit;
     }
 
     span:last-child {
-        font-size: 20px;
+      font-size: 20px;
     }
 
     &:not(:first-child) {
-        margin-top: 10px;
+      margin-top: 10px;
     }
+  }
 }
-// }

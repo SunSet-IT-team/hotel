@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { Select, SelectOption } from '../';
+import { Select, SelectOption } from '../Select';
 import styles from './Select.stories.module.scss';
 
 const meta = {

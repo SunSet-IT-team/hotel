@@ -1,1 +1,1 @@
-export { default } from './ui/MainPage';
+export { default } from './MainPage';
