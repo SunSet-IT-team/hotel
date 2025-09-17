@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { mockData } from '@/features/SearchLocation/story/mockData';
+import { mockData } from './mockData';
 
 import { FetchData, Option } from '../model/types';
 import { SearchLocation } from '../ui/SearchLocation';
