@@ -99,15 +99,14 @@ jobs:
                       echo "::endgroup::"
 
                       echo "::group::Cleanup old project resources"
-                      # Удаляем ВСЕ ресурсы проекта (контейнеры, сети, volumes)
-                      docker compose -p "$PROJECT" down --volumes --rmi local --remove-orphans || true
+                      # Полная очистка всех ресурсов проекта
+                      docker compose -p "$PROJECT" down --volumes --rmi all --remove-orphans || true
 
-                      # Дополнительная очистка: удаляем образы с тегом проекта
-                      docker images --filter "reference=*$PROJECT*" -q | xargs -r docker rmi -f || true
+                      # Дополнительная очистка volumes
+                      docker volume ls -q --filter "name=$PROJECT" | xargs -r docker volume rm -f || true
 
-                      # Очищаем dangling images и volumes
-                      docker image prune -af
-                      docker volume prune -f
+                      # Очищаем dangling resources
+                      docker system prune -af --volumes
                       echo "::endgroup::"
 
                       echo "::group::Build without cache"
