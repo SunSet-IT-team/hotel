@@ -95,7 +95,7 @@ export const Typography: FC<Props> = ({
     );
 
     const colorMap: Record<NamedColor, string> = {
-        white: 'var(--color-white)',
+        white: 'var(--color-primary-white)',
         blue: 'var(--color-text-blue)',
         dark: 'var(--color-text-dark)',
         green: 'var(--color-text-green)',
