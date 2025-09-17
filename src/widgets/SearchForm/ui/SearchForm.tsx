@@ -4,10 +4,18 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { GuestsField } from '@/features/GuestsField';
-import { fetchMockData, SearchLocation } from '@/features/SearchLocation';
+import { Option, SearchLocation } from '@/features/SearchLocation';
 import { Button, Container, Typography } from '@/shared/ui';
 
 import styles from './SearchForm.module.scss';
+
+export const fetchMockData1 = (query: string): Promise<Option[]> => {
+    // Можно добавить фильтрацию по query, если нужно
+    return Promise.resolve([
+        { id: 1, name: 'Москва', city: 'Россия' },
+        { id: 2, name: 'Санкт-Петербург', city: 'Россия' },
+    ]);
+};
 
 /** Форма поиска под Header */
 export const SearchForm: FC = () => {
@@ -25,7 +33,7 @@ export const SearchForm: FC = () => {
                                 styles.formBody__item_searchLocation,
                             )}
                             placeholder="Город или отель"
-                            fetchData={fetchMockData}
+                            fetchData={fetchMockData1}
                         />
                         <Button
                             className={clsx(styles.formBody__item, styles.formBody__item_date)}

@@ -5,11 +5,12 @@ services:
             dockerfile: Dockerfile
         volumes:
             - .:/app
+            - /app/node_modules
         environment:
             NODE_ENV: development
         ports:
             - '3000:3000'
-        command: sh -c "rm -rf node_modules; pnpm install; pnpm dev"
+        command: sh -c "pnpm install && pnpm dev"
         restart: unless-stopped
 
     storybook:
@@ -18,22 +19,10 @@ services:
             dockerfile: Dockerfile
         volumes:
             - .:/app
+            - /app/node_modules
         environment:
             NODE_ENV: development
         ports:
             - '6006:6006'
-        command: sh -c "rm -rf node_modules; pnpm install; pnpm storybook -p 6006 --ci"
+        command: sh -c "pnpm install && pnpm storybook -p 6006 --ci"
         restart: unless-stopped
-
-    app-prod:
-        profiles: ['production']
-        build:
-            context: .
-            dockerfile: Dockerfile.prod
-        environment:
-            NODE_ENV: production
-            CI: 'true'
-            PORT: 8080
-        ports:
-            - '8080:8080'
-        restart: always
