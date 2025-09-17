@@ -1,14 +1,14 @@
 'use client';
 
+import clsx from 'clsx';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
+import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
 
 import styles from './GuestsField.module.scss';
-import clsx from 'clsx';
 
 interface Props {
     className?: string;
@@ -44,7 +44,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                 onClick={() => setOpen((v) => !v)}
                 fullWidth
             >
-                <Typography as="span" variant="h2" color="dark">
+                <Typography as="span" variant="h2">
                     {label}
                 </Typography>
             </Button>
@@ -64,11 +64,11 @@ export const GuestsField: FC<Props> = ({ className }) => {
                                 className={styles.mobileSize}
                                 as="h5"
                                 variant="h2"
-                                color="blue"
+                                color="green"
                             >
                                 Взрослые
                             </Typography>
-                            <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="dark">
+                            <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="green">
                                 18 лет и старше
                             </Typography>
                         </div>

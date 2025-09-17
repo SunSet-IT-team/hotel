@@ -1,12 +1,13 @@
 import clsx from 'clsx';
-import { createElement, FC, ReactNode } from 'react';
+import { createElement, CSSProperties, FC, ReactNode } from 'react';
 
 import styles from './Typography.module.scss';
 
 type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
 type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type Align = 'center' | 'inherit' | 'justify' | 'left' | 'right';
-type Color = 'white' | 'blue' | 'dark';
+type NamedColor = 'white' | 'blue' | 'dark' | 'green';
+
+type Color = NamedColor | CSSProperties['color'];
 
 interface Props {
     /**
@@ -56,21 +57,6 @@ interface Props {
     color?: Color;
 
     /**
-     * Выравнивание текста.
-     *
-     * Возможные значения:
-     * - `"center"`
-     * - `"inherit"`
-     * - `"justify"`
-     * - `"left"`
-     * - `"right"`
-     *
-     * @defaultValue "inherit"
-     * @see {@link Align}
-     */
-    align?: Align;
-
-    /**
      * Обрезка текста с добавлением многоточия.
      *
      * @defaultValue false
@@ -97,17 +83,30 @@ export const Typography: FC<Props> = ({
     as = 'p',
     children,
     className = '',
-    color = 'dark',
+    color = 'var(--color-text-dark)',
     truncate = false,
     ...props
 }) => {
     const classNames = clsx(
         styles.root,
         styles[variant],
-        styles[`color_${color}`],
         { [styles.truncate]: truncate },
         className,
     );
 
-    return createElement(as, { className: classNames, ...props }, children);
+    const colorMap: Record<NamedColor, string> = {
+        white: 'var(--color-white)',
+        blue: 'var(--color-text-blue)',
+        dark: 'var(--color-text-dark)',
+        green: 'var(--color-text-green)',
+    };
+
+    const resolvedColor =
+        typeof color === 'string' && color in colorMap ? colorMap[color as NamedColor] : color;
+
+    return createElement(
+        as,
+        { className: classNames, style: { color: resolvedColor }, ...props },
+        children,
+    );
 };

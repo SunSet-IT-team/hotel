@@ -24,6 +24,8 @@
     font-family: var(--font-family-base);
     font-size: 18px;
 
+    cursor: pointer;
+
     &::placeholder {
         font-family: inherit;
         color: var(--color-text-dark);
@@ -33,8 +35,6 @@
     &:focus::placeholder {
         color: transparent;
     }
-
-    cursor: pointer;
 }
 
 .fullWidth {

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Container, Typography, Accordion } from '@/shared/ui';
+import { Accordion,Container, Typography } from '@/shared/ui';
 
-import s from './FaqSection.module.scss';
+import styles from './FaqSection.module.scss';
 
 type FaqItem = {
     id: string;
@@ -52,17 +52,16 @@ export const FaqSection = () => {
     const rightColumn = FAQ_STUBS.filter((_, index) => index % 2 === 1);
 
     return (
-        <section className={s.section}>
-            <Container variant="header">
-                <Typography as="h2" variant="h1" color="blue" className={s.title}>
+        <section className={styles.section}>
+            <Container>
+                <Typography as="h2" variant="h1" color="blue" className={styles.title}>
                     Ответы на часто задаваемые вопросы
                 </Typography>
-                <div className={s.grid}>
-                    {/* Десктопная версия - две колонки */}
-                    <div className={s.column}>
+                <div className={styles.grid}>
+                    <div className={styles.column}>
                         {leftColumn.map((item) => (
-                            <div className={s.cell} key={item.id}>
-                                <Accordion title={item.question} className={s.accord}>
+                            <div className={styles.cell} key={item.id}>
+                                <Accordion title={item.question} className={styles.accord}>
                                     {Array.isArray(item.answer)
                                         ? item.answer.map((text, idx) => (
                                               <React.Fragment key={idx}>{text}</React.Fragment>
@@ -72,10 +71,10 @@ export const FaqSection = () => {
                             </div>
                         ))}
                     </div>
-                    <div className={s.column}>
+                    <div className={styles.column}>
                         {rightColumn.map((item) => (
-                            <div className={s.cell} key={item.id}>
-                                <Accordion title={item.question} className={s.accord}>
+                            <div className={styles.cell} key={item.id}>
+                                <Accordion title={item.question} className={styles.accord}>
                                     {Array.isArray(item.answer)
                                         ? item.answer.map((text, idx) => (
                                               <React.Fragment key={idx}>{text}</React.Fragment>
@@ -87,10 +86,10 @@ export const FaqSection = () => {
                     </div>
 
                     {/* Мобильная версия - одна колонка со всеми аккордеонами */}
-                    <div className={s.mobileColumn}>
+                    <div className={styles.mobileColumn}>
                         {FAQ_STUBS.map((item) => (
-                            <div className={s.cell} key={item.id}>
-                                <Accordion title={item.question} className={s.accord}>
+                            <div className={styles.cell} key={item.id}>
+                                <Accordion title={item.question} className={styles.accord}>
                                     {Array.isArray(item.answer)
                                         ? item.answer.map((text, idx) => (
                                               <React.Fragment key={idx}>{text}</React.Fragment>

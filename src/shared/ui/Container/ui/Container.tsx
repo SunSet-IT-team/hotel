@@ -1,9 +1,9 @@
+import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import styles from './Container.module.scss';
-import clsx from 'clsx';
 
-interface Props {
+export interface ContainerProps {
     /** В качестве какого тега использовать компонент
      * @todo можно расширять union
      */
@@ -23,7 +23,12 @@ interface Props {
 }
 
 /** Компонент-обертка для ограничения максимальной ширины контента на странице */
-export const Container: FC<Props> = ({ as: Tag = 'div', variant, className, children }) => {
+export const Container: FC<ContainerProps> = ({
+    as: Tag = 'div',
+    variant,
+    className,
+    children,
+}) => {
     const preset = variant ? styles[variant] : '';
     return <Tag className={clsx(styles.root, preset, className)}>{children}</Tag>;
 };

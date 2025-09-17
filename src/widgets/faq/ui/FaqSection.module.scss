@@ -21,9 +21,6 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    flex: 1 1 min(666px, 45vw); /* Адаптивная ширина колонок */
-    min-width: 300px; /* Минимальная ширина */
-    max-width: 666px;
 }
 
 .mobileColumn {

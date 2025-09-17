@@ -60,7 +60,7 @@ export const Counter: FC<CounterProps> = ({
             </button>
 
             <div className={styles.valueContainer}>
-                <Typography variant="h2" as="span" color="blue" className={styles.value}>
+                <Typography variant="h2" as="span" className={styles.value} color="green">
                     {value}
                 </Typography>
             </div>

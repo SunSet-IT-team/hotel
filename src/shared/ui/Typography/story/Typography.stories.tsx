@@ -34,15 +34,6 @@ const meta: Meta<typeof Typography> = {
                 defaultValue: { summary: 'p' },
             },
         },
-        align: {
-            control: 'inline-radio',
-            options: ['left', 'center', 'right', 'justify', 'inherit'],
-            description: 'Выравнивание текста',
-            table: {
-                type: { summary: 'Align' },
-                defaultValue: { summary: 'inherit' },
-            },
-        },
         color: {
             control: 'inline-radio',
             options: ['dark', 'blue', 'white'],
@@ -78,7 +69,6 @@ const meta: Meta<typeof Typography> = {
     args: {
         variant: 'p',
         as: 'p',
-        align: 'inherit',
         color: 'dark',
         truncate: false,
         children: 'Sample typography text',
@@ -126,10 +116,10 @@ export const Default: Story = {
             <section className={styles.section}>
                 <h3 className={styles.sectionTitle}>Выравнивание</h3>
                 <div className={styles.alignmentsContainer}>
-                    <Typography align="left">Left выравнивание</Typography>
-                    <Typography align="center">Center выравнивание</Typography>
-                    <Typography align="right">Right выравнивание</Typography>
-                    <Typography align="justify">
+                    <Typography>Left выравнивание</Typography>
+                    <Typography>Center выравнивание</Typography>
+                    <Typography>Right выравнивание</Typography>
+                    <Typography>
                         Justify выравнивание: Lorem ipsum dolor sit amet, consectetur adipiscing
                         elit. Curabitur viverra.
                     </Typography>
@@ -178,7 +168,6 @@ export const Interactive: Story = {
     args: {
         variant: 'p',
         as: 'p',
-        align: 'left',
         color: 'dark',
         truncate: false,
         children:

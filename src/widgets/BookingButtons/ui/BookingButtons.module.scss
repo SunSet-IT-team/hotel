@@ -1,37 +1,21 @@
-.root {}
+@use '../../../shared/assets/styles/index' as *;
 
-/* Сетка с фиксированными размерами карточек */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 666px);
-    grid-auto-rows: 90px;
-    gap: 24px;
+.root {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    gap: 10px;
+}
+
+.buttons {
+    max-width: 666px;
+    width: calc(50% - 5px);
+    @include magicAdapt('height', 90, 36, 1600);
 }
 
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 351px;
-        grid-auto-rows: 60px;
-        gap: 10px;
+    .buttons {
+        max-width: unset;
+        width: 100%;
     }
-}
-
-.linkReset {
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-}
-
-.button {
-    width: 100%;
-    height: 100%;
-}
-
-.btnText {
-    display: inline-block;
-    width: 100%;
 }

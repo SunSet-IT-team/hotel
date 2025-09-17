@@ -37,25 +37,24 @@ body {
     position: relative;
     &::-webkit-scrollbar {
         width: 8px;
+        background: #fff;
     }
 
     &::-webkit-scrollbar-track {
-        color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        background: #fff;
     }
 
     &::-webkit-scrollbar-thumb {
         background: var(--color-primary-blue);
-        border-radius: 5px;
+        border-radius: 4px;
         transition: background 0.2s ease;
-        border: 1px solid #fff;
+        border: 2px solid #ffff;
 
         &:hover {
             background: color-mix(
                 in srgb,
-                var(--color-primary-blue) 80%,
-                var(--color-text-dark) 20%
+                var(--color-primary-blue) 90%,
+                var(--color-text-dark) 10%
             );
         }
     }

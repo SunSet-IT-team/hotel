@@ -1,32 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { FetchData, Option as BaseOption } from '../model/types';
+import { mockData } from '@/features/SearchLocation/story/mockData';
+
+import { FetchData, Option } from '../model/types';
 import { SearchLocation } from '../ui/SearchLocation';
-
-type Option = {
-    description: string;
-} & BaseOption;
-
-const mockData: Option[] = [
-    {
-        city: 'Венесуэлла',
-        name: 'Город',
-        id: 0,
-        description: 'Крутой город!',
-    },
-    {
-        city: 'Венесуэлла',
-        name: 'Город',
-        id: 1,
-        description: 'Крутой город!',
-    },
-    {
-        city: 'Венесуэлла',
-        name: 'Город',
-        id: 2,
-        description: 'Крутой город!',
-    },
-];
 
 const fetchData: FetchData<Option> = () =>
     new Promise((resolve) => setTimeout(() => resolve(mockData), 1000));

@@ -14,9 +14,15 @@ interface Props<T extends Option> {
     fetchData: FetchData<T>;
     onSelect?: (option: T) => void;
     className?: string;
+    placeholder?: string;
 }
 
-export const SearchLocation = <T extends Option>({ onSelect, fetchData, className }: Props<T>) => {
+export const SearchLocation = <T extends Option>({
+    onSelect,
+    fetchData,
+    className,
+    placeholder,
+}: Props<T>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [responseData, setResponseData] = useState<T[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,6 +43,7 @@ export const SearchLocation = <T extends Option>({ onSelect, fetchData, classNam
                 className={styles.searchInput}
                 onClick={() => setIsOpen(true)}
                 onLoadingChange={(v) => setIsLoading(v)}
+                placeholder={placeholder}
                 fullWidth
             />
             {isOpen && (
