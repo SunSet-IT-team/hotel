@@ -58,7 +58,7 @@ export const useInputDebounce = <T>({
                     onLoadingChange?.(false);
                 }
             }, delay),
-        [delay, resultsCount, fetchData, onData, onLoadingChange, onError],
+        [delay, resultsCount],
     );
 
     useEffect(() => {

@@ -8,8 +8,8 @@
     justify-content: center;
     cursor: pointer;
     border: none;
-    width: 400px;
     height: 90px;
+    border-radius: 12px;
 }
 
 .panel {
@@ -41,6 +41,7 @@
 .count {
     margin-top: -42px;
 }
+
 .textBlock {
     max-height: 189px;
     overflow-y: auto;
@@ -80,17 +81,21 @@
     display: flex;
     justify-content: center;
 }
+
 .footerButton {
     min-width: 344px;
 }
+
 @media (max-width: 768px) {
     .trigger {
         width: 351px;
         height: 36px;
     }
+
     .mobileSize {
         font-size: 36px;
     }
+
     .panel {
         width: 100%;
         max-width: 351px;

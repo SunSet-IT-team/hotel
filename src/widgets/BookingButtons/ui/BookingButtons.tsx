@@ -1,9 +1,11 @@
 'use client';
 
-import { Button } from '@/shared/ui/Button';
-import { Typography } from '@/shared/ui/Typography';
+import { FC, useEffect, useState } from 'react';
+
+import { Button, Container, Typography } from '@/shared/ui/';
 
 import styles from './BookingButtons.module.scss';
+import clsx from 'clsx';
 
 type Item = { label: string; href: string };
 
@@ -14,18 +16,53 @@ const items: Item[] = [
     { label: 'Бронирование e-sim', href: 'https://example.com/esim' },
 ];
 
-export const BookingButtons = () => {
+interface Props {
+    /** Дополнительный класс для стилей */
+    className?: string;
+}
+
+export const BookingButtons: FC<Props> = ({ className }) => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mq = window.matchMedia('(max-width: 768px)');
+        const update = () => setIsMobile(mq.matches);
+        update();
+        mq.addEventListener?.('change', update);
+        return () => mq.removeEventListener?.('change', update);
+    }, []);
+
+    const variant = isMobile ? 'white' : 'cyan';
+    const textColor = isMobile ? 'dark' : 'white';
+
     return (
-        <section className={styles.root}>
-            <>
-                {items.map((it) => (
-                    <Button key={it.label} variant="cyan" size="medium" className={styles.buttons}>
-                        <Typography color="inherit" as="h2" variant="h2">
-                            {it.label}
-                        </Typography>
-                    </Button>
-                ))}
-            </>
+        <section className={clsx(styles.root, className)}>
+            <Container variant="header">
+                <div className={styles.grid}>
+                    {items.map((it) => (
+                        <a
+                            key={it.label}
+                            href={it.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.linkReset}
+                            aria-label={it.label}
+                        >
+                            <Button variant={variant} size="medium" className={styles.button}>
+                                <Typography
+                                    as="h2"
+                                    variant="h2"
+                                    color={textColor}
+                                    align="center"
+                                    className={styles.btnText}
+                                >
+                                    {it.label}
+                                </Typography>
+                            </Button>
+                        </a>
+                    ))}
+                </div>
+            </Container>
         </section>
     );
 };

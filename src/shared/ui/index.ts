@@ -7,5 +7,7 @@ import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
 import { Select } from './Select';
 import { Typography } from './Typography';
+import { Container } from './Container';
+import { Accordion } from './Accordion';
 
-export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography };
+export { Box, Button, Calendar, Counter, Input, RangeSlider, SearchInput, Select, Typography, Container, Accordion };

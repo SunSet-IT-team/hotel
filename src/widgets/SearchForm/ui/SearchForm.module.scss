@@ -1,0 +1,57 @@
+@use "../../../shared/assets/styles/index" as *;
+
+.form {
+  @include magicAdapt("margin-top", 50, 30, 1600);
+
+  &__body {
+    display: flex;
+    align-items: stretch;
+    @include magicAdapt("gap", 20, 12, 1600);
+    flex-wrap: wrap;
+
+    @media (max-width: #{$sm+px}) {
+      & {
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+.formBody {
+  &__item {
+    flex: 1 1 auto;
+    @include magicAdapt("height", 90, 36, 1600);
+
+    @media (max-width: #{$md+px}) {
+      flex: 1 1 100%;
+
+      &_date {
+        flex: 1 1 auto;
+      }
+    }
+
+    span {
+      color: inherit;
+    }
+
+    &_searchLocation {
+      max-width: 380px;
+
+      // Крупные телефоны и протативные планшеты //
+      @media (max-width: #{$md+px}) {
+        & {
+          max-width: none;
+        }
+      }
+    }
+
+    &_guests {
+      >button {
+        width: 100%;
+        height: 100%;
+        @include magicAdapt("padding-left", 70, 25, 1600);
+        @include magicAdapt("padding-right", 70, 25, 1600);
+      }
+    }
+  }
+}

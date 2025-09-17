@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Typography } from '@/shared/ui';
-import { Accordion } from '@/shared/ui/Accordion';
+import { Container, Typography, Accordion } from '@/shared/ui';
 
 import s from './FaqSection.module.scss';
 
@@ -54,7 +53,7 @@ export const FaqSection = () => {
 
     return (
         <section className={s.section}>
-            <div className={s.container}>
+            <Container variant="header">
                 <Typography as="h2" variant="h1" color="blue" className={s.title}>
                     Ответы на часто задаваемые вопросы
                 </Typography>
@@ -102,7 +101,7 @@ export const FaqSection = () => {
                         ))}
                     </div>
                 </div>
-            </div>
+            </Container>
         </section>
     );
 };
