@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import { Footer } from '@/widgets/Footer';
-import { Header } from '@/widgets/Header';
+import { Header } from '@/widgets/header';
 
 import { Providers } from './providers';
 
