@@ -84,33 +84,32 @@ jobs:
                       echo "HEAD: $(git rev-parse --short HEAD)"
                       echo "::endgroup::"
 
-                      echo "::group::Stop and remove containers + volumes"
-                      docker compose -p "$PROJECT" down --volumes --remove-orphans || true
+                      echo "::group::Compose build"
+                      docker compose -p "$PROJECT" build --pull $SERVICES
                       echo "::endgroup::"
 
-                      echo "::group::Remove old images of this project"
-                      docker compose -p "$PROJECT" images -q | xargs -r docker rmi -f || true
-                      docker image prune -f
+                      echo "::group::Stop old app"
+                      # Останавливаем и удаляем ТОЛЬКО целевые сервисы этого проекта,
+                      # чтобы освободить порты и избежать конфликтов имён контейнеров
+                      docker compose -p "$PROJECT" stop $SERVICES || true
+                      docker compose -p "$PROJECT" rm -f $SERVICES || true
                       echo "::endgroup::"
 
                       echo "::group::Free ports if occupied"
+                      # На всякий случай освобождаем нужные порты, если их держит "чужой" контейнер
                       if [ "$BRANCH" = "main" ]; then
                         PORTS="8080"           # prod
                       else
                         PORTS="3000 6006"      # dev + storybook
                       fi
                       for P in $PORTS; do
+                        # Находим любые контейнеры, публикующие порт P, и гасим их
                         CID=$(docker ps --filter "publish=$P" --format '{{.ID}}' | xargs -r echo)
                         if [ -n "$CID" ]; then
                           echo "Stopping container(s) using port $P: $CID"
                           docker stop $CID || true
-                          docker rm -f $CID || true
                         fi
                       done
-                      echo "::endgroup::"
-
-                      echo "::group::Compose build (NO CACHE, PULL LATEST BASE IMAGES)"
-                      docker compose -p "$PROJECT" build --no-cache --pull $SERVICES
                       echo "::endgroup::"
 
                       echo "::group::Compose up"
@@ -118,6 +117,6 @@ jobs:
                       docker compose -p "$PROJECT" ps
                       echo "::endgroup::"
 
-                      echo "::group::Final cleanup (remove unused images)"
+                      echo "::group::Cleanup"
                       docker image prune -f
                       echo "::endgroup::"
