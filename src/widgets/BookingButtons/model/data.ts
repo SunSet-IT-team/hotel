@@ -1,5 +1,6 @@
-type Item = { label: string; href: string };
+import { Item } from './types';
 
+/** Массив, по которому мапятся кнопки */
 export const items: Item[] = [
     { label: 'Бронирование автомобилей', href: 'https://example.com/cars' },
     { label: 'Бронирование авиарейсов', href: 'https://example.com/flights' },
