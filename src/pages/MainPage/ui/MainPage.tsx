@@ -3,7 +3,7 @@ import React from 'react';
 
 import HeaderBg from '@/shared/assets/img/header-bg.png';
 import { BookingButtons } from '@/widgets/BookingButtons';
-import { FaqSection } from '@/widgets/faq';
+import { FaqSection } from '@/widgets/Faq';
 import { SearchForm } from '@/widgets/SearchForm';
 
 import styles from './MainPage.module.scss';
