@@ -3,11 +3,11 @@
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 
+import { FetchData, Option } from '@/features/searchLocation/model/types';
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick';
 import { Box, Button, SearchInput, Typography } from '@/shared/ui';
 import { Skeleton } from '@/shared/ui/Skeleton';
 
-import { FetchData, Option } from '../model/types';
 import styles from './SearchLocation.module.scss';
 
 interface Props<T extends Option> {

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { GuestsField } from '@/features/GuestsField';
-import { Option, SearchLocation } from '@/features/SearchLocation';
+import { Option, SearchLocation } from '@/features/searchLocation';
 import { Button, Container, Typography } from '@/shared/ui';
 
 import styles from './SearchForm.module.scss';

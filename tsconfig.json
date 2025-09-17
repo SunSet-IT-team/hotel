@@ -23,7 +23,7 @@
             "@/*": ["./src/*"],
             "*": ["*"]
         },
-        "typeRoots": ["./node_modules/@types", "./src/shared/types"]
+        "typeRoots": ["./node_modules/@types", "./src/shared/types", "./src/app/types"]
     },
     "include": [
         "next-env.d.ts",
