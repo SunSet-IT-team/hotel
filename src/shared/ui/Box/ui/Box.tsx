@@ -10,7 +10,10 @@ interface BoxProps {
     /** Дополнительные CSS классы */
     className?: string;
 
-    /** HTML-элемент или компонент для рендера */
+    /**
+     * HTML-элемент или компонент для рендера
+     * @default "div"
+     */
     as?: keyof JSX.IntrinsicElements;
 
     /** Отступ сверху в пикселях */
@@ -35,7 +38,7 @@ interface BoxProps {
 export const Box: FC<BoxProps> = ({
     children,
     className,
-    as = 'div',
+    as: TagName = 'div',
     paddingTop,
     paddingRight,
     paddingBottom,
@@ -58,11 +61,9 @@ export const Box: FC<BoxProps> = ({
 
     const boxClasses = clsx(styles.box, className);
 
-    const Component = (as ?? 'div') as keyof JSX.IntrinsicElements;
-
     return (
-        <Component className={boxClasses} style={boxStyle}>
+        <TagName className={boxClasses} style={boxStyle}>
             {children}
-        </Component>
+        </TagName>
     );
 };

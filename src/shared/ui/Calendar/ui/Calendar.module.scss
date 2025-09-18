@@ -1,4 +1,4 @@
-@use '../../../assets/styles/variables.module.scss' as *;
+@use '../../../assets/styles/variables.module' as *;
 
 .calendar {
     background: $color-primary-white;
@@ -146,6 +146,7 @@
         background: $color-primary-blue;
         border-radius: 8px;
         position: relative;
+
         &::before {
             content: '';
             position: absolute;
@@ -206,7 +207,7 @@
     margin-left: 30px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: #{$md+px}) {
     .calendar {
         width: 351px;
         padding: 20px;
@@ -222,6 +223,7 @@
 
     .monthContainer {
         gap: 0px;
+
         &:nth-child(2) {
             .monthHeader {
                 padding-left: 29px;
@@ -241,6 +243,7 @@
     .monthTitle {
         font-size: 36px;
     }
+
     .navButton {
         width: 32px;
         height: 32px;
@@ -325,10 +328,12 @@
                 display: none;
             }
         }
+
         &.rangeStart {
             background: $color-primary-blue;
             border-radius: 8px;
             position: relative;
+
             &::before {
                 content: '';
                 position: absolute;
@@ -344,6 +349,7 @@
                 display: none;
             }
         }
+
         &.rangeStart:only-child {
             &::before {
                 left: 0;

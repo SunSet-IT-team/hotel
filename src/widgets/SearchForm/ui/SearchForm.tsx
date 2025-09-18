@@ -8,6 +8,7 @@ import { Option, SearchLocation } from '@/features/SearchLocation';
 import { Button, Container, Typography } from '@/shared/ui';
 
 import styles from './SearchForm.module.scss';
+import { DateRange } from '@/features/DateRange';
 
 export const fetchMockData1 = (query: string): Promise<Option[]> => {
     // Можно добавить фильтрацию по query, если нужно
@@ -22,7 +23,7 @@ export const SearchForm: FC = () => {
     return (
         <div className={styles.root} onSubmit={(e) => e.preventDefault()}>
             <Container variant="header">
-                <Typography color="white" variant="h1" as="h1">
+                <Typography color="white" variant="h1" as="h1" className={styles.root__title}>
                     Открой мир и путешествуй легко
                 </Typography>
                 <form className={styles.form}>
@@ -35,26 +36,15 @@ export const SearchForm: FC = () => {
                             placeholder="Город или отель"
                             fetchData={fetchMockData1}
                         />
-                        <Button
+                        <DateRange
                             className={clsx(styles.formBody__item, styles.formBody__item_date)}
-                            variant="white"
-                        >
-                            <Typography variant="h2" as="span">
-                                Дата заезда
-                            </Typography>
-                        </Button>
-                        <Button
-                            className={clsx(styles.formBody__item, styles.formBody__item_date)}
-                            variant="white"
-                        >
-                            <Typography variant="h2" as="span">
-                                Дата выезда
-                            </Typography>
-                        </Button>
+                        />
                         <GuestsField
                             className={clsx(styles.formBody__item, styles.formBody__item_guests)}
                         />
-                        <Button className={styles.formBody__item}>
+                        <Button
+                            className={clsx(styles.formBody__item, styles.formBody__item_searchBtn)}
+                        >
                             <Typography variant="h2" as="span">
                                 Поиск
                             </Typography>
