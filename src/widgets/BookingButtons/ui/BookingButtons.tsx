@@ -17,7 +17,7 @@ interface Props {
 export const BookingButtons: FC<Props> = ({ className }) => {
     return (
         <section className={className}>
-            <Container className={styles.root}>
+            <Container variant="header" className={styles.root}>
                 {items.map((it) => (
                     <Button
                         key={it.label}
