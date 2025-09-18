@@ -4,13 +4,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 10px;
+    @include magicAdapt(row-gap, 33, 11, 1920, 430);
+    column-gap: 0px;
 }
 
 .buttons {
     max-width: 666px;
     width: calc(50% - 5px);
-    @include magicAdapt('height', 90, 36, 1600);
+    @include magicAdapt('height', 90, 60, 1600);
 }
 
 @media (max-width: 768px) {

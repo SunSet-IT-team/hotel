@@ -6,6 +6,7 @@ import { Container } from '@/shared/ui';
 import { Button } from '@/shared/ui/Button';
 import { Typography } from '@/shared/ui/Typography';
 
+import { useIsMobile } from '@/shared/hooks/useMediaQuery';
 import { items } from '../model/data';
 import styles from './BookingButtons.module.scss';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const BookingButtons: FC<Props> = ({ className }) => {
+    const isMobile = useIsMobile();
     return (
         <section className={className}>
             <Container variant="header" className={styles.root}>
@@ -22,8 +24,8 @@ export const BookingButtons: FC<Props> = ({ className }) => {
                     <Button
                         key={it.label}
                         as="a"
-                        variant="cyan"
-                        size="medium"
+                        variant={isMobile ? 'white' : 'cyan'}
+                        size="big"
                         href={it.href}
                         className={styles.buttons}
                     >

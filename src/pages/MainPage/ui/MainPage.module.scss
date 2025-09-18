@@ -1,3 +1,4 @@
+@use '../../../shared/assets/styles/index' as *;
 /* Базовые стили для MainPage */
 .mainPage {
     width: 100%;
@@ -16,7 +17,11 @@
 }
 
 .bookingButtons {
-    margin-top: 50px;
+    padding-top: 52px;
+    padding-bottom: 52px;
+    @media (max-width: #{$md+px}) {
+        background: var(--color-primary-blue);
+    }
 }
 
 .headerContent {
@@ -49,7 +54,7 @@
         width: 100%;
         object-fit: cover;
 
-        // При изменении ширины, положение изображения остается 80% по гроизонтали и по вертиали - в центре. 
+        // При изменении ширины, положение изображения остается 80% по гроизонтали и по вертиали - в центре.
         // Таким образом мы всегда видим нужную часть изображения с домом примерно как на макете
         object-position: 80% center;
     }
