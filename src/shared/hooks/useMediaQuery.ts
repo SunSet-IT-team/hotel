@@ -17,7 +17,7 @@ const getSnapshot = (query: string) => {
 /**
  * Хук медиа-запроса.
  * @param query CSS media query, например "(max-width: 768px)"
- * @param serverValue значение на сервере (по умолчанию false)
+ * @param serverValue значение на сервере "(по умолчанию false)"
  */
 export const useMediaQuery = (query: string, serverValue = false) => {
     return useSyncExternalStore(

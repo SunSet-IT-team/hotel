@@ -8,7 +8,8 @@ import { SearchForm } from '@/widgets/SearchForm';
 
 import styles from './MainPage.module.scss';
 
-const MainPage: React.FC = () => {
+/** Главная страница */
+export const MainPage: React.FC = () => {
     return (
         <main className={styles.mainPage}>
             <section className={styles.headerContent}>
@@ -27,5 +28,3 @@ const MainPage: React.FC = () => {
         </main>
     );
 };
-
-export default MainPage;

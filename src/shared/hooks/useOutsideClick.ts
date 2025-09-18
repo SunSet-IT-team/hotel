@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 
 /**
- * Хук, который вызывает callback при клике вне элемента
+ * Хук, который вызывает callback при клике вне элемента componentRef
  */
 export const useOutsideClick = (
   componentRef: React.RefObject<HTMLElement | null>,
