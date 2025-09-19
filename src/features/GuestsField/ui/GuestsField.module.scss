@@ -11,13 +11,6 @@
     cursor: pointer;
     border: none;
     height: 90px;
-    border-radius: 24px;
-
-    @media (max-width: #{$md+px}) {
-        & {
-            border-radius: 12px;
-        }
-    }
 }
 
 .panel {
@@ -32,11 +25,11 @@
     padding: 19px 25px;
     background: var(--color-primary-white);
 
-
     @media (max-width: #{$md+px}) {
         & {
             max-width: 351px;
-            padding: 15px 20px;
+            padding: 18px;
+            padding-left: 30px;
         }
     }
 
@@ -103,9 +96,7 @@
     justify-content: center;
 }
 
-.footerButton {
-    min-width: 344px;
-}
+.footerButton {}
 
 @media (max-width: 768px) {
     .mobileSize {

@@ -36,7 +36,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpen(v => !v)}
                 fullWidth
             >
                 <Typography as="span" variant="h2">
@@ -47,10 +47,6 @@ export const GuestsField: FC<Props> = ({ className }) => {
             {isOpen && (
                 <Box
                     as="div"
-                    paddingLeft={isMobile ? 30 : 25}
-                    paddingRight={isMobile ? 19 : 25}
-                    paddingTop={isMobile ? 22 : 19}
-                    paddingBottom={isMobile ? 14 : 19}
                     className={styles.panel}
                 >
                     <div className={styles.row}>
@@ -135,6 +131,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                                 setApplied(true);
                                 setIsOpen(false);
                             }}
+                            fullWidth
                         >
                             <Typography as="p" variant="h2" color="white">
                                 Применить

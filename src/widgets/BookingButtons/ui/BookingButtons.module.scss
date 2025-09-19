@@ -11,11 +11,10 @@
 .buttons {
     max-width: 666px;
     width: calc(50% - 5px);
-
     @include magicAdapt('height', 90, 36, 1600);
 }
 
-@media (max-width: 768px) {
+@media (max-width: #{$md+px}) {
     .buttons {
         max-width: unset;
         width: 100%;
