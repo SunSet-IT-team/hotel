@@ -42,10 +42,12 @@ export const SearchForm: FC = () => {
                         <GuestsField
                             className={clsx(styles.formBody__item, styles.formBody__item_guests)}
                         />
+
                         <Button
                             className={clsx(styles.formBody__item, styles.formBody__item_searchBtn)}
                         >
                             <Typography variant="h2" as="span">
+
                                 Поиск
                             </Typography>
                         </Button>

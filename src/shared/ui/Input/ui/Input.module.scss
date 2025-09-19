@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
 
-    border-radius: 12px;
+    border-radius: 24px;
 
     box-shadow:
         -2px -2px 4px rgba(255, 255, 255, 0.25),
@@ -22,7 +22,7 @@
 
     font-family: var(--font-family-base);
 
-    cursor: pointer;
+    cursor: text;
 
     &::placeholder {
         font-family: inherit;
