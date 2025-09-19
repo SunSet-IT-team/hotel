@@ -28,5 +28,3 @@ export const MainPage: React.FC = () => {
         </main>
     );
 };
-
-

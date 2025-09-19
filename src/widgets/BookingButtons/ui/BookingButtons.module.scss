@@ -11,14 +11,6 @@
     max-width: 666px;
     width: calc(50% - 5px);
     @include magicAdapt('height', 90, 36, 1600);
-    border-radius: 24px;
-
-    // Крупные телефоны и протативные планшеты //
-    @media (max-width: #{$md+px}) {
-        & {
-            border-radius: 12px;
-        }
-    }
 }
 
 @media (max-width: 768px) {

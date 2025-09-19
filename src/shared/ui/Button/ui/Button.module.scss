@@ -8,6 +8,7 @@
     align-items: center;
 
     color: white;
+    font-size: 18px;
     font-family: var(--font-family-base);
 
     box-shadow:
@@ -25,12 +26,10 @@
 //========================= sizes =========================
 .small {
     padding: 5px 10px;
-    font-size: 18px;
 }
 
 .medium {
     padding: 14px 25px;
-    font-size: 18px;
 }
 
 .big {
@@ -44,16 +43,7 @@
 .cyan {
     background-color: var(--color-primary-blue);
 
-    // Hover для устройств с hover
-    @media (any-hover: hover) {
-        &:hover {
-            background-color: var(--color-primary-white);
-            color: var(--color-text-dark);
-        }
-    }
-
-    // Active для тач-устройств
-    &:active {
+    &:hover {
         background-color: var(--color-primary-white);
         color: var(--color-text-dark);
     }
@@ -63,28 +53,14 @@
     background-color: var(--color-primary-white);
     color: var(--color-text-dark);
 
-    @media (any-hover: hover) {
-        &:hover {
-            background-color: var(--color-primary-blue);
-            color: white;
-        }
-    }
-
-    &:active {
+    &:hover {
         background-color: var(--color-primary-blue);
         color: white;
     }
 }
 
 .glass {
-    @media (any-hover: hover) {
-        &:hover {
-            background-color: var(--color-primary-white);
-            color: var(--color-text-dark);
-        }
-    }
-
-    &:active {
+    &:hover {
         background-color: var(--color-primary-white);
         color: var(--color-text-dark);
     }

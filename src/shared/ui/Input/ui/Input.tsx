@@ -5,37 +5,23 @@ import { FC, InputHTMLAttributes } from 'react';
 
 import styles from './Input.module.scss';
 
-export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children' | 'size'> {
+export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children'> {
     /**
      * Растягивать ли компонент на всю ширину родителя
      * @default false
      */
     fullWidth?: boolean;
 
-    /**
-     * Размер input (влияет на внутренние отступы и размер шрифта)
-     */
-    size?: 'small' | 'medium' | 'big';
+    placeholder?: string;
 }
 
 /**
  * Компонент инпута UI-кита
  */
-export const Input: FC<Props> = ({
-    fullWidth = false,
-    placeholder = '',
-    size = 'medium',
-    className,
-    ...rest
-}) => {
+export const Input: FC<Props> = ({ fullWidth = false, placeholder = '', className, ...rest }) => {
     return (
         <input
-            className={clsx(
-                styles.root,
-                styles[size],
-                { [styles.fullWidth]: fullWidth },
-                className,
-            )}
+            className={clsx(styles.root, { [styles.fullWidth]: fullWidth }, className)}
             {...rest}
             placeholder={placeholder}
         />
