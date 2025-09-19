@@ -1,29 +1,27 @@
+@use '../../../shared/assets/styles/index' as *;
+
 /* Базовые стили для MainPage */
 .mainPage {
     width: 100%;
+    // position: relative;
     background-color: var(--color-primary-white);
-}
-
-.heroContent {
-    text-align: center;
-    z-index: 2;
-    max-width: 800px;
-    padding: 0 20px;
-}
-
-.title {
-    margin-bottom: 40px;
 }
 
 .bookingButtons {
     margin-top: 50px;
+
+    @media (max-width: #{$sm+px}) {
+        margin-top: 0;
+        background-color: var(--color-primary-blue);
+    }
 }
 
 .headerContent {
     padding-top: 270px;
-    padding-bottom: 100px;
     position: relative;
     z-index: 0;
+
+    @include magicAdapt('padding-bottom', 100, 40, 1600);
 
     &__bg {
         position: absolute;
@@ -49,8 +47,17 @@
         width: 100%;
         object-fit: cover;
 
-        // При изменении ширины, положение изображения остается 80% по гроизонтали и по вертиали - в центре. 
+        // При изменении ширины, положение изображения остается 80% по гроизонтали и по вертиали - в центре.
         // Таким образом мы всегда видим нужную часть изображения с домом примерно как на макете
         object-position: 80% center;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        padding-top: 117px;
+        background-color: var(--color-primary-blue);
+
+        &__bg {
+            display: none;
+        }
     }
 }

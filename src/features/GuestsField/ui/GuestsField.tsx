@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Counter, Typography } from '@/shared/ui';
@@ -9,6 +9,7 @@ import { Box } from '@/shared/ui/Box/ui/Box';
 import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
 
 import styles from './GuestsField.module.scss';
+import { useIsMobile, useOutsideClick } from '@/shared/hooks';
 
 interface Props {
     className?: string;
@@ -17,31 +18,25 @@ interface Props {
 export const GuestsField: FC<Props> = ({ className }) => {
     const { adults, children } = useSelector(selectValues);
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [applied, setApplied] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkIsMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        checkIsMobile();
-        window.addEventListener('resize', checkIsMobile);
-
-        return () => window.removeEventListener('resize', checkIsMobile);
-    }, []);
+    const isMobile = useIsMobile(768);
 
     const label = !applied ? 'Кол-во гостей' : `${adults} взрос. ${children} реб.`;
 
+    const rootRef = useRef<HTMLDivElement>(null);
+    useOutsideClick(rootRef, () => {
+        setIsOpen(false);
+    });
+
     return (
-        <div className={clsx(styles.root, className)}>
+        <div className={clsx(styles.root, className)} ref={rootRef}>
             <Button
                 type="button"
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={() => setOpen((v) => !v)}
+                onClick={() => setIsOpen(!isOpen)}
                 fullWidth
             >
                 <Typography as="span" variant="h2">
@@ -49,7 +44,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                 </Typography>
             </Button>
 
-            {open && (
+            {isOpen && (
                 <Box
                     as="div"
                     paddingLeft={isMobile ? 30 : 25}
@@ -138,7 +133,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             className={styles.footerButton}
                             onClick={() => {
                                 setApplied(true);
-                                setOpen(false);
+                                setIsOpen(false);
                             }}
                         >
                             <Typography as="p" variant="h2" color="white">

@@ -5,11 +5,13 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
+    padding-bottom: 40px;
 }
 
 .buttons {
     max-width: 666px;
     width: calc(50% - 5px);
+
     @include magicAdapt('height', 90, 36, 1600);
 }
 
