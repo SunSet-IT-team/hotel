@@ -31,7 +31,8 @@
         "**/*.tsx",
         "src/**/types/*.ts",
         ".next/types/**/*.ts",
-        ".storybook/decorators/**/*.tsx"
+        ".storybook/decorators/**/*.tsx",
+        ".storybook/**/*"
     ],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", ".next", "dist", "build", ".pnpm-store"]
 }

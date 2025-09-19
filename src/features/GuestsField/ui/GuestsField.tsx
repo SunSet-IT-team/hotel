@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Counter, Typography } from '@/shared/ui';
