@@ -1,15 +1,9 @@
-@use "../../../assets/styles/variables.module" as *;
+@use '../../../assets/styles/variables.module' as *;
 
 .root {
     padding: 5px 25px;
     min-height: 33px;
     border-radius: 24px;
-
-    @media (max-width: #{$md+px}) {
-        & {
-            border-radius: 12px;
-        }
-    }
 
     display: flex;
     justify-content: center;
@@ -18,16 +12,22 @@
     color: white;
     font-family: var(--font-family-base);
 
-    box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.25),
-    1px 2px 3.9px rgba(9, 25, 20, 0.28),
-    inset 2px 1px 4px rgba(14, 47, 32, 0.23),
-    inset -2px -3px 4px rgba(255, 255, 255, 0.5);
+    box-shadow:
+        -2px -2px 4px rgba(255, 255, 255, 0.25),
+        1px 2px 3.9px rgba(9, 25, 20, 0.28),
+        inset 2px 1px 4px rgba(14, 47, 32, 0.23),
+        inset -2px -3px 4px rgba(255, 255, 255, 0.5);
 
     transition: 0.3s ease 0s;
-    transition-property: color,
-    background-color;
+    transition-property: color, background-color;
 
     cursor: pointer;
+
+    @media (max-width: #{$md+px}) {
+        & {
+            border-radius: 12px;
+        }
+    }
 }
 
 //========================= sizes =========================
