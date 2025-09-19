@@ -46,8 +46,7 @@ export const SearchForm: FC = () => {
                         <Button
                             className={clsx(styles.formBody__item, styles.formBody__item_searchBtn)}
                         >
-                            <Typography variant="h2" as="span">
-
+                            <Typography variant="h2" as="span" color="inherit">
                                 Поиск
                             </Typography>
                         </Button>
