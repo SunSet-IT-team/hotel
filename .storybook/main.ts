@@ -18,7 +18,7 @@ const config: StorybookConfig = {
             (
                 rule,
             ): rule is NonNullable<typeof rule> & { test: RegExp; exclude?: RegExp | string } =>
-                rule != null &&
+                rule !== null &&
                 typeof rule === 'object' &&
                 'test' in rule &&
                 rule.test instanceof RegExp &&

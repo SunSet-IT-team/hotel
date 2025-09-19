@@ -4,6 +4,7 @@ import { Container, Typography } from '@/shared/ui';
 import { Accordion } from '@/shared/ui/Accordion';
 
 import { FAQ_STUBS } from '../model/data';
+
 import styles from './FaqSection.module.scss';
 
 export const FaqSection = () => {
@@ -25,8 +26,8 @@ export const FaqSection = () => {
                                 <div className={styles.cell} key={item.id}>
                                     <Accordion title={item.question} className={styles.accord}>
                                         {Array.isArray(item.answer)
-                                            ? item.answer.map((text, idx) => (
-                                                  <React.Fragment key={idx}>{text}</React.Fragment>
+                                            ? item.answer.map((text) => (
+                                                  <React.Fragment key={text}>{text}</React.Fragment>
                                               ))
                                             : item.answer}
                                     </Accordion>
@@ -38,8 +39,8 @@ export const FaqSection = () => {
                                 <div className={styles.cell} key={item.id}>
                                     <Accordion title={item.question} className={styles.accord}>
                                         {Array.isArray(item.answer)
-                                            ? item.answer.map((text, idx) => (
-                                                  <React.Fragment key={idx}>{text}</React.Fragment>
+                                            ? item.answer.map((text) => (
+                                                  <React.Fragment key={text}>{text}</React.Fragment>
                                               ))
                                             : item.answer}
                                     </Accordion>
@@ -52,8 +53,8 @@ export const FaqSection = () => {
                                 <div className={styles.cell} key={item.id}>
                                     <Accordion title={item.question} className={styles.accord}>
                                         {Array.isArray(item.answer)
-                                            ? item.answer.map((text, idx) => (
-                                                  <React.Fragment key={idx}>{text}</React.Fragment>
+                                            ? item.answer.map((text) => (
+                                                  <React.Fragment key={text}>{text}</React.Fragment>
                                               ))
                                             : item.answer}
                                     </Accordion>

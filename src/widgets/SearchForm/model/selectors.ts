@@ -1,4 +1,5 @@
 import type { RootState } from '../../../app/store';
+
 import type { ISODate } from './types';
 
 export const selectSearchForm = (s: RootState) => s.searchForm;

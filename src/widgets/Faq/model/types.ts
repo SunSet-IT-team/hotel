@@ -1,6 +1,6 @@
 /** Тип элемента списка, содержащего контент для аккордионов */
-export type FaqItem = {
+export interface FaqItem {
     id: string;
     question: string;
     answer: string | string[];
-};
+}

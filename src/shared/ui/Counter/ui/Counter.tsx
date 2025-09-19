@@ -1,10 +1,11 @@
 'use client';
 
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import { SelectArrowIcon } from '@/shared/assets/icons';
 
 import { Typography } from '../../Typography';
+
 import styles from './Counter.module.scss';
 
 interface CounterProps {

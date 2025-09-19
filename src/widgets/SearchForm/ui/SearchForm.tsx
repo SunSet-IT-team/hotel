@@ -1,16 +1,16 @@
 'use client';
 
+import { type FC } from 'react';
 import clsx from 'clsx';
-import { FC } from 'react';
 
+import { DateRange } from '@/features/DateRange';
 import { GuestsField } from '@/features/GuestsField';
-import { Option, SearchLocation } from '@/features/SearchLocation';
+import { type Option, SearchLocation } from '@/features/SearchLocation';
 import { Button, Container, Typography } from '@/shared/ui';
 
 import styles from './SearchForm.module.scss';
-import { DateRange } from '@/features/DateRange';
 
-export const fetchMockData1 = (query: string): Promise<Option[]> => {
+export const fetchMockData1 = (): Promise<Option[]> => {
     // Можно добавить фильтрацию по query, если нужно
     return Promise.resolve([
         { id: 1, name: 'Москва', city: 'Россия' },

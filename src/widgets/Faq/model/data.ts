@@ -1,4 +1,4 @@
-import { FaqItem } from './types';
+import { type FaqItem } from './types';
 
 /** Контент для аккордионов */
 export const FAQ_STUBS: FaqItem[] = [

@@ -1,9 +1,9 @@
 'use client';
 
-import clsx from 'clsx';
 import { useRef, useState } from 'react';
+import clsx from 'clsx';
 
-import { FetchData, Option } from '@/features/SearchLocation/model/types';
+import { type FetchData, type Option } from '@/features/SearchLocation/model/types';
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick';
 import { Box, Button, SearchInput, Typography } from '@/shared/ui';
 import { Skeleton } from '@/shared/ui/Skeleton';

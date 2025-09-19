@@ -1,23 +1,21 @@
 'use client';
 
+import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { FC, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useIsMobile, useOutsideClick } from '@/shared/hooks';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
-import { selectValues, setAdults, setChildren } from '@/widgets/SearchForm';
 
 import styles from './GuestsField.module.scss';
-import { useIsMobile, useOutsideClick } from '@/shared/hooks';
 
 interface Props {
     className?: string;
 }
 
 export const GuestsField: FC<Props> = ({ className }) => {
-    const { adults, children } = useSelector(selectValues);
-    const dispatch = useDispatch();
+    const adults = 1;
+    const children = 1;
     const [isOpen, setIsOpen] = useState(false);
     const [applied, setApplied] = useState(false);
     const isMobile = useIsMobile(768);
@@ -36,7 +34,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={() => setIsOpen(v => !v)}
+                onClick={() => setIsOpen((v) => !v)}
                 fullWidth
             >
                 <Typography as="span" variant="h2">
@@ -45,10 +43,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
             </Button>
 
             {isOpen && (
-                <Box
-                    as="div"
-                    className={styles.panel}
-                >
+                <Box as="div" className={styles.panel}>
                     <div className={styles.row}>
                         <div className={styles.title}>
                             <Typography
@@ -65,9 +60,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                         </div>
                         <Counter
                             value={adults}
-                            onChange={(v) => {
-                                dispatch(setAdults(v));
-                            }}
+                            onChange={() => {}}
                             min={1}
                             max={10}
                             className={styles.count}
@@ -90,9 +83,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                         </div>
                         <Counter
                             value={children}
-                            onChange={(v) => {
-                                dispatch(setChildren(v));
-                            }}
+                            onChange={() => {}}
                             min={0}
                             max={10}
                             className={styles.count}

@@ -1,11 +1,12 @@
 'use client';
 
-import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
+import clsx from 'clsx';
 
 import { Box } from '../../Box';
 import { Button } from '../../Button';
 import { Typography } from '../../Typography';
+
 import styles from './Calendar.module.scss';
 
 export type Language = 'ru' | 'en';
@@ -190,7 +191,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         (monthDate: Date) => {
             const firstDay = getFirstDayOfMonth(monthDate);
             const daysInMonth = getDaysInMonth(monthDate);
-            const days: (Date | null)[] = [];
+            const days: Array<Date | null> = [];
 
             for (let i = 0; i < firstDay; i++) {
                 days.push(null);
@@ -209,7 +210,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     const secondMonthDays = generateCalendarDays(secondMonth);
     const weekdays = getWeekdays();
 
-    const renderMonth = (monthDate: Date, days: (Date | null)[], monthIndex: number) => (
+    const renderMonth = (monthDate: Date, days: Array<Date | null>, monthIndex: number) => (
         <div className={styles.monthContainer}>
             <div className={styles.monthHeader}>
                 {monthIndex === 0 && (
@@ -242,9 +243,9 @@ export const Calendar: React.FC<CalendarProps> = ({
             </div>
 
             <div className={styles.weekdaysRow}>
-                {weekdays.map((day, index) => (
+                {weekdays.map((day) => (
                     <Typography
-                        key={index}
+                        key={day}
                         variant={isMobile ? 'h2' : 'h4'}
                         className={styles.weekday}
                         color="blue"
@@ -255,9 +256,9 @@ export const Calendar: React.FC<CalendarProps> = ({
             </div>
 
             <div className={styles.calendarGrid}>
-                {days.map((date, index) => {
+                {days.map((date) => {
                     if (!date) {
-                        return <div key={index} className={styles.emptyDay} />;
+                        return <div key={date} className={styles.emptyDay} />;
                     }
 
                     const isSingleDay =
@@ -276,7 +277,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
                     return (
                         <button
-                            key={index}
+                            key={date.getDate()}
                             className={dayClasses}
                             onClick={() => handleDayClick(date)}
                             onMouseEnter={() => setHoverDate(date)}

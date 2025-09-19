@@ -1,7 +1,7 @@
-export type Option = {
-  name: string
-  city: string
-  id: number
+export interface Option {
+    name: string;
+    city: string;
+    id: number;
 }
 
-export type FetchData<T extends Option> = (query: string) => Promise<T[]>
+export type FetchData<T extends Option> = (query: string) => Promise<T[]>;

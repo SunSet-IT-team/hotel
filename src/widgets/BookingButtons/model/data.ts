@@ -1,4 +1,4 @@
-import { Item } from './types';
+import { type Item } from './types';
 
 /** Массив, по которому мапятся кнопки */
 export const items: Item[] = [

@@ -1,5 +1,3 @@
-import './styles/index.scss';
-
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -7,6 +5,8 @@ import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 
 import { Providers } from './providers';
+
+import './styles/index.scss';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     description: 'Бронирование отелей, авиабилетов, автомобилей и туров',
 };
 
-export default function RootLayout({
+const RootLayout = ({
     children,
 }: Readonly<{
     children: React.ReactNode;
-}>) {
+}>) => {
     return (
         <html lang="ru">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -39,4 +39,6 @@ export default function RootLayout({
             </body>
         </html>
     );
-}
+};
+
+export default RootLayout;

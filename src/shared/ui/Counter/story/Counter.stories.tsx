@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { Counter } from '../';
+import { Counter } from '..';
 
 const meta = {
     title: 'UI/Counter',

@@ -1,7 +1,7 @@
 'use client';
 
+import { type ChangeEvent, type FC, type InputHTMLAttributes, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { ChangeEvent, FC, InputHTMLAttributes, useRef, useState } from 'react';
 
 import defaultOptions, { type RangeSliderOptions } from '../config';
 import {
@@ -11,6 +11,7 @@ import {
     normalizeValue,
     validateValue,
 } from '../utils/functions';
+
 import styles from './RangeSlider.module.scss';
 
 interface Props

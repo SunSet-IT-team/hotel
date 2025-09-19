@@ -1,5 +1,5 @@
+import { createElement, type CSSProperties, type FC, type ReactNode } from 'react';
 import clsx from 'clsx';
-import { createElement, CSSProperties, FC, ReactNode } from 'react';
 
 import styles from './Typography.module.scss';
 

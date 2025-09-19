@@ -1,5 +1,5 @@
+import { type ComponentType } from 'react';
 import type { Decorator } from '@storybook/nextjs';
-import { ComponentType } from 'react';
 
 import styles from './WidthContainer.module.scss';
 

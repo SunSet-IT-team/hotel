@@ -2,8 +2,9 @@
 
 import clsx from 'clsx';
 
+import { type ButtonComponent, type DefaultButtonComponent, type Props } from '../model/types';
+
 import styles from './Button.module.scss';
-import { Props, ButtonComponent, DefaultButtonComponent } from '../model/types';
 
 /**
  * Компонент кнопки UI-кита

@@ -1,14 +1,15 @@
 'use client';
 
-import { FC } from 'react';
+import { type FC } from 'react';
 
+import { useIsMobile } from '@/shared/hooks';
 import { Container } from '@/shared/ui';
 import { Button } from '@/shared/ui/Button';
 import { Typography } from '@/shared/ui/Typography';
 
 import { items } from '../model/data';
+
 import styles from './BookingButtons.module.scss';
-import { useIsMobile } from '@/shared/hooks';
 
 interface Props {
     /** Дополнительный класс для стилей */

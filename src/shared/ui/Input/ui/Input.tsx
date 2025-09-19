@@ -1,7 +1,7 @@
 'use client';
 
+import { type FC, type InputHTMLAttributes } from 'react';
 import clsx from 'clsx';
-import { FC, InputHTMLAttributes } from 'react';
 
 import styles from './Input.module.scss';
 

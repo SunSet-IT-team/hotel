@@ -1,4 +1,4 @@
-import { ElementType, ComponentProps, JSX } from 'node_modules/@types/react';
+import { type ComponentProps, type ElementType, type JSX } from 'node_modules/@types/react';
 
 type AllHtmlTags = {
     [K in keyof JSX.IntrinsicElements]: K;
@@ -7,14 +7,17 @@ type AllHtmlTags = {
 /** Html-теги, которые поддерживает кнопка */
 type SupportedHtmlTags = AllHtmlTags['a' | 'button'];
 
-/** Html-теги, которые поддерживает кнопка + кастомные React компоненты */
+/**
+ * Html-теги, которые поддерживает кнопка + кастомные React компоненты
+ */
+/* eslint-disable */
 export type ButtonComponent = ElementType<any, SupportedHtmlTags>;
 
 /** Дефолтный тег, используемый кнопкой */
 export type DefaultButtonComponent = Extract<ButtonComponent, 'button'>;
 
 /** Специфичные пропсы именно для кнопки (независимые от тега в пропсе as) */
-export type BaseProps<T extends ButtonComponent = DefaultButtonComponent> = {
+export interface BaseProps<T extends ButtonComponent = DefaultButtonComponent> {
     /**
      * Вариация кнопки
      */
@@ -35,7 +38,7 @@ export type BaseProps<T extends ButtonComponent = DefaultButtonComponent> = {
      * @default "button"
      */
     as?: T;
-};
+}
 
 /** Тип пропсов для ui-компонента Button */
 export type Props<T extends ButtonComponent> = BaseProps<T> &

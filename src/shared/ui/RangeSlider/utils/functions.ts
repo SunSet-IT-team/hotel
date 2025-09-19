@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject } from 'react';
+import { type ChangeEvent, type RefObject } from 'react';
 
 /** Формула расчета положения тумблера input относительно всей беговой дорожки в % */
 export const calcThumbPosPercent = (value: number, min: number, max: number) => {
@@ -11,7 +11,7 @@ export const getInputs = (inputContainer: RefObject<HTMLDivElement | null>) =>
         | [HTMLInputElement, HTMLInputElement]
         | [];
 
-type ChangeActiveInputArgs = {
+interface ChangeActiveInputArgs {
     e: ChangeEvent<HTMLInputElement>;
     inputs: [HTMLInputElement, HTMLInputElement] | [];
     min: number;
@@ -19,7 +19,7 @@ type ChangeActiveInputArgs = {
     value: [number, number];
     step: number;
     styles: Record<string, string>;
-};
+}
 
 /** Добавление класса _active input элементу, если пользователь передвигает его ползунок */
 export const doChangeActiveInput = ({
@@ -53,13 +53,13 @@ export const validateValue = (min: number, max: number) => {
 export const getMaxValue = (min: number, max: number, step: number) =>
     min + Math.floor((max - min) / step) * step;
 
-type NormalizeValueArgs = {
+interface NormalizeValueArgs {
     min: number;
     max: number;
     value: [number, number];
     step: number;
     onChange: (val: [number, number]) => void;
-};
+}
 
 /** Нормализация значения текущего value под значения props (min,max,step).
  * PS: Случаи, когда min > max исключаяются - см. функцию [validateValue]

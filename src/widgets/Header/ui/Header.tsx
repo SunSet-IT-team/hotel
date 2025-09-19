@@ -1,11 +1,10 @@
 'use client';
 
+import { type FC } from 'react';
 import clsx from 'clsx';
-import { FC } from 'react';
 
 import { LogoIcon } from '@/shared/assets/img/LogoIcon';
-import { Typography } from '@/shared/ui';
-import { Container } from '@/shared/ui/';
+import { Container, Typography } from '@/shared/ui';
 
 import styles from './Header.module.scss';
 

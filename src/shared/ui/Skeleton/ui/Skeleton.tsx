@@ -1,7 +1,7 @@
 'use client';
 
+import { type FC } from 'react';
 import clsx from 'clsx';
-import { FC } from 'react';
 
 import styles from './Skeleton.module.scss';
 
@@ -27,6 +27,6 @@ export const Skeleton: FC<Props> = ({
                 height,
             }}
             className={clsx(styles.root, className, styles[variant])}
-        ></div>
+        />
     );
 };

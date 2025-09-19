@@ -17,10 +17,11 @@
  * - height?: number | string — высота кнопки по тем же правилам, что и width.
  */
 
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { CSSProperties, useEffect, useRef, useState } from 'react';
 
 import { Typography } from '../../Typography';
+
 import styles from './Select.module.scss';
 
 export interface SelectOption {
@@ -36,7 +37,7 @@ export interface SelectProps {
     height?: CSSProperties['height'];
 }
 
-export function Select({ options, onChange, className, width, height }: SelectProps) {
+export const Select = ({ options, onChange, className, width, height }: SelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string>('');
     const selectRef = useRef<HTMLDivElement>(null);
@@ -165,4 +166,4 @@ export function Select({ options, onChange, className, width, height }: SelectPr
             )}
         </div>
     );
-}
+};

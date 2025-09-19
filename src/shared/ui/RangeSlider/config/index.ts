@@ -1,14 +1,14 @@
-import { DeepRequired } from '@/shared/types/global.types';
+import { type DeepRequired } from '@/shared/types/global.types';
 
-type ThumbOptions = {
+interface ThumbOptions {
     visibleTime?: number;
     toggleVisible?: boolean;
-};
+}
 
-export type RangeSliderOptions = {
+export interface RangeSliderOptions {
     renderDisplayedValues?: (value: number, forDisplay: 'min' | 'max') => string;
     thumbs?: ThumbOptions;
-};
+}
 
 // Явный тип функции — будем переиспользовать в компоненте
 export type RenderDisplayedValues = NonNullable<RangeSliderOptions['renderDisplayedValues']>;

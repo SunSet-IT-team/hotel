@@ -1,4 +1,4 @@
-import { Option as BaseOption } from '../model/types';
+import { type Option as BaseOption } from '../model/types';
 
 type Option = {
     description: string;

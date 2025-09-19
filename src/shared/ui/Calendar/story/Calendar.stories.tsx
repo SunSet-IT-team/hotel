@@ -1,18 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
 import { useEffect, useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import type { DateRange } from '../ui/Calendar';
 import { Calendar } from '../ui/Calendar';
+
 import styles from './Calendar.stories.module.scss';
 
 type CalendarProps = React.ComponentProps<typeof Calendar>;
 
-type InteractiveArgs = {
+interface InteractiveArgs {
     language: CalendarProps['language'];
     initialStartDate: number | null;
     initialEndDate: number | null;
     className?: string;
-};
+}
 
 const meta: Meta<InteractiveArgs> = {
     title: 'UI/Calendar',

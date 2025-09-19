@@ -1,5 +1,5 @@
+import { type FC, type ReactNode } from 'react';
 import clsx from 'clsx';
-import { FC, ReactNode } from 'react';
 
 import styles from './Container.module.scss';
 

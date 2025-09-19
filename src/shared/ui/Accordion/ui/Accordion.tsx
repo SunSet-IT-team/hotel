@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import { Box } from '@/shared/ui/Box/ui/Box';
 import { Button } from '@/shared/ui/Button';
@@ -8,7 +8,7 @@ import { Typography } from '@/shared/ui/Typography';
 
 import styles from './Accordion.module.scss';
 
-type AccordionProps = {
+interface AccordionProps {
     /** Заголовок секции */
     title: string | ReactNode;
     /** Контент секции */
@@ -17,7 +17,7 @@ type AccordionProps = {
     defaultOpen?: boolean;
     /** Дополнительный класс */
     className?: string;
-};
+}
 
 export const Accordion = ({ title, children, className = '' }: AccordionProps) => {
     const [open, setOpen] = useState(false);
@@ -51,9 +51,9 @@ export const Accordion = ({ title, children, className = '' }: AccordionProps) =
 
                 {open && (
                     <div className={styles.content}>
-                        {(Array.isArray(children) ? children : [children]).map((child, idx) => (
+                        {(Array.isArray(children) ? children : [children]).map((child) => (
                             <Typography
-                                key={idx}
+                                key={child?.toString()}
                                 as="p"
                                 variant="h3"
                                 color="blue"

@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import React from 'react';
+import Image from 'next/image';
 
 import HeaderBg from '@/shared/assets/img/header-bg.png';
 import { BookingButtons } from '@/widgets/BookingButtons';
@@ -28,5 +28,3 @@ export const MainPage: React.FC = () => {
         </main>
     );
 };
-
-
