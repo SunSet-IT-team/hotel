@@ -10,7 +10,7 @@
 .bookingButtons {
     margin-top: 50px;
 
-    @media (max-width: #{$sm+px}) {
+    @media (max-width: #{$md+px}) {
         margin-top: 0;
         background-color: var(--color-primary-blue);
     }
@@ -52,7 +52,7 @@
         object-position: 80% center;
     }
 
-    @media (max-width: #{$sm+px}) {
+    @media (max-width: #{$md+px}) {
         padding-top: 117px;
         background-color: var(--color-primary-blue);
 

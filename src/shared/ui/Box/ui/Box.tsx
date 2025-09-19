@@ -52,12 +52,15 @@ export const Box: FC<BoxProps> = ({
     const resolvedPaddingLeft = paddingLeft ?? padding ?? 8;
 
     const boxStyle: CSSProperties = {
-        paddingTop: resolvedPaddingTop,
-        paddingRight: resolvedPaddingRight,
-        paddingBottom: resolvedPaddingBottom,
-        paddingLeft: resolvedPaddingLeft,
-        ...(flexDirection ? { display: 'flex', flexDirection } : {}),
-    };
+        '--padding-top': `${resolvedPaddingTop}px`,
+        '--padding-right': `${resolvedPaddingRight}px`,
+        '--padding-bottom': `${resolvedPaddingBottom}px`,
+        '--padding-left': `${resolvedPaddingLeft}px`,
+        ...(flexDirection && {
+            '--display': 'flex',
+            '--flex-direction': flexDirection,
+        }),
+    } as CSSProperties;
 
     const boxClasses = clsx(styles.box, className);
 

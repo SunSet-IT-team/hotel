@@ -2,7 +2,6 @@
 
 import { FC, useRef, useState } from 'react';
 
-import { useIsMobile } from '@/shared/hooks/useMediaQuery';
 import { Button, Calendar, Input, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box';
 import type { DateRange as DateRangeType } from '@/shared/ui/Calendar';
@@ -20,7 +19,6 @@ interface Props {
 
 export const DateRange: FC<Props> = ({ onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const isMobile = useIsMobile(768);
 
     const [selectedRange, setSelectedRange] = useState<DateRangeType>({
         startDate: null,
@@ -36,7 +34,7 @@ export const DateRange: FC<Props> = ({ onChange, className }) => {
         : formatDateRuShort(selectedRange.endDate);
 
     const handleOpenCalendar = () => {
-        setIsOpen(!isOpen);
+        setIsOpen((v) => !v);
     };
 
     const handleDateRangeChange = (dateRange: DateRangeType) => {
@@ -76,13 +74,7 @@ export const DateRange: FC<Props> = ({ onChange, className }) => {
                 </Typography>
             </Button>
             {isOpen && (
-                <Box
-                    paddingLeft={isMobile ? 30 : 25}
-                    paddingRight={isMobile ? 19 : 25}
-                    paddingTop={isMobile ? 22 : 19}
-                    paddingBottom={isMobile ? 14 : 19}
-                    className={styles.panel}
-                >
+                <Box className={styles.panel}>
                     <Calendar
                         // key={`${checkIn}-${checkOut}`}
                         language="ru"
