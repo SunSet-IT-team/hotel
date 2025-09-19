@@ -1,0 +1,57 @@
+@use "../../shared/assets/styles/variables.module" as *;
+
+.root {
+  position: relative;
+  display: flex;
+  gap: inherit;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  height: 100%;
+  flex: 1 1 auto;
+  border-radius: 24px;
+
+  @media (max-width: #{$md+px}) {
+    & {
+      border-radius: 12px;
+    }
+  }
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  padding: 19px 25px;
+  background: var(--color-primary-white);
+  width: 100%;
+
+  @media (max-width: 1226px) {
+    & {
+      left: 0;
+      transform: translateX(-47%);
+    }
+  }
+
+  @media (max-width: #{$md+px}) {
+    & {
+      max-width: 351px;
+      padding: 15px 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.calendar {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
