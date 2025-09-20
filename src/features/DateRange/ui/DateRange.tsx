@@ -10,36 +10,41 @@ import type { DateRange as DateRangeType } from '@/shared/ui/Calendar';
 import { formatDateRuShort } from '@/shared/utils/date/formatDate';
 
 import styles from './DateRange.module.scss';
+import { ISODate } from '@/shared/types/global.types';
+import { normalizeDate } from '@/shared/utils/date/normalizeDate';
+import { toISODate } from '@/shared/utils/date/isoDate';
 
 interface Props {
+    /** Значение из вне в ISO формате */
+    value: DateRangeType<ISODate>;
+
+    onChange: (value: DateRangeType<ISODate>) => void;
+
+    /** Дополнительные классы для стилей */
     className?: string;
-    /* eslint-disable */
-    onChange?: (value: any) => void;
 }
 
-export const DateRange: FC<Props> = ({ onChange, className }) => {
+export const DateRange: FC<Props> = ({ value, onChange, className }) => {
+    const { startDate, endDate } = {
+        startDate: value.startDate ? normalizeDate(value.startDate) : null,
+        endDate: value.endDate ? normalizeDate(value.endDate) : null,
+    };
+
     const [isOpen, setIsOpen] = useState(false);
 
-    const [selectedRange, setSelectedRange] = useState<DateRangeType>({
-        startDate: null,
-        endDate: null,
-    });
+    const startDateLabel = !startDate ? 'Дата заезда' : formatDateRuShort(startDate);
 
-    const startDateLabel = !selectedRange.startDate
-        ? 'Дата заезда'
-        : formatDateRuShort(selectedRange.startDate);
-
-    const endDateLabel = !selectedRange.endDate
-        ? 'Дата выезда'
-        : formatDateRuShort(selectedRange.endDate);
+    const endDateLabel = !endDate ? 'Дата выезда' : formatDateRuShort(endDate);
 
     const handleOpenCalendar = () => {
         setIsOpen((v) => !v);
     };
 
-    const handleDateRangeChange = (dateRange: DateRangeType) => {
-        setSelectedRange(dateRange);
-        onChange?.(dateRange);
+    const handleDateRangeChange = ({ startDate, endDate }: DateRangeType) => {
+        onChange({
+            startDate: startDate && toISODate(startDate),
+            endDate: endDate && toISODate(endDate),
+        });
         setIsOpen(false);
     };
 
@@ -76,9 +81,8 @@ export const DateRange: FC<Props> = ({ onChange, className }) => {
             {isOpen && (
                 <Box className={styles.panel}>
                     <Calendar
-                        // key={`${checkIn}-${checkOut}`}
                         language="ru"
-                        value={selectedRange}
+                        value={{ startDate, endDate }}
                         onChange={handleDateRangeChange}
                         className={styles.calendar}
                     />

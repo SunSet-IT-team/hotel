@@ -8,19 +8,29 @@ import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
 
 import styles from './GuestsField.module.scss';
+import { GuestsFieldValue } from '../model/types';
 
 interface Props {
+    /** Дополнительные классы для стилей */
     className?: string;
+
+    value: GuestsFieldValue;
+
+    /** Функция, вызываемая при изменении значения компонента */
+    onChange: (value: GuestsFieldValue) => void;
 }
 
-export const GuestsField: FC<Props> = ({ className }) => {
-    const adults = 1;
-    const children = 1;
+/**
+ * Компонент формы поиска на главной странице.
+ * Позволяет выбрать число взрослых и детей для поездки.
+ */
+export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
+    const [adultsCount, childrenCount] = value;
     const [isOpen, setIsOpen] = useState(false);
-    const [applied, setApplied] = useState(false);
+    const [applied, setApplied] = useState(value[0] !== 0 || value[1] !== 0);
     const isMobile = useIsMobile(768);
 
-    const label = !applied ? 'Кол-во гостей' : `${adults} взрос. ${children} реб.`;
+    const label = !applied ? 'Кол-во гостей' : `${adultsCount} взрос. ${childrenCount} реб.`;
 
     const rootRef = useRef<HTMLDivElement>(null);
     useOutsideClick(rootRef, () => {
@@ -59,8 +69,10 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             </Typography>
                         </div>
                         <Counter
-                            value={adults}
-                            onChange={() => {}}
+                            value={adultsCount}
+                            onChange={(v) => {
+                                onChange([v, childrenCount]);
+                            }}
                             min={1}
                             max={10}
                             className={styles.count}
@@ -82,8 +94,10 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             </Typography>
                         </div>
                         <Counter
-                            value={children}
-                            onChange={() => {}}
+                            value={childrenCount}
+                            onChange={(v) => {
+                                onChange([adultsCount, v]);
+                            }}
                             min={0}
                             max={10}
                             className={styles.count}

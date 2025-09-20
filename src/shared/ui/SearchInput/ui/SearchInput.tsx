@@ -6,6 +6,8 @@ import { Input, type InputProps } from '../../Input';
 import useInputDebounce from '../hooks/useInputDebounce';
 
 export interface Props<T> extends Omit<InputProps, 'value' | 'onChange'> {
+    value: string;
+    onChange: (value: string) => void;
     fetchData: (query: string) => Promise<T[]>;
     onData: (results: T[]) => void;
     delay?: number;
@@ -16,6 +18,8 @@ export interface Props<T> extends Omit<InputProps, 'value' | 'onChange'> {
 
 /** Базовый компонент input-поиска без меню с результатами */
 export const SearchInput = <T,>({
+    value,
+    onChange,
     fetchData,
     onData,
     delay = 500,
@@ -24,10 +28,8 @@ export const SearchInput = <T,>({
     onLoadingChange,
     ...rest
 }: Props<T>) => {
-    const [queryString, setQueryString] = useState('');
-
     useInputDebounce<T>({
-        queryString,
+        queryString: value,
         fetchData,
         onLoadingChange,
         onData,
@@ -39,8 +41,8 @@ export const SearchInput = <T,>({
     return (
         <Input
             {...rest} // сюда попадут и className, и onClick, и любые другие пропсы из InputProps
-            value={queryString}
-            onChange={(e) => setQueryString(e.target.value)}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
         />
     );
 };

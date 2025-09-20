@@ -27,6 +27,10 @@ export const useMediaQuery = (query: string, serverValue = false) => {
     );
 };
 
-export const useIsMobile = (maxWidth = 768) => {
+/**
+ * Медиа запрос, реализующий useMediaQuery
+ * @param maxWidth ширина экрана, при которой мы ожидаем получить true от хука. (по умолчанию - 768)
+ */
+export const useIsMobile = (maxWidth: number = 768) => {
     return useMediaQuery(`(max-width: ${maxWidth}px)`);
 };
