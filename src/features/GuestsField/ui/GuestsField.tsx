@@ -47,7 +47,7 @@ export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
                 onClick={() => setIsOpen((v) => !v)}
                 fullWidth
             >
-                <Typography as="span" variant="h2">
+                <Typography as="span" variant="h2" color="inherit">
                     {label}
                 </Typography>
             </Button>

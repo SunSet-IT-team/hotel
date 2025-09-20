@@ -62,7 +62,7 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                 className={styles.trigger}
                 onClick={handleOpenCalendar}
             >
-                <Typography as="span" variant="h2" color="dark">
+                <Typography as="span" variant="h2" color="inherit">
                     {startDateLabel}
                 </Typography>
             </Button>
@@ -74,7 +74,7 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                 className={styles.trigger}
                 onClick={handleOpenCalendar}
             >
-                <Typography as="span" variant="h2" color="dark">
+                <Typography as="span" variant="h2" color="inherit">
                     {endDateLabel}
                 </Typography>
             </Button>
