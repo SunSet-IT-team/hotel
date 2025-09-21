@@ -87,37 +87,16 @@ jobs:
                       echo "HEAD: $(git rev-parse --short HEAD)"
                       echo "::endgroup::"
 
-                      echo "::group::Free occupied ports"
-                      for P in $PORTS; do
-                        CID=$(docker ps --filter "publish=$P" --format '{{.ID}}' | xargs -r echo)
-                        if [ -n "$CID" ]; then
-                          echo "Stopping container(s) using port $P: $CID"
-                          docker stop $CID || true
-                          docker rm -f $CID || true
-                        fi
-                      done
-                      echo "::endgroup::"
-
                       echo "::group::Cleanup old project resources"
-                      # Полная очистка всех ресурсов проекта
-                      docker compose -p "$PROJECT" down --remove-orphans || true
-                      docker volume ls -q --filter "name=$PROJECT" | xargs -r docker volume rm -f || true
-
-                      # Дополнительная очистка volumes
-                      docker volume ls -q --filter "name=$PROJECT" | xargs -r docker volume rm -f || true
-
-                      # Очищаем dangling resources
-                      docker system prune -af --volumes
+                      docker compose -p "$PROJECT" down -v1
                       echo "::endgroup::"
 
                       echo "::group::Build without cache"
-                      # Сборка без кэша для чистого состояния
-                      docker compose -p "$PROJECT" build --no-cache --pull
+                      docker compose -p "$PROJECT" build --no-cache
                       echo "::endgroup::"
 
                       echo "::group::Start services"
-                      docker compose -p "$PROJECT" up -d --remove-orphans --force-recreate $SERVICES
-                      sleep 5
+                      docker compose -p "$PROJECT" up -d
                       docker compose -p "$PROJECT" ps
                       echo "::endgroup::"
 
