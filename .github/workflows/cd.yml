@@ -88,7 +88,7 @@ jobs:
                       echo "::endgroup::"
 
                       echo "::group::Cleanup old project resources"
-                      docker compose -p "$PROJECT" down -v1
+                      docker compose -p "$PROJECT" down -v
                       echo "::endgroup::"
 
                       echo "::group::Build without cache"
