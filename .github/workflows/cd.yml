@@ -100,7 +100,8 @@ jobs:
 
                       echo "::group::Cleanup old project resources"
                       # Полная очистка всех ресурсов проекта
-                      docker compose -p "$PROJECT" down --volumes --rmi all --remove-orphans || true
+                      docker compose -p "$PROJECT" down --remove-orphans || true
+                      docker volume ls -q --filter "name=$PROJECT" | xargs -r docker volume rm -f || true
 
                       # Дополнительная очистка volumes
                       docker volume ls -q --filter "name=$PROJECT" | xargs -r docker volume rm -f || true
