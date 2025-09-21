@@ -1,81 +1,61 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import type { Destination, ISODate, SearchFormState, SearchFormValues } from './types';
+import type { DateRange, Destination } from './types';
+import { GuestsFieldValue } from '@/features/GuestsField';
 
-const initialValues: SearchFormValues = {
-    query: '',
-    destination: null,
-    checkIn: null,
-    checkOut: null,
-    adults: 2,
-    children: 0,
-};
+export interface SearchFormSlice {
+    values: {
+        /** Запрос в поисковой строке */
+        query?: string;
 
-const initialState: SearchFormState = {
-    values: initialValues,
+        /** Выбранный пункт в меню выбра города/отеля */
+        destination?: Destination | null;
+
+        /** Дата заезда/Дата выезда */
+        dateRange?: DateRange;
+
+        /** Количество взрослых/детей */
+        peoplesCount?: GuestsFieldValue;
+    };
+    isSubmitting: boolean;
+}
+
+const initialState: SearchFormSlice = {
+    values: {},
     isSubmitting: false,
 };
 
-const slice = createSlice({
+const searchFormSlice = createSlice({
     name: 'searchForm',
     initialState,
     reducers: {
-        init(state, { payload }: PayloadAction<Partial<SearchFormValues> | undefined>) {
-            state.values = { ...initialValues, ...(payload || {}) };
-            state.isSubmitting = false;
-        },
         reset(state) {
-            state.values = initialValues;
+            state.values = initialState.values;
             state.isSubmitting = false;
         },
 
-        // 1) Город/страна
         setQuery(state, { payload }: PayloadAction<string>) {
             state.values.query = payload;
         },
+
         setDestination(state, { payload }: PayloadAction<Destination>) {
             state.values.destination = payload;
-            if (payload?.label) state.values.query = payload.label;
+            if (payload.name) state.values.query = payload.name;
         },
 
-        // 2–3) Даты с ISODate
-        setCheckIn(state, { payload }: PayloadAction<ISODate | null>) {
-            state.values.checkIn = payload;
-            const { checkOut } = state.values;
-            if (payload && checkOut && new Date(checkOut) <= new Date(payload)) {
-                state.values.checkOut = null; // защита: выезд не может быть раньше/равен заезду
+        setDateRange(state, { payload }: PayloadAction<DateRange>) {
+            let { startDate, endDate } = payload;
+
+            // простая валидация: если endDate < startDate, сбрасываем endDate
+            if (startDate && endDate && endDate < startDate) {
+                endDate = null;
             }
-        },
-        setCheckOut(state, { payload }: PayloadAction<ISODate | null>) {
-            state.values.checkOut = payload;
-        },
-        setDates(
-            state,
-            { payload }: PayloadAction<{ checkIn: ISODate | null; checkOut: ISODate | null }>,
-        ) {
-            state.values.checkIn = payload.checkIn;
-            state.values.checkOut = payload.checkOut;
+
+            state.values.dateRange = { startDate, endDate };
         },
 
-        // 4) Гости
-        setAdults(state, { payload }: PayloadAction<number>) {
-            state.values.adults = Math.max(1, Math.floor(payload) || 1);
-        },
-        incAdults(state) {
-            state.values.adults = Math.max(1, state.values.adults + 1);
-        },
-        decAdults(state) {
-            state.values.adults = Math.max(1, state.values.adults - 1);
-        },
-
-        setChildren(state, { payload }: PayloadAction<number>) {
-            state.values.children = Math.max(0, Math.floor(payload) || 0);
-        },
-        incChildren(state) {
-            state.values.children = Math.max(0, state.values.children + 1);
-        },
-        decChildren(state) {
-            state.values.children = Math.max(0, state.values.children - 1);
+        setPeoplesCount(state, { payload }: PayloadAction<GuestsFieldValue>) {
+            state.values.peoplesCount = payload;
         },
 
         setSubmitting(state, { payload }: PayloadAction<boolean>) {
@@ -84,21 +64,7 @@ const slice = createSlice({
     },
 });
 
-export const {
-    init,
-    reset,
-    setQuery,
-    setDestination,
-    setCheckIn,
-    setCheckOut,
-    setDates,
-    setAdults,
-    incAdults,
-    decAdults,
-    setChildren,
-    incChildren,
-    decChildren,
-    setSubmitting,
-} = slice.actions;
+export const { reset, setQuery, setDestination, setDateRange, setPeoplesCount, setSubmitting } =
+    searchFormSlice.actions;
 
-export const searchFormReducer = slice.reducer;
+export const searchFormReducer = searchFormSlice.reducer;

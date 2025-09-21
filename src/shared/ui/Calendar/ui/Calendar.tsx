@@ -8,13 +8,7 @@ import { Button } from '../../Button';
 import { Typography } from '../../Typography';
 
 import styles from './Calendar.module.scss';
-
-export type Language = 'ru' | 'en';
-
-export interface DateRange {
-    startDate: Date | null;
-    endDate: Date | null;
-}
+import { DateRange, Language } from '../model/types';
 
 export interface CalendarProps {
     /** Язык интерфейса */
@@ -66,6 +60,7 @@ const localization = {
     },
 };
 
+/** Компонент UI-кита календаря для выбора диапозона дат. */
 export const Calendar: React.FC<CalendarProps> = ({
     language = 'ru',
     value,
@@ -256,9 +251,9 @@ export const Calendar: React.FC<CalendarProps> = ({
             </div>
 
             <div className={styles.calendarGrid}>
-                {days.map((date) => {
+                {days.map((date, i, arr) => {
                     if (!date) {
-                        return <div key={date} className={styles.emptyDay} />;
+                        return <div key={`${arr[i - 1]}_${i}`} className={styles.emptyDay} />;
                     }
 
                     const isSingleDay =

@@ -11,20 +11,43 @@ import { Skeleton } from '@/shared/ui/Skeleton';
 import styles from './SearchLocation.module.scss';
 
 interface Props<T extends Option> {
+    /** Функция, для получения отфильтрованных значений от Api */
     fetchData: FetchData<T>;
-    onSelect?: (option: T) => void;
+
+    /** Значение input-компонента панели поиска */
+    value: string;
+
+    /** Событие изменения значения у input поиска */
+    onChange: (value: string) => void;
+
+    /** Стартовые пункты поисковых результатов меню */
+    options?: T[];
+
+    /** Событие выбора ползователем одного из поисковых результатов меню */
+    onSelect: (option: T) => void;
+
+    /** Дополнительные классы для стилей */
     className?: string;
+
+    /** Изначальный текст в пустом инпуте */
     placeholder?: string;
 }
 
+/**
+ * Компонент формы поиска на главной странице.
+ * Позволяет получить из Api на выбор 3 варианта города/отеля по поисковому запросу.
+ */
 export const SearchLocation = <T extends Option>({
+    value,
+    onChange,
     onSelect,
     fetchData,
+    options = [],
     className,
     placeholder,
 }: Props<T>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [responseData, setResponseData] = useState<T[]>([]);
+    const [responseData, setResponseData] = useState<T[]>(options);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const rootRef = useRef<HTMLDivElement>(null);
@@ -38,6 +61,8 @@ export const SearchLocation = <T extends Option>({
     return (
         <div className={clsx(styles.root, className)} ref={rootRef}>
             <SearchInput
+                value={value}
+                onChange={onChange}
                 fetchData={fetchData}
                 onData={setResponseData}
                 className={styles.searchInput}
@@ -68,7 +93,10 @@ export const SearchLocation = <T extends Option>({
                                         styles.searchMenu__resultOption,
                                         styles.resultOption,
                                     )}
-                                    onClick={() => onSelect?.(item)}
+                                    onClick={() => {
+                                        onSelect?.(item);
+                                        setIsOpen(false);
+                                    }}
                                     fullWidth
                                 >
                                     <Typography as="span" color="white" variant="h2">
