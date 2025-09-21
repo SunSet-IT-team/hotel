@@ -6,9 +6,9 @@ import clsx from 'clsx';
 import { Box } from '../../Box';
 import { Button } from '../../Button';
 import { Typography } from '../../Typography';
+import { type DateRange, type Language } from '../model/types';
 
 import styles from './Calendar.module.scss';
-import { DateRange, Language } from '../model/types';
 
 export interface CalendarProps {
     /** Язык интерфейса */
@@ -251,9 +251,17 @@ export const Calendar: React.FC<CalendarProps> = ({
             </div>
 
             <div className={styles.calendarGrid}>
-                {days.map((date, i, arr) => {
+                {days.map((date, i) => {
                     if (!date) {
-                        return <div key={`${arr[i - 1]}_${i}`} className={styles.emptyDay} />;
+                        // Create a unique key based on the position in the calendar grid
+                        const weekIndex = Math.floor(i / 7);
+                        const dayIndex = i % 7;
+                        return (
+                            <div
+                                key={`empty_${firstMonth.getTime()}_${weekIndex}_${dayIndex}`}
+                                className={styles.emptyDay}
+                            />
+                        );
                     }
 
                     const isSingleDay =
@@ -272,7 +280,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
                     return (
                         <button
-                            key={date.getDate()}
+                            key={`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`}
                             className={dayClasses}
                             onClick={() => handleDayClick(date)}
                             onMouseEnter={() => setHoverDate(date)}

@@ -1,5 +1,3 @@
-import { AppDispatch, RootState } from '@/app/store';
-
 // Делает все поля обязательными РЕКУРСИВНО и выбрасывает `undefined` из опциональных
 type _DeepRequired<T> =
     // функции не трогаем
@@ -24,14 +22,5 @@ export type Prettify<T> = T extends (...args: unknown[]) => unknown
 
 /** Версия утилитарного типа Required, работающая для вложенных типов */
 export type DeepRequired<T> = Prettify<_DeepRequired<T>>;
-
-/**
- * Базовые параметры ReduxThunk
- */
-export type AppThunkParams = {
-    dispatch: AppDispatch;
-    state: RootState;
-    rejectValue: string; // Тип для rejectWithValue
-};
 
 export type ISODate = string & { readonly __brand: 'ISODate' };

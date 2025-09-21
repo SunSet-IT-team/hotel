@@ -7,8 +7,9 @@ import { useIsMobile, useOutsideClick } from '@/shared/hooks';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
 
+import { type GuestsFieldValue } from '../model/types';
+
 import styles from './GuestsField.module.scss';
-import { GuestsFieldValue } from '../model/types';
 
 interface Props {
     /** Дополнительные классы для стилей */

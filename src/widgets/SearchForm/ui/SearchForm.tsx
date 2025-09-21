@@ -1,28 +1,22 @@
 'use client';
 
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import clsx from 'clsx';
+import z from 'zod';
 
-import { GuestsField } from '@/features/GuestsField';
 import { DateRange } from '@/features/DateRange';
-import { type Option as SearchLacationOption, SearchLocation } from '@/features/SearchLocation';
+import { GuestsField } from '@/features/GuestsField';
+import { SearchLocation } from '@/features/SearchLocation';
+import { useAppDispatch, useAppSelector } from '@/shared/hooks';
+import { fetchMockData1 } from '@/shared/mocks/searchLocation';
+import { type ISODate } from '@/shared/types/global.types';
 import { Button, Container, Typography } from '@/shared/ui';
+import { type DateRange as DateRangeType } from '@/shared/ui/Calendar';
+
+import { setDateRange, setDestination, setPeoplesCount, setQuery } from '../model';
+import { type FormData, formDataSchema } from '../model/shema';
 
 import styles from './SearchForm.module.scss';
-import { DateRange as DateRangeType } from '@/shared/ui/Calendar';
-import { useAppDispatch, useAppSelector } from '@/shared/hooks';
-import { setDateRange, setDestination, setPeoplesCount, setQuery } from '../model';
-import { FormData, formDataSchema } from '../model/shema';
-import z from 'zod';
-import { ISODate } from '@/shared/types/global.types';
-
-export const fetchMockData1 = (): Promise<SearchLacationOption[]> => {
-    // Можно добавить фильтрацию по query, если нужно
-    return Promise.resolve([
-        { id: 1, name: 'Москва', city: 'Россия' },
-        { id: 2, name: 'Санкт-Петербург', city: 'Россия' },
-    ]);
-};
 
 const defaultValues: FormData = {
     query: '',
@@ -36,7 +30,7 @@ const defaultValues: FormData = {
 
 /** Форма поиска под Header */
 export const SearchForm: FC = () => {
-    const [isShowErrors, setIsShowErrors] = useState(true);
+    const [isShowErrors, _setIsShowErrors] = useState(true);
 
     const userFormData = useAppSelector((state) => state.searchForm.values);
     const dispatch = useAppDispatch();
@@ -49,20 +43,20 @@ export const SearchForm: FC = () => {
     const validate = () => {
         const res = formDataSchema.safeParse(formData);
         if (res.success) return undefined;
-        else return z.treeifyError(res.error);
+        return z.treeifyError(res.error);
     };
 
     const errors = isShowErrors ? validate() : undefined;
 
     if (errors && errors.properties) {
-        console.log(
+        console.warn(
             errors.properties.query?.errors.join(' '),
             errors.properties.destination?.errors.join(' '),
             errors.properties.dateRange?.errors.join(' '),
             errors.properties.peoplesCount?.items?.[0]?.errors,
         );
     } else {
-        console.log('Ошибок нет!');
+        console.info('Ошибок нет!');
     }
 
     return (
