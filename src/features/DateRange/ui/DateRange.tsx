@@ -4,15 +4,15 @@ import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import { useOutsideClick } from '@/shared/hooks';
+import { type ISODate } from '@/shared/types/global.types';
 import { Button, Calendar, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box';
 import type { DateRange as DateRangeType } from '@/shared/ui/Calendar';
 import { formatDateRuShort } from '@/shared/utils/date/formatDate';
+import { toISODate } from '@/shared/utils/date/isoDate';
+import { normalizeDate } from '@/shared/utils/date/normalizeDate';
 
 import styles from './DateRange.module.scss';
-import { ISODate } from '@/shared/types/global.types';
-import { normalizeDate } from '@/shared/utils/date/normalizeDate';
-import { toISODate } from '@/shared/utils/date/isoDate';
 
 interface Props {
     /** Значение из вне в ISO формате */

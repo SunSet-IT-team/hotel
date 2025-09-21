@@ -1,7 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+import { type GuestsFieldValue } from '@/features/GuestsField';
+
 import type { DateRange, Destination } from './types';
-import { GuestsFieldValue } from '@/features/GuestsField';
 
 export interface SearchFormSlice {
     values: {
@@ -44,7 +45,8 @@ const searchFormSlice = createSlice({
         },
 
         setDateRange(state, { payload }: PayloadAction<DateRange>) {
-            let { startDate, endDate } = payload;
+            const { startDate } = payload;
+            let { endDate } = payload;
 
             // простая валидация: если endDate < startDate, сбрасываем endDate
             if (startDate && endDate && endDate < startDate) {

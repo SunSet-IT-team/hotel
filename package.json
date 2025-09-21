@@ -12,8 +12,7 @@
         "format": "prettier --write .",
         "type:check": "tsc --noEmit",
         "prebuild": "pnpm lint && pnpm type:check",
-        "prepare": "husky",
-        "postinstall": "husky install"
+        "prepare": "husky"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^2.9.0",
@@ -35,10 +34,14 @@
         "@types/react-dom": "^19",
         "@types/react-redux": "^7.1.34",
         "@types/storybook__react": "^5.2.1",
+        "@typescript-eslint/parser": "^8.44.0",
         "eslint": "^9",
         "eslint-config-next": "15.5.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-jsx-a11y": "^6.10.2",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "eslint-plugin-storybook": "9.1.3",
         "eslint-plugin-unused-imports": "^4.2.0",

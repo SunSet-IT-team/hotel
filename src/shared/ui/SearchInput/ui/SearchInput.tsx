@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import { Input, type InputProps } from '../../Input';
 import useInputDebounce from '../hooks/useInputDebounce';
 

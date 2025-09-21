@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import type { DateRange } from '../ui/Calendar';
+import { type DateRange } from '../model/types';
 import { Calendar } from '../ui/Calendar';
 
 import styles from './Calendar.stories.module.scss';

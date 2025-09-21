@@ -1,4 +1,4 @@
-import { ISODate } from '@/shared/types/global.types';
+import { type ISODate } from '@/shared/types/global.types';
 
 export const toISODate = (d: Date | string): ISODate => {
     const date = typeof d === 'string' ? new Date(d) : d;
