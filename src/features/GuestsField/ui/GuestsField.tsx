@@ -26,12 +26,11 @@ interface Props {
  * Позволяет выбрать число взрослых и детей для поездки.
  */
 export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
-    const [adultsCount, childrenCount] = value;
     const [isOpen, setIsOpen] = useState(false);
-    const [applied, setApplied] = useState(value[0] !== 0 || value[1] !== 0);
+    const [applied, setApplied] = useState(value.adults !== 0 || value.children !== 0);
     const isMobile = useIsMobile(768);
 
-    const label = !applied ? 'Кол-во гостей' : `${adultsCount} взрос. ${childrenCount} реб.`;
+    const label = !applied ? 'Кол-во гостей' : `${value.adults} взрос. ${value.children} реб.`;
 
     const rootRef = useRef<HTMLDivElement>(null);
     useOutsideClick(rootRef, () => {
@@ -70,9 +69,9 @@ export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
                             </Typography>
                         </div>
                         <Counter
-                            value={adultsCount}
+                            value={value.adults}
                             onChange={(v) => {
-                                onChange([v, childrenCount]);
+                                onChange({ adults: v, children: value.children });
                             }}
                             min={1}
                             max={10}
@@ -95,9 +94,9 @@ export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
                             </Typography>
                         </div>
                         <Counter
-                            value={childrenCount}
+                            value={value.children}
                             onChange={(v) => {
-                                onChange([adultsCount, v]);
+                                onChange({ adults: value.adults, children: v });
                             }}
                             min={0}
                             max={10}

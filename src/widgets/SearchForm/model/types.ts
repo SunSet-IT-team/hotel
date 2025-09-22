@@ -11,3 +11,14 @@ export interface DateRange {
 }
 
 type RangeDate = ISODate | null;
+
+// Данные формы поиска (согласованы со стейтом и UI-компонентами)
+export interface FormData {
+    query: string;
+    destination: Destination | null;
+    dateRange: DateRange;
+    peoplesCount: {
+        adults: number;
+        children: number;
+    };
+}

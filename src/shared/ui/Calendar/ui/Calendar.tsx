@@ -211,6 +211,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                 {monthIndex === 0 && (
                     <button
                         className={clsx(styles.navButton, styles.navButtonLeft)}
+                        type="button"
                         onClick={goToPreviousMonth}
                         aria-label="Previous month"
                     >
@@ -229,6 +230,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                 {monthIndex === 1 && (
                     <button
                         className={clsx(styles.navButton, styles.navButtonRight)}
+                        type="button"
                         onClick={goToNextMonth}
                         aria-label="Next month"
                     >
@@ -282,6 +284,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                         <button
                             key={`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`}
                             className={dayClasses}
+                            type="button"
                             onClick={() => handleDayClick(date)}
                             onMouseEnter={() => setHoverDate(date)}
                             onMouseLeave={() => setHoverDate(null)}

@@ -1,4 +1,4 @@
-@use '../../../shared/assets/styles/index' as *;
+@use '../../../../shared/assets/styles/index' as *;
 
 /* Базовые стили для MainPage */
 .mainPage {
@@ -60,4 +60,27 @@
             display: none;
         }
     }
+}
+
+.content {
+    padding: 2rem 0;
+}
+
+.params {
+    margin-bottom: 2rem;
+}
+
+.paramsBox {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+}
+
+.urlBox {
+    background: #e8f4fd;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    word-break: break-all;
 }
