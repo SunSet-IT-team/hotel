@@ -79,7 +79,13 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                 </Typography>
             </Button>
             {isOpen && (
-                <Box className={styles.panel}>
+                <Box
+                    className={styles.panel}
+                    paddingTop={0}
+                    paddingRight={0}
+                    paddingBottom={0}
+                    paddingLeft={0}
+                >
                     <Calendar
                         language="ru"
                         value={{ startDate, endDate }}

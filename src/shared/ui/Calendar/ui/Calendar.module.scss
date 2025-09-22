@@ -1,10 +1,10 @@
 @use '../../../assets/styles/variables.module' as *;
+@use '../../../assets/styles/mixins' as *;
 
 .calendar {
     background: $color-primary-white;
-    border-radius: 16px;
-    max-width: 894px;
-    min-width: 351px;
+    border-radius: 24px;
+    // @include magicAdapt('max-width', 894, 351, 1920, 430);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -22,11 +22,11 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 19px;
+    @include magicAdapt('gap', 19, 12, 1920, 430);
 
     &:nth-child(2) {
         .monthHeader {
-            padding-left: 60px;
+            @include magicAdapt('padding-left', 60, 30, 1920, 798);
         }
     }
 }
@@ -36,7 +36,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0px;
-    gap: 15px;
+    @include magicAdapt('gap', 15, 8, 1920, 430);
+    @include magicAdapt('margin-bottom', 19, 12, 1920, 430);
 }
 
 .navButton {
@@ -48,6 +49,8 @@
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.2s ease;
+    @include magicAdapt('width', 32, 24, 1920, 430);
+    @include magicAdapt('height', 32, 24, 1920, 430);
 
     &:hover {
         background-color: rgba($color-primary-blue, 0.1);
@@ -55,8 +58,8 @@
 }
 
 .navIcon {
-    width: 15px;
-    height: 15px;
+    @include magicAdapt('width', 15, 10, 1920, 430);
+    @include magicAdapt('height', 15, 10, 1920, 430);
     -webkit-mask: url('/icons/select-arrow-icon.svg') no-repeat center;
     mask: url('/icons/select-arrow-icon.svg') no-repeat center;
     -webkit-mask-size: contain;
@@ -80,15 +83,16 @@
 .weekdaysRow {
     display: grid;
     grid-template-columns: repeat(7, max-content);
-    gap: 30px;
+    @include magicAdapt('gap', 10, 5, 1920, 430);
     margin-bottom: 0px;
-    padding-left: 40px;
+    @include magicAdapt('padding-left', 40, 20, 1920, 430);
 }
 
 .weekday {
     text-align: center;
-    padding: 0px 0px;
     font-weight: 400;
+    @include magicAdapt('width', 47, 32, 1920, 430);
+    @include magicAdapt('height', 47, 32, 1920, 430);
 }
 
 .english .weekday {
@@ -98,14 +102,14 @@
 .calendarGrid {
     display: grid;
     grid-template-columns: repeat(7, max-content);
-    gap: 10px 10px;
+    @include magicAdapt('gap', 10, 5, 1920, 430);
     margin-bottom: 0px;
-    padding-left: 40px;
+    @include magicAdapt('padding-left', 40, 20, 1920, 430);
 }
 
 .day {
-    width: 40px;
-    height: 40px;
+    @include magicAdapt('width', 47, 32, 1920, 430);
+    @include magicAdapt('height', 47, 32, 1920, 430);
     border: none;
     background: transparent;
     cursor: pointer;
@@ -130,7 +134,7 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -10.5px;
+            @include magicAdapt('left', -10.5, -5.5, 1920, 768);
             right: 0;
             bottom: 0;
             background: rgba($color-primary-blue, 0.15);
@@ -151,7 +155,7 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 1.5px;
+            @include magicAdapt('left', 1.5, 0.5, 1920, 768);
             right: -2px;
             bottom: 0;
             background: rgba($color-primary-blue, 0.15);
@@ -172,7 +176,7 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -10.5px;
+            @include magicAdapt('left', -10.5, -5.5, 1920, 768);
             right: 0.5px;
             bottom: 0;
             background: rgba($color-primary-blue, 0.15);
@@ -197,16 +201,16 @@
 }
 
 .emptyDay {
-    width: 40px;
-    height: 40px;
+    @include magicAdapt('width', 47, 32, 1920, 430);
+    @include magicAdapt('height', 47, 32, 1920, 430);
 }
 
 .applyButton {
-    margin-top: 21px;
-    max-width: 784px;
-    margin-left: 30px;
+    @include magicAdapt('margin-top', 21, 15, 1920, 430);
+    margin-left: auto;
+    margin-right: auto;
+    @include magicAdapt('max-width', 784, 241, 1920, 430);
 }
-
 @media (max-width: #{$md+px}) {
     .calendar {
         width: 351px;
@@ -214,7 +218,12 @@
         gap: 0px;
         border-radius: 20px;
     }
-
+    .monthHeader {
+        @include magicAdapt('padding-left', 30, 10, 797, 320);
+        &:nth-child(1) {
+            padding-left: 30px;
+        }
+    }
     .monthsContainer {
         flex-direction: column;
         gap: 0px;
@@ -222,48 +231,33 @@
     }
 
     .monthContainer {
-        gap: 0px;
-
         &:nth-child(2) {
             .monthHeader {
-                padding-left: 29px;
                 padding-top: 33px;
             }
         }
     }
 
     .monthHeader {
-        margin-bottom: 7px;
         gap: 0px;
         justify-content: center;
         position: relative;
-        padding-left: 30px;
-    }
-
-    .monthTitle {
-        font-size: 36px;
     }
 
     .navButton {
-        width: 32px;
-        height: 32px;
         position: absolute;
         right: 0;
         top: 50%;
         transform: translateY(-50%);
+        margin-top: 7px;
 
         &.navButtonLeft {
-            transform: translateY(83px) translateY(-57px);
+            top: 25%;
         }
 
         &.navButtonRight {
-            transform: translateY(85px) translateY(57px);
+            top: 75%;
         }
-    }
-
-    .navIcon {
-        width: 12px;
-        height: 12px;
     }
 
     .navButtonLeft .navIcon {
@@ -275,9 +269,7 @@
     }
 
     .weekdaysRow {
-        gap: 11px;
         margin-bottom: 0px;
-        padding-left: 36px;
         grid-template-columns: repeat(7, max-content);
     }
 
@@ -291,22 +283,15 @@
     }
 
     .calendarGrid {
-        gap: 11px 9px;
         margin-bottom: 0px;
-        padding-left: 40px;
         grid-template-columns: repeat(7, max-content);
     }
 
     .day {
-        width: 26px;
-        height: 26px;
         border-radius: 8px;
     }
 
     .emptyDay {
-        width: 26px;
-        height: 26px;
-
         &.today,
         &.rangeEnd {
             background: $color-primary-blue;
@@ -317,7 +302,7 @@
                 content: '';
                 position: absolute;
                 top: 0;
-                left: -9.5px;
+                @include magicAdapt('left', -9.5, -6.5, 767, 319);
                 right: 0;
                 bottom: 0;
                 background: rgba($color-primary-blue, 0.15);
@@ -338,7 +323,7 @@
                 content: '';
                 position: absolute;
                 top: 0;
-                left: 1.5px;
+                @include magicAdapt('left', 1.5, 0.5, 767, 319);
                 right: -2px;
                 bottom: 0;
                 background: rgba($color-primary-blue, 0.15);
@@ -367,7 +352,7 @@
                 content: '';
                 position: absolute;
                 top: 0;
-                left: -10.5px;
+                @include magicAdapt('left', -10.5, -5.5, 767, 319);
                 right: 0.5px;
                 bottom: 0;
                 background: rgba($color-primary-blue, 0.15);
@@ -385,9 +370,86 @@
     }
 
     .applyButton {
-        margin-top: 16px;
-        width: 241px;
-        height: 36px;
-        margin-left: 35px;
+        @include magicAdapt('width', 241, 241, 1920, 430);
+        @include magicAdapt('height', 36, 36, 1920, 430);
+    }
+}
+
+// Медиа-запрос для экранов меньше 430px
+@media (max-width: 429px) {
+    .calendar {
+        @include magicAdapt('border-radius', 20, 16, 430, 320);
+        @include magicAdapt('padding', 20, 16, 430, 320);
+        @include magicAdapt('max-width', 351, 280, 430, 320);
+        @include magicAdapt('min-width', 351, 280, 430, 320);
+        width: 100%;
+    }
+
+    .monthContainer {
+        @include magicAdapt('gap', 12, 8, 430, 320);
+
+        &:nth-child(2) {
+            .monthHeader {
+                @include magicAdapt('padding-left', 30, 12, 430, 320);
+            }
+        }
+    }
+
+    .monthHeader {
+        @include magicAdapt('gap', 8, 4, 430, 320);
+        @include magicAdapt('margin-bottom', 12, 8, 430, 320);
+    }
+
+    .navButton {
+        @include magicAdapt('width', 24, 20, 430, 320);
+        @include magicAdapt('height', 24, 20, 430, 320);
+        @include magicAdapt('margin-top', 7, 5, 430, 320);
+    }
+
+    .navIcon {
+        @include magicAdapt('width', 10, 8, 430, 320);
+        @include magicAdapt('height', 10, 8, 430, 320);
+    }
+
+    .monthTitle {
+        @include magicAdapt(font-size, 16, 14, 430, 320);
+    }
+
+    .weekdaysRow {
+        @include magicAdapt('gap', 5, 4, 430, 320);
+        @include magicAdapt('padding-left', 20, 12, 430, 320);
+    }
+
+    .weekday {
+        @include magicAdapt('width', 32, 28, 430, 320);
+        @include magicAdapt('height', 32, 28, 430, 320);
+        @include magicAdapt(font-size, 12, 10, 430, 320);
+        @include magicAdapt('padding', 8, 4, 430, 320);
+    }
+
+    .calendarGrid {
+        @include magicAdapt('gap', 5, 4, 430, 320);
+        @include magicAdapt('padding-left', 20, 12, 430, 320);
+    }
+
+    .day {
+        @include magicAdapt('width', 32, 28, 430, 320);
+        @include magicAdapt('height', 32, 28, 430, 320);
+    }
+
+    .dayNumber {
+        @include magicAdapt(font-size, 12, 10, 430, 320);
+    }
+
+    .emptyDay {
+        @include magicAdapt('width', 32, 28, 430, 320);
+        @include magicAdapt('height', 32, 28, 430, 320);
+    }
+
+    .applyButton {
+        @include magicAdapt('margin-top', 15, 12, 430, 320);
+        @include magicAdapt('max-width', 241, 200, 430, 320);
+        @include magicAdapt('width', 241, 200, 430, 320);
+        @include magicAdapt('height', 36, 32, 430, 320);
     }
 }

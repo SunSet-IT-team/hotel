@@ -309,27 +309,28 @@ export const Calendar: React.FC<CalendarProps> = ({
                 [styles.english]: language === 'en',
             })}
             paddingTop={25}
-            paddingRight={23}
+            paddingRight={25}
             paddingBottom={25}
-            paddingLeft={23}
+            paddingLeft={25}
         >
             <div className={styles.monthsContainer}>
                 {renderMonth(firstMonth, firstMonthDays, 0)}
                 {renderMonth(secondMonth, secondMonthDays, 1)}
             </div>
-
-            <Button
-                variant="cyan"
-                size="big"
-                fullWidth
-                className={styles.applyButton}
-                onClick={handleApply}
-                disabled={!selectedRange.startDate || !selectedRange.endDate}
-            >
-                <Typography variant="h2" color="white">
-                    {texts.applyButton}
-                </Typography>
-            </Button>
+            <div className={styles.applyButtonContainer}>
+                <Button
+                    variant="cyan"
+                    size="big"
+                    fullWidth
+                    className={styles.applyButton}
+                    onClick={handleApply}
+                    disabled={!selectedRange.startDate || !selectedRange.endDate}
+                >
+                    <Typography variant="h2" color="white">
+                        {texts.applyButton}
+                    </Typography>
+                </Button>
+            </div>
         </Box>
     );
 };
