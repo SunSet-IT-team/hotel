@@ -1,5 +1,4 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { type FC, type ReactNode } from 'react';
 
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
@@ -8,37 +7,21 @@ import { Providers } from './providers';
 
 import './styles/index.scss';
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
+interface Props {
+    children: ReactNode;
+}
 
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
-
-export const metadata: Metadata = {
-    title: 'Hotel Booking - Открой мир и путешествуй легко',
-    description: 'Бронирование отелей, авиабилетов, автомобилей и туров',
-};
-
-const RootLayout = ({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) => {
+const Layout: FC<Props> = ({ children }) => {
     return (
         <html lang="ru">
-            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+            <body>
                 <Providers>
                     <Header />
-                    {children}
+                    <main>{children}</main>
                     <Footer />
                 </Providers>
             </body>
         </html>
     );
 };
-
-export default RootLayout;
+export default Layout;

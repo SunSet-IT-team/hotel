@@ -12,10 +12,7 @@ const DestinationSchema = z
     })
     // allow extra keys (Record<string, unknown>)
     .loose()
-    .nullable()
-    .refine((val) => val !== null, {
-        error: 'You should choose one of city/hotel option',
-    });
+    .nullable();
 
 /**
  * DateRange: принимаем Date | string(ISO) | null.
@@ -36,9 +33,6 @@ const DateRangeSchema = z
         startDate: dateToNullableDate,
         endDate: dateToNullableDate,
     })
-    .refine((val) => val.startDate !== null && val.endDate !== null, {
-        error: 'You should choose date',
-    })
     .refine(
         (r) => {
             // если оба есть — end >= start
@@ -51,11 +45,12 @@ const DateRangeSchema = z
     );
 
 /**
- * peoplesCount: tuple [adults, children]
+ * peoplesCount: объект { adults, children }
  * adults >= 1, children >= 0, целые числа
  */
-const PeoplesCountSchema = z.tuple([z.number().int().min(1), z.number().int().min(0)], {
-    error: 'adults count cant be less than 1, children limit is >= 0',
+const PeoplesCountSchema = z.object({
+    adults: z.number().int().min(1),
+    children: z.number().int().min(0),
 });
 
 /**

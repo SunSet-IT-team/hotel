@@ -6,10 +6,10 @@ import { BookingButtons } from '@/widgets/BookingButtons';
 import { FaqSection } from '@/widgets/Faq';
 import { SearchForm } from '@/widgets/SearchForm';
 
-import styles from './MainPage.module.scss';
+import styles from './Home.module.scss';
 
 /** Главная страница */
-const MainPage: FC = () => {
+const Home: FC = () => {
     return (
         <main className={styles.mainPage}>
             <section className={styles.headerContent}>
@@ -29,4 +29,4 @@ const MainPage: FC = () => {
     );
 };
 
-export default MainPage;
+export default Home;
