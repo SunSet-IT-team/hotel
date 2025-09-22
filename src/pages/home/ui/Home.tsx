@@ -8,7 +8,6 @@ import { SearchForm } from '@/widgets/SearchForm';
 
 import styles from './Home.module.scss';
 
-/** Главная страница */
 const Home: FC = () => {
     return (
         <main className={styles.mainPage}>
