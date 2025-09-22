@@ -7,6 +7,8 @@ import { FaqSection } from '@/widgets/Faq';
 import { SearchForm } from '@/widgets/SearchForm';
 
 import styles from './Home.module.scss';
+import { Slider } from '@/shared/ui';
+import SlideImage from '@/shared/assets/img/slide.jpg';
 
 /** Главная страница */
 const Home: FC = () => {
@@ -21,6 +23,7 @@ const Home: FC = () => {
                         priority
                     />
                 </div>
+                <Slider sliders={[SlideImage.src, SlideImage.src, SlideImage.src]} />
                 <SearchForm />
             </section>
             <BookingButtons className={styles.bookingButtons} />

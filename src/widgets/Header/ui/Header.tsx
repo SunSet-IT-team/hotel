@@ -3,7 +3,7 @@
 import { type FC } from 'react';
 import clsx from 'clsx';
 
-import { LogoIcon } from '@/shared/assets/img/LogoIcon';
+import { LogoIcon } from '@/shared/assets/icons/LogoIcon';
 import { Container, Typography } from '@/shared/ui';
 
 import styles from './Header.module.scss';

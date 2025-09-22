@@ -1,0 +1,34 @@
+.root {
+  transition: color 0.3s ease;
+}
+
+// ==== direction ===
+.up {
+  transform: rotate(90deg);
+}
+
+.right {
+  transform: rotateY(-180deg);
+}
+
+.down {
+  transform: rotate(-90deg);
+}
+
+.left {
+  transform: rotateY(0);
+}
+
+// ==== direction ===
+
+// ==== color ====
+
+.cyan {
+  color: var(--color-primary-blue);
+}
+
+.white {
+  color: var(--color-primary-white);
+}
+
+// ==== color ====
