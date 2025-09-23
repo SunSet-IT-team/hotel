@@ -26,8 +26,8 @@ interface Props {
 
 export const DateRange: FC<Props> = ({ value, onChange, className }) => {
     const { startDate, endDate } = {
-        startDate: value.startDate ? normalizeDate(value.startDate) : null,
-        endDate: value.endDate ? normalizeDate(value.endDate) : null,
+        startDate: value?.startDate ? normalizeDate(value.startDate) : null,
+        endDate: value?.endDate ? normalizeDate(value.endDate) : null,
     };
 
     const [isOpen, setIsOpen] = useState(false);
