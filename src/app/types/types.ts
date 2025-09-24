@@ -1,4 +1,4 @@
-import { type AppDispatch, type RootState } from './store';
+import { type AppDispatch, type RootState } from '../store';
 
 /**
  * Базовые параметры ReduxThunk
