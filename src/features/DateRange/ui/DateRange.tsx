@@ -29,8 +29,8 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
 
     // Дата начала - Дата конца
     const { startDate, endDate } = {
-        startDate: value.startDate ? normalizeDate(value.startDate) : null,
-        endDate: value.endDate ? normalizeDate(value.endDate) : null,
+        startDate: value?.startDate ? normalizeDate(value.startDate) : null,
+        endDate: value?.endDate ? normalizeDate(value.endDate) : null,
     };
 
     const startDateLabel = !startDate ? 'Дата заезда' : formatDateRuShort(startDate);
