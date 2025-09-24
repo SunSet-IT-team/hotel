@@ -1,455 +1,104 @@
-@use '../../../assets/styles/variables.module' as *;
 @use '../../../assets/styles/mixins' as *;
+@use '../../../assets//styles//variables.module' as *;
+
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    gap: 20px;
+    border-radius: 24px;
+    background: var(--color-primary-white);
+}
 
 .calendar {
-    background: $color-primary-white;
-    border-radius: 24px;
-    // @include magicAdapt('max-width', 894, 351, 1920, 430);
     width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 0px;
+    align-items: flex-start;
+    position: relative;
+
+    @include magicAdapt('gap', 30, 15, 1600, 320);
 }
 
-.monthsContainer {
+.direction {
     display: flex;
-    gap: 0px;
-    width: 100%;
-    justify-content: space-between;
+    gap: 60px;
+    flex-direction: row;
 }
 
-.monthContainer {
-    flex: 1;
+.monthWrapper {
     display: flex;
     flex-direction: column;
-    @include magicAdapt('gap', 19, 12, 1920, 430);
-
-    &:nth-child(2) {
-        .monthHeader {
-            @include magicAdapt('padding-left', 60, 30, 1920, 798);
-        }
-    }
 }
 
 .monthHeader {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 0px;
-    @include magicAdapt('gap', 15, 8, 1920, 430);
-    @include magicAdapt('margin-bottom', 19, 12, 1920, 430);
-}
-
-.navButton {
-    background: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-    @include magicAdapt('width', 32, 24, 1920, 430);
-    @include magicAdapt('height', 32, 24, 1920, 430);
-
-    &:hover {
-        background-color: rgba($color-primary-blue, 0.1);
-    }
-}
-
-.navIcon {
-    @include magicAdapt('width', 15, 10, 1920, 430);
-    @include magicAdapt('height', 15, 10, 1920, 430);
-    -webkit-mask: url('/icons/select-arrow-icon.svg') no-repeat center;
-    mask: url('/icons/select-arrow-icon.svg') no-repeat center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    background-color: $color-text-blue;
-}
-
-.navButtonLeft .navIcon {
-    transform: rotate(90deg);
-}
-
-.navButtonRight .navIcon {
-    transform: rotate(-90deg);
+    padding: 5px;
 }
 
 .monthTitle {
-    flex: 1;
-    text-align: left;
+    color: var(--color-text-blue);
+    text-transform: lowercase;
+    padding-bottom: 5px;
+    font-weight: 100 !important;
 }
 
-.weekdaysRow {
-    display: grid;
-    grid-template-columns: repeat(7, max-content);
-    @include magicAdapt('gap', 10, 5, 1920, 430);
-    margin-bottom: 0px;
-    @include magicAdapt('padding-left', 40, 20, 1920, 430);
-}
-
-.weekday {
-    text-align: center;
-    font-weight: 400;
-    @include magicAdapt('width', 47, 32, 1920, 430);
-    @include magicAdapt('height', 47, 32, 1920, 430);
-}
-
-.english .weekday {
-    font-size: 20px;
-}
-
-.calendarGrid {
-    display: grid;
-    grid-template-columns: repeat(7, max-content);
-    @include magicAdapt('gap', 10, 5, 1920, 430);
-    margin-bottom: 0px;
-    @include magicAdapt('padding-left', 40, 20, 1920, 430);
-}
-
-.day {
-    @include magicAdapt('width', 47, 32, 1920, 430);
-    @include magicAdapt('height', 47, 32, 1920, 430);
-    border: none;
-    background: transparent;
+.button {
+    padding: 10px;
+    color: var(--color-text-blue);
     cursor: pointer;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    position: relative;
+    transition: opacity 0.2s;
 
     &:hover {
-        background: rgba($color-primary-blue, 0.1);
+        opacity: 0.7;
     }
 
-    &.today,
-    &.rangeEnd {
-        background: $color-primary-blue;
-        border-radius: 8px;
-        position: relative;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            @include magicAdapt('left', -10.5, -5.5, 1920, 768);
-            right: 0;
-            bottom: 0;
-            background: rgba($color-primary-blue, 0.15);
-            z-index: 0;
-        }
-
-        &.singleDay::after {
-            display: none;
-        }
+    &Prev {
+        transform: rotate(90deg);
     }
 
-    &.rangeStart {
-        background: $color-primary-blue;
-        border-radius: 8px;
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            @include magicAdapt('left', 1.5, 0.5, 1920, 768);
-            right: -2px;
-            bottom: 0;
-            background: rgba($color-primary-blue, 0.15);
-            z-index: 0;
-        }
-
-        &.singleDay::before {
-            display: none;
-        }
-    }
-
-    &.inRange {
-        background: transparent;
-        border-radius: 0;
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            @include magicAdapt('left', -10.5, -5.5, 1920, 768);
-            right: 0.5px;
-            bottom: 0;
-            background: rgba($color-primary-blue, 0.15);
-            z-index: 0;
-        }
-
-        &:only-child {
-            background: $color-primary-blue;
-            border-radius: 8px;
-
-            &::before {
-                left: 0;
-                right: 0;
-                border-radius: 8px;
-            }
-        }
+    &Next {
+        transform: rotate(-90deg);
     }
 }
 
-.dayNumber {
-    font-weight: 400;
-}
-
-.emptyDay {
-    @include magicAdapt('width', 47, 32, 1920, 430);
-    @include magicAdapt('height', 47, 32, 1920, 430);
-}
-
-.applyButton {
-    @include magicAdapt('margin-top', 21, 15, 1920, 430);
-    margin-left: auto;
-    margin-right: auto;
-    @include magicAdapt('max-width', 784, 241, 1920, 430);
-}
 @media (max-width: #{$md+px}) {
+    .root {
+        padding: 20px 58px;
+    }
+
+    .direction {
+        flex-direction: column !important;
+    }
+
+    .icon {
+        transform: scale(0.7);
+    }
+
     .calendar {
-        width: 351px;
-        padding: 20px;
-        gap: 0px;
-        border-radius: 20px;
-    }
-    .monthHeader {
-        @include magicAdapt('padding-left', 30, 10, 797, 320);
-        &:nth-child(1) {
-            padding-left: 30px;
-        }
-    }
-    .monthsContainer {
-        flex-direction: column;
-        gap: 0px;
-        justify-content: flex-start;
+        gap: 16px;
     }
 
-    .monthContainer {
-        &:nth-child(2) {
-            .monthHeader {
-                padding-top: 33px;
-            }
-        }
-    }
-
-    .monthHeader {
-        gap: 0px;
-        justify-content: center;
-        position: relative;
-    }
-
-    .navButton {
+    .button {
         position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        margin-top: 7px;
+        right: -70px;
+        padding: 34px;
 
-        &.navButtonLeft {
-            top: 25%;
+        &Prev {
+            top: 3%;
+            transform: rotate(180deg);
         }
 
-        &.navButtonRight {
-            top: 75%;
+        &Next {
+            bottom: 10%;
+            transform: rotate(0deg);
         }
-    }
-
-    .navButtonLeft .navIcon {
-        transform: rotate(180deg);
-    }
-
-    .navButtonRight .navIcon {
-        transform: rotate(0deg);
-    }
-
-    .weekdaysRow {
-        margin-bottom: 0px;
-        grid-template-columns: repeat(7, max-content);
-    }
-
-    .weekday {
-        padding: 8px 4px;
-        font-weight: 400;
-    }
-
-    .english .weekday {
-        font-size: 15px;
-    }
-
-    .calendarGrid {
-        margin-bottom: 0px;
-        grid-template-columns: repeat(7, max-content);
-    }
-
-    .day {
-        border-radius: 8px;
-    }
-
-    .emptyDay {
-        &.today,
-        &.rangeEnd {
-            background: $color-primary-blue;
-            border-radius: 8px;
-            position: relative;
-
-            &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                @include magicAdapt('left', -9.5, -6.5, 767, 319);
-                right: 0;
-                bottom: 0;
-                background: rgba($color-primary-blue, 0.15);
-                z-index: 0;
-            }
-
-            &.singleDay::after {
-                display: none;
-            }
-        }
-
-        &.rangeStart {
-            background: $color-primary-blue;
-            border-radius: 8px;
-            position: relative;
-
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                @include magicAdapt('left', 1.5, 0.5, 767, 319);
-                right: -2px;
-                bottom: 0;
-                background: rgba($color-primary-blue, 0.15);
-                z-index: 0;
-            }
-
-            &.singleDay::before {
-                display: none;
-            }
-        }
-
-        &.rangeStart:only-child {
-            &::before {
-                left: 0;
-                right: 0;
-                border-radius: 8px;
-            }
-        }
-
-        &.inRange {
-            background: transparent;
-            border-radius: 0;
-            position: relative;
-
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                @include magicAdapt('left', -10.5, -5.5, 767, 319);
-                right: 0.5px;
-                bottom: 0;
-                background: rgba($color-primary-blue, 0.15);
-                z-index: 0;
-            }
-        }
-
-        &.inRange:only-child {
-            &::before {
-                left: 0;
-                right: 0;
-                border-radius: 8px;
-            }
-        }
-    }
-
-    .applyButton {
-        @include magicAdapt('width', 241, 241, 1920, 430);
-        @include magicAdapt('height', 36, 36, 1920, 430);
     }
 }
 
-// Медиа-запрос для экранов меньше 430px
-@media (max-width: 429px) {
-    .calendar {
-        @include magicAdapt('border-radius', 20, 16, 430, 320);
-        @include magicAdapt('padding', 20, 16, 430, 320);
-        @include magicAdapt('max-width', 351, 280, 430, 320);
-        @include magicAdapt('min-width', 351, 280, 430, 320);
+@media (max-width: #{$sm+px}) {
+    .root {
         width: 100%;
-    }
-
-    .monthContainer {
-        @include magicAdapt('gap', 12, 8, 430, 320);
-
-        &:nth-child(2) {
-            .monthHeader {
-                @include magicAdapt('padding-left', 30, 12, 430, 320);
-            }
-        }
-    }
-
-    .monthHeader {
-        @include magicAdapt('gap', 8, 4, 430, 320);
-        @include magicAdapt('margin-bottom', 12, 8, 430, 320);
-    }
-
-    .navButton {
-        @include magicAdapt('width', 24, 20, 430, 320);
-        @include magicAdapt('height', 24, 20, 430, 320);
-        @include magicAdapt('margin-top', 7, 5, 430, 320);
-    }
-
-    .navIcon {
-        @include magicAdapt('width', 10, 8, 430, 320);
-        @include magicAdapt('height', 10, 8, 430, 320);
-    }
-
-    .monthTitle {
-        @include magicAdapt(font-size, 16, 14, 430, 320);
-    }
-
-    .weekdaysRow {
-        @include magicAdapt('gap', 5, 4, 430, 320);
-        @include magicAdapt('padding-left', 20, 12, 430, 320);
-    }
-
-    .weekday {
-        @include magicAdapt('width', 32, 28, 430, 320);
-        @include magicAdapt('height', 32, 28, 430, 320);
-        @include magicAdapt(font-size, 12, 10, 430, 320);
-        @include magicAdapt('padding', 8, 4, 430, 320);
-    }
-
-    .calendarGrid {
-        @include magicAdapt('gap', 5, 4, 430, 320);
-        @include magicAdapt('padding-left', 20, 12, 430, 320);
-    }
-
-    .day {
-        @include magicAdapt('width', 32, 28, 430, 320);
-        @include magicAdapt('height', 32, 28, 430, 320);
-    }
-
-    .dayNumber {
-        @include magicAdapt(font-size, 12, 10, 430, 320);
-    }
-
-    .emptyDay {
-        @include magicAdapt('width', 32, 28, 430, 320);
-        @include magicAdapt('height', 32, 28, 430, 320);
-    }
-
-    .applyButton {
-        @include magicAdapt('margin-top', 15, 12, 430, 320);
-        @include magicAdapt('max-width', 241, 200, 430, 320);
-        @include magicAdapt('width', 241, 200, 430, 320);
-        @include magicAdapt('height', 36, 32, 430, 320);
     }
 }
