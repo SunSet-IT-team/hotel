@@ -1,0 +1,38 @@
+export const calendarLocalization = {
+    ru: {
+        months: [
+            'январь',
+            'февраль',
+            'март',
+            'апрель',
+            'май',
+            'июнь',
+            'июль',
+            'август',
+            'сентябрь',
+            'октябрь',
+            'ноябрь',
+            'декабрь',
+        ],
+        weekdays: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
+        applyButton: 'Применить',
+    },
+    en: {
+        months: [
+            'january',
+            'february',
+            'march',
+            'april',
+            'may',
+            'june',
+            'july',
+            'august',
+            'september',
+            'october',
+            'november',
+            'december',
+        ],
+        weekdays: ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'],
+        applyButton: 'Apply',
+    },
+};

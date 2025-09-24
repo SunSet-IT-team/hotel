@@ -19,7 +19,7 @@ export const selectNights = (s: RootState) => {
 export const selectIsValid = (s: RootState) => {
     const { destination, dateRange, peoplesCount } = s.searchForm.values;
     const nights = selectNights(s);
-    const adults = peoplesCount?.adults ?? 0;
+    const adults = peoplesCount?.adults || 0;
 
     return (
         !!destination && !!dateRange?.startDate && !!dateRange?.endDate && adults >= 1 && nights > 0
