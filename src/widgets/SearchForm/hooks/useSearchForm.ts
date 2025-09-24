@@ -12,7 +12,9 @@ import { setDateRange, setDestination, setPeoplesCount, setQuery, setSubmitting 
 import { formDataSchema } from '../model/shema';
 import { type FormData } from '../model/types';
 import { buildSearchUrl } from '../utils/buildSearchUrl';
+import { type ParsedFormFromURL } from '../utils/parseSearchParams';
 
+// Базовые значения формы на случай отсутствия URL/пользовательских данных
 const defaultValues: FormData = {
     query: '',
     destination: null,
@@ -23,17 +25,23 @@ const defaultValues: FormData = {
     peoplesCount: { adults: 1, children: 0 },
 };
 
-export const useSearchForm = () => {
+// Хук поиска: принимает стартовые значения (например, из URL) и сливает их с Redux
+export const useSearchForm = (initialValues?: Partial<FormData> | ParsedFormFromURL) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const userFormData = useAppSelector((state) => state.searchForm.values);
     const isSubmitting = useAppSelector((state) => state.searchForm.isSubmitting);
 
-    const formData: FormData = useMemo(
-        () => ({ ...defaultValues, ...userFormData }),
-        [userFormData],
-    );
+    const formData: FormData = useMemo(() => {
+        // Порядок слияния: дефолты <- значения из URL <- значения из Redux (актуальные правки)
+        const merged: FormData = {
+            ...defaultValues,
+            ...(initialValues ?? {}),
+            ...userFormData,
+        } as FormData;
+        return merged;
+    }, [initialValues, userFormData]);
 
     const [isShowErrors, setIsShowErrors] = useState(false);
 
@@ -47,6 +55,7 @@ export const useSearchForm = () => {
 
     const errors = isShowErrors ? validate() : undefined;
 
+    // Префетчим страницу результатов при изменении формы, чтобы навигация была мгновенной
     const debouncedPrefetch = useDebouncedCallback((data: FormData) => {
         const url = buildSearchUrl('/search/hotels', {
             query: data.query,
@@ -61,6 +70,7 @@ export const useSearchForm = () => {
         debouncedPrefetch(formData);
     }, [formData, debouncedPrefetch, router]);
 
+    // Обработчики обновляют Redux, остальное пересчитается через useMemo
     const onChangeQuery = useCallback(
         (v: string) => {
             dispatch(setQuery(v));
@@ -89,6 +99,7 @@ export const useSearchForm = () => {
         [dispatch],
     );
 
+    // Сабмит: валидируем, выставляем флаг загрузки, пушим URL с параметрами
     const handleSubmit = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();

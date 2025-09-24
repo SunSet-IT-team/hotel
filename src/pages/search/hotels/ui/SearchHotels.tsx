@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import HeaderBg from '@/shared/assets/img/header-bg.png';
 import { Container, Typography } from '@/shared/ui';
 import { SearchForm } from '@/widgets/SearchForm';
+import { parseSearchParamsToFormData } from '@/widgets/SearchForm/utils/parseSearchParams';
 
 import styles from './SearchHotels.module.scss';
 
@@ -57,7 +58,16 @@ const SearchHotels = () => {
                         priority
                     />
                 </div>
-                <SearchForm />
+                {/* Сворачиваем форму на этой странице и инициализируем из URL */}
+                <SearchForm
+                    key={searchParams?.toString() || 'hotels-form'}
+                    initialValues={useMemo(() => {
+                        // Переводим URLSearchParams -> структуру формы
+                        const sp = new URLSearchParams(searchParams?.toString());
+                        return parseSearchParamsToFormData(sp);
+                    }, [searchParams])}
+                    collapsedInitially
+                />
             </section>
             <Container>
                 <div className={styles.content}>
