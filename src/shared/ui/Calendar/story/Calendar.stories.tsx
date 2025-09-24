@@ -17,7 +17,6 @@ interface InteractiveArgs {
 
 const meta: Meta<InteractiveArgs> = {
     title: 'UI/Calendar',
-    component: Calendar,
     parameters: {
         layout: 'centered',
     },
@@ -67,7 +66,7 @@ export const Interactive: Story = {
                 <Calendar
                     language={args.language}
                     className={args.className}
-                    value={dateRange}
+                    dateRange={dateRange}
                     onChange={setDateRange}
                 />
 
