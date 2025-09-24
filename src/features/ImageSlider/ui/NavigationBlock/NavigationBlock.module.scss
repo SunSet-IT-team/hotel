@@ -1,20 +1,4 @@
 .root {
-  position: relative;
-  min-width: 0;
-}
-
-.slide {
-  width: 500px;
-  height: 500px;
-
-  img {
-    right: unset;
-    bottom: unset;
-    object-fit: contain;
-  }
-}
-
-.navigationBlock {
   position: absolute;
   left: 0;
   top: 50%;
@@ -24,9 +8,16 @@
   z-index: 10;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
 
-  &__btn {}
+  &__btn {
+    height: 53px;
+    width: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__btn {
     &_next {}

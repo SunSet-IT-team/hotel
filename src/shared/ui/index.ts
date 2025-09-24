@@ -10,7 +10,7 @@ import { SearchInput } from './SearchInput';
 import { Select } from './Select';
 import { Skeleton } from './Skeleton';
 import { Typography } from './Typography';
-import { Slider } from './Slider';
+import { Slider, SliderProps } from './Slider';
 
 export {
     Accordion,
@@ -24,6 +24,7 @@ export {
     SearchInput,
     Select,
     Skeleton,
-    Typography,
     Slider,
+    type SliderProps,
+    Typography,
 };

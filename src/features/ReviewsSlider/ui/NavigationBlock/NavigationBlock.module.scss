@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 39px;
+  margin-top: 40px;
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__btn {
+    &_next {}
+
+    &_prev {}
+  }
+}
