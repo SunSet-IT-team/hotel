@@ -24,14 +24,6 @@ const meta = {
             control: 'text',
             description: 'Дополнительные CSS классы для кастомизации',
         },
-        width: {
-            control: 'text',
-            description: 'Кастомная ширина компонента (px, %, rem)',
-        },
-        height: {
-            control: 'text',
-            description: 'Кастомная высота компонента (px, %, rem)',
-        },
     },
 } satisfies Meta<typeof Select>;
 
@@ -43,40 +35,10 @@ const defaultOptions: SelectOption[] = [
     { value: 'option3', label: 'Итого (в т.ч. налоги и сборы)' },
 ];
 
-export const DefaultSizes: Story = {
+export const Default: Story = {
     render: () => (
         <div className={styles.container}>
-            <div className={styles.selectWrapper}>
-                <h4 className={styles.selectTitle}>Десктоп размер (429×54px):</h4>
-                <p className={styles.selectDescription}>
-                    Автоматически применяется на экранах больше 768px
-                </p>
-                <Select options={defaultOptions} />
-            </div>
-
-            <div className={styles.selectWrapper}>
-                <h4 className={styles.selectTitle}>Мобильный размер (335×42.2px):</h4>
-                <p className={styles.selectDescription}>
-                    Автоматически применяется на экранах меньше 768px
-                </p>
-                <div style={{ maxWidth: '335px' }}>
-                    <Select options={defaultOptions} />
-                </div>
-            </div>
-        </div>
-    ),
-    args: {
-        options: defaultOptions,
-    },
-};
-
-export const Interactive: Story = {
-    render: (args) => (
-        <div className={styles.container}>
-            <div className={styles.selectWrapper}>
-                <h4 className={styles.selectTitle}>Select компонент с изменяемыми пропсами:</h4>
-                <Select {...args} />
-            </div>
+            <Select options={defaultOptions} />
         </div>
     ),
     args: {

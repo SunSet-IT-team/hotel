@@ -1,12 +1,11 @@
 .root {
     position: relative;
     display: inline-block;
-    width: 429px;
-    min-width: 100%;
+    width: 100%;
     font-family: var(--font-family-base);
 
     &.open .arrow {
-        transform: rotate(180deg);
+        transform: scale(0.7) rotate(180deg);
     }
 }
 
@@ -15,9 +14,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 60px 12px 58px;
-    height: 54px;
-
+    padding: 18px 60px;
     background: var(--color-primary-white);
     border: 2px solid rgba(14, 63, 83, 0.08);
     border-radius: 12px;
@@ -26,12 +23,6 @@
         -2px -3px 2px 0px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: all 0.2s ease;
-
-    min-width: 0;
-
-    .root[style*='height'] & {
-        height: 100%;
-    }
 
     &:hover:not(:disabled) {
         background: var(--color-primary-blue);
@@ -46,13 +37,8 @@
 }
 
 @media (max-width: 768px) {
-    .root {
-        width: 335px;
-    }
-
     .button {
-        height: 42.2px;
-        padding: 8px 26px 8px 22px;
+        padding: 10px 26px;
     }
 }
 
@@ -62,7 +48,6 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-weight: 500;
 
     .button:hover & {
         color: var(--color-primary-white);
@@ -71,12 +56,11 @@
 
 .arrow {
     transition: transform 0.2s ease;
-    opacity: 0.9;
-    color: var(--color-text-blue);
+    color: var(--color-text-dark);
     flex-shrink: 0;
-    width: 10px;
-    height: 10px;
-    // padding: 10px;
+    width: 15px;
+    height: 15px;
+    transform: scale(0.7);
 
     .button:hover & {
         color: var(--color-primary-white);
@@ -89,7 +73,6 @@
     right: 0;
     top: calc(100% + 8px);
     z-index: 20;
-
     background: var(--color-primary-white);
     border-radius: 12px;
     padding: 12px;
@@ -114,10 +97,8 @@
 }
 
 .option:hover {
-    background: rgba(15, 204, 211, 0.1);
-}
-
-.optionSelected {
-    background: rgba(15, 204, 211, 0.05);
-    font-weight: 600;
+    background: var(--color-primary-blue);
+    .label {
+        color: var(--color-primary-white);
+    }
 }

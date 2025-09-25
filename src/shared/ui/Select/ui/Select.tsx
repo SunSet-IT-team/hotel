@@ -10,16 +10,13 @@
  *            `value` должен быть уникальным и стабильным ключом.
  * - onChange?: (value: string) => void — колбэк, вызывается только при явном выборе пользователем.
  * - className?: string — дополнительный CSS-класс для корневого элемента.
- * на всякий добавил изменение размера , по дефоолту будут применяться размеры из макета
- *
- * - width?: number | string — ширина. Число трактуется как px (например, 240 → "240px"),
- *
- * - height?: number | string — высота кнопки по тем же правилам, что и width.
  */
 
-import { type CSSProperties, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 
+import { SelectArrowIcon } from '../../../assets/icons';
+import { useIsMobile } from '../../../hooks';
 import { Typography } from '../../Typography';
 
 import styles from './Select.module.scss';
@@ -33,27 +30,13 @@ export interface SelectProps {
     options: SelectOption[];
     onChange?: (value: string) => void;
     className?: string;
-    width?: CSSProperties['width'];
-    height?: CSSProperties['height'];
 }
 
-export const Select = ({ options, onChange, className, width, height }: SelectProps) => {
+export const Select = ({ options, onChange, className }: SelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string>('');
     const selectRef = useRef<HTMLDivElement>(null);
-
-    const [isMobilde, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const isMobile = useIsMobile(768);
 
     useEffect(() => {
         if (options.length > 0 && !selectedValue) {
@@ -98,11 +81,7 @@ export const Select = ({ options, onChange, className, width, height }: SelectPr
 
     if (options.length === 0) {
         return (
-            <div
-                ref={selectRef}
-                className={`${styles.root} ${className || ''}`}
-                style={{ width, height }}
-            >
+            <div ref={selectRef} className={clsx(styles.root, className)}>
                 <button type="button" className={styles.button} disabled={true}>
                     <Typography variant="h3" color="dark" className={styles.label}>
                         Нет доступных опций
@@ -113,11 +92,7 @@ export const Select = ({ options, onChange, className, width, height }: SelectPr
     }
 
     return (
-        <div
-            ref={selectRef}
-            className={`${styles.root} ${isOpen ? styles.open : ''} ${className || ''}`}
-            style={{ width, height }}
-        >
+        <div ref={selectRef} className={clsx(styles.root, isOpen && styles.open, className)}>
             <button
                 type="button"
                 className={styles.button}
@@ -126,20 +101,14 @@ export const Select = ({ options, onChange, className, width, height }: SelectPr
                 aria-expanded={isOpen}
             >
                 <Typography
-                    variant={isMobilde ? 'h2' : 'h3'}
+                    variant={isMobile ? 'h2' : 'h3'}
                     color="dark"
                     truncate={true}
                     className={styles.label}
                 >
                     {getDisplayText()}
                 </Typography>
-                <Image
-                    src="/icons/select-arrow-icon.svg"
-                    alt="Выбрать"
-                    width={12}
-                    height={8}
-                    className={styles.arrow}
-                />
+                <SelectArrowIcon className={styles.arrow} />
             </button>
 
             {isOpen && (
@@ -147,16 +116,17 @@ export const Select = ({ options, onChange, className, width, height }: SelectPr
                     {options.map((option) => (
                         <li
                             key={option.value}
-                            className={`${styles.option} ${
-                                selectedValue === option.value ? styles.optionSelected : ''
-                            }`}
+                            className={clsx(
+                                styles.option,
+                                selectedValue === option.value && styles.optionSelected,
+                            )}
                             onClick={() => handleOptionSelect(option.value)}
                             role="option"
                             aria-selected={selectedValue === option.value}
                         >
                             <Typography
-                                variant={isMobilde ? 'h2' : 'h3'}
-                                color={selectedValue === option.value ? 'dark' : 'blue'}
+                                variant={isMobile ? 'h2' : 'h3'}
+                                color={selectedValue === option.value ? 'blue' : 'dark'}
                             >
                                 {option.label}
                             </Typography>
