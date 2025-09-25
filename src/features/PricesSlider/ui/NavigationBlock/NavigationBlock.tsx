@@ -1,12 +1,12 @@
 'use client';
 
-import { FC } from 'react';
+import { type FC } from 'react';
+import clsx from 'clsx';
 import { useSwiper } from 'swiper/react';
 
-import styles from './NavigationBlock.module.scss';
-import { ArrowIcon, ArrowIconProps } from '@/shared/assets/icons';
+import { ArrowIcon, type ArrowIconProps } from '@/shared/assets/icons';
 
-import clsx from 'clsx';
+import styles from './NavigationBlock.module.scss';
 
 export const NavigationBlock: FC = () => {
     const swiper = useSwiper();

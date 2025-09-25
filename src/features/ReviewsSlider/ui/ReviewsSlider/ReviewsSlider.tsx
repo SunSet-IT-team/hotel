@@ -1,13 +1,15 @@
 'use client';
 
-import { FC } from 'react';
-import { Navigation, Pagination } from 'swiper/modules';
-import { Slider, SliderProps, Typography } from '@/shared/ui';
+import { type FC } from 'react';
 import clsx from 'clsx';
+import { Navigation, Pagination } from 'swiper/modules';
+import { SwiperSlide } from 'swiper/react';
+
+import { Slider, type SliderProps, Typography } from '@/shared/ui';
+
+import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
 
 import styles from './ReviewsSlider.module.scss';
-import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
-import { SwiperSlide } from 'swiper/react';
 
 type Review = string;
 interface Props extends Omit<SliderProps<string>, 'renderSlide' | 'slides'> {

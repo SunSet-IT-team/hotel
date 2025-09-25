@@ -1,6 +1,9 @@
 import React, { type FC } from 'react';
 import Image from 'next/image';
 
+import { ImageSlider } from '@/features/ImageSlider';
+import { PricesSlider } from '@/features/PricesSlider/ui/PricesSlider/PricesSlider';
+import { ReviewsSlider } from '@/features/ReviewsSlider';
 import HeaderBg from '@/shared/assets/img/header-bg.png';
 import SlideImage from '@/shared/assets/img/slide.jpg';
 import { BookingButtons } from '@/widgets/BookingButtons';
@@ -8,9 +11,6 @@ import { FaqSection } from '@/widgets/Faq';
 import { SearchForm } from '@/widgets/SearchForm';
 
 import styles from './Home.module.scss';
-import { ImageSlider } from '@/features/ImageSlider';
-import { ReviewsSlider } from '@/features/ReviewsSlider';
-import { PricesSlider } from '@/features/PricesSlider/ui/PricesSlider/PricesSlider';
 
 /** Главная страница */
 const Home: FC = () => {
@@ -26,7 +26,7 @@ const Home: FC = () => {
                     />
                 </div>
 
-                <ImageSlider sliders={[SlideImage.src, SlideImage.src, SlideImage.src]} />
+                <ImageSlider slides={[SlideImage.src, SlideImage.src, SlideImage.src]} />
 
                 <ReviewsSlider
                     reviews={[

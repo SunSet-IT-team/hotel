@@ -1,14 +1,16 @@
 'use client';
 
-import { FC } from 'react';
-import { Navigation } from 'swiper/modules';
-import { Slider, SliderProps } from '@/shared/ui';
+import { type FC } from 'react';
 import clsx from 'clsx';
+import Image from 'next/image';
+import { Navigation } from 'swiper/modules';
+import { SwiperSlide } from 'swiper/react';
+
+import { Slider, type SliderProps } from '@/shared/ui';
+
+import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
 
 import styles from './ImageSlider.module.scss';
-import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
-import { SwiperSlide } from 'swiper/react';
-import Image from 'next/image';
 
 type ImageSrc = string;
 interface Props extends Omit<SliderProps<string>, 'renderSlide' | 'slides'> {

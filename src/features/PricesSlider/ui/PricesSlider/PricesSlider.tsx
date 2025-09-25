@@ -1,18 +1,20 @@
 'use client';
 
-import { FC } from 'react';
-import { Navigation, Pagination } from 'swiper/modules';
-import { Slider, SliderProps, Typography } from '@/shared/ui';
+import { type FC } from 'react';
 import clsx from 'clsx';
-
-import styles from './PricesSlider.module.scss';
-import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
+import { Navigation } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 
-type PriceObj = {
+import { Slider, type SliderProps, Typography } from '@/shared/ui';
+
+import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
+
+import styles from './PricesSlider.module.scss';
+
+interface PriceObj {
     price: number;
     website: string;
-};
+}
 interface Props extends Omit<SliderProps<string>, 'renderSlide' | 'slides'> {
     /**
      * Массив с ценами для слайдов

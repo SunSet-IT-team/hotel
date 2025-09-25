@@ -1,7 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import { type ReactNode } from 'react';
+import { Swiper, type SwiperProps, SwiperSlide } from 'swiper/react';
 
 import styles from './Slider.module.scss';
 
@@ -38,7 +38,7 @@ export const Slider = <S,>({ slides, renderSlide, children, ...rest }: Props<S>)
         <Swiper className={styles.root} loop {...rest}>
             {slides.map((slide, i) => {
                 if (renderSlide) return renderSlide(slide as S, i);
-                return <SwiperSlide key={i}>{slide as ReactNode}</SwiperSlide>;
+                return <SwiperSlide key={slide?.toString()}>{slide as ReactNode}</SwiperSlide>;
             })}
             {children}
         </Swiper>
