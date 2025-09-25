@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC } from 'react';
+import { type FC, useEffect } from 'react';
 import clsx from 'clsx';
 
 import { StarIcon } from '../../../assets/icons';
@@ -83,6 +83,14 @@ export interface RangeListProps {
      * @defaultValue "left"
      */
     align?: 'left' | 'center' | 'right';
+
+    /**
+     * Ширина элементов списка.
+     * Может быть задана в любых CSS единицах (px, %, rem, etc.)
+     *
+     * @defaultValue "auto"
+     */
+    itemWidth?: string;
 }
 
 /**
@@ -104,6 +112,7 @@ export interface RangeListProps {
  *     selectionMode="single"
  *     showStarIcon={true}
  *     align="center"
+ *     itemWidth="150px"
  *     onChange={handleChange}
  * />
  * ```
@@ -117,9 +126,14 @@ export const RangeList: FC<RangeListProps> = ({
     selectedItems = [],
     showStarIcon = false,
     align = 'left',
+    itemWidth = 'auto',
 }) => {
     const isMobile = useIsMobile();
     const getItemKey = (item: RangeListOption) => item.id || item.value;
+
+    useEffect(() => {
+        // Отладочная информация (можно убрать в продакшене)
+    }, [options, selectedItems]);
 
     const handleItemClick = (item: RangeListOption) => {
         const itemKey = getItemKey(item);
@@ -141,7 +155,10 @@ export const RangeList: FC<RangeListProps> = ({
     };
 
     return (
-        <div className={clsx(styles.root, styles[`root_${orientation}`], className)}>
+        <div
+            className={clsx(styles.root, styles[`root_${orientation}`], className)}
+            style={{ '--item-width': itemWidth } as React.CSSProperties}
+        >
             {options.map((item) => {
                 const itemKey = getItemKey(item);
                 const isSelected = selectedItems.some(
