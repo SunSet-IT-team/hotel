@@ -1,0 +1,41 @@
+@use '../../../shared/assets/styles/index' as *;
+
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 0px;
+    border-radius: 8px;
+}
+.titleContainer {
+    padding-left: 15px;
+    padding-right: 30px;
+    .title {
+        margin-bottom: 34px;
+    }
+    @media (max-width: #{$md+px}) {
+        padding-left: 2px;
+        padding-right: 28px;
+        .title {
+            margin-bottom: 38px;
+        }
+    }
+}
+.ranges {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: flex-start;
+    gap: 10px;
+    @media (max-width: #{$md+px}) {
+        gap: 6px;
+    }
+}
+
+.rangesContainer {
+    display: flex;
+}
+
+.select {
+    @include magicAdapt(max-width, 429, 335, 1920, 430);
+}
