@@ -3,6 +3,7 @@
 import { type ChangeEvent, type FC, type InputHTMLAttributes, useRef, useState } from 'react';
 import clsx from 'clsx';
 
+import { Typography } from '../../Typography';
 import defaultOptions, { type RangeSliderOptions } from '../config';
 import {
     calcThumbPosPercent,
@@ -120,7 +121,9 @@ export const RangeSlider: FC<Props> = ({
                         [styles._visible]: visibleDisplay === 'min' || !toggleVisible,
                     })}
                 >
-                    <span>{renderDisplayedValues(value[0], 'min')}</span>
+                    <Typography variant="h3" as="span" color="#ffffff" className={styles.Span}>
+                        {renderDisplayedValues(value[0], 'min')}
+                    </Typography>
                 </output>
 
                 <input
@@ -139,7 +142,9 @@ export const RangeSlider: FC<Props> = ({
                         [styles._visible]: visibleDisplay === 'max' || !toggleVisible,
                     })}
                 >
-                    <span>{renderDisplayedValues(value[1], 'max')}</span>
+                    <Typography variant="h3" as="span" color="#ffffff">
+                        {renderDisplayedValues(value[1], 'max')}
+                    </Typography>
                 </output>
             </div>
 
