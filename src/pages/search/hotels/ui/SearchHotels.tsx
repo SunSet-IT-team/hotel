@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
 import HeaderBg from '@/shared/assets/img/header-bg.png';
-import { Container, Typography } from '@/shared/ui';
+import { Container } from '@/shared/ui';
+import { FilterForm } from '@/widgets/FilterForm/ui/FilterForm';
 import { SearchForm } from '@/widgets/SearchForm';
 import { parseSearchParamsToFormData } from '@/widgets/SearchForm/utils/parseSearchParams';
 
@@ -69,39 +70,8 @@ const SearchHotels = () => {
                     collapsedInitially
                 />
             </section>
-            <Container>
-                <div className={styles.content}>
-                    <Typography variant="h1" as="h1">
-                        Результаты поиска (отели)
-                    </Typography>
-
-                    <div className={styles.params}>
-                        <Typography variant="h2" as="h2">
-                            Параметры поиска:
-                        </Typography>
-
-                        <div className={styles.paramsBox}>
-                            {Object.entries(params).length > 0 ? (
-                                <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
-                                    {Object.entries(params).map(([key, value]) => (
-                                        <li key={key}>
-                                            <strong>{key}:</strong> {value}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>Параметры поиска не найдены</p>
-                            )}
-                        </div>
-                    </div>
-
-                    <div>
-                        <Typography variant="h3" as="h3">
-                            URL с параметрами:
-                        </Typography>
-                        <div className={styles.urlBox}>{url}</div>
-                    </div>
-                </div>
+            <Container variant="header">
+                <FilterForm />
             </Container>
         </main>
     );
