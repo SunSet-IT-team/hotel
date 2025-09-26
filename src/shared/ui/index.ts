@@ -9,7 +9,6 @@ import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
 import { Select } from './Select';
 import { Skeleton } from './Skeleton';
-import { Slider, type SliderProps } from './Slider';
 import { Typography } from './Typography';
 
 export {
@@ -24,7 +23,5 @@ export {
     SearchInput,
     Select,
     Skeleton,
-    Slider,
-    type SliderProps,
     Typography,
 };

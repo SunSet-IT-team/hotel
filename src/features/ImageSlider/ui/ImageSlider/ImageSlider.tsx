@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Navigation } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 
-import { Slider, type SliderProps } from '@/shared/ui';
+import { Slider, type SliderProps } from '@/shared/ui/Slider';
 
 import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
 
