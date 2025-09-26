@@ -22,9 +22,16 @@ interface Props {
     dateRange: DateRange;
     onChange: (dateRange: DateRange) => void;
     className?: string;
+    activeField?: 'startDate' | 'endDate' | null;
 }
 
-export const Calendar: FC<Props> = ({ language = 'ru', dateRange, onChange, className }) => {
+export const Calendar: FC<Props> = ({
+    language = 'ru',
+    dateRange,
+    onChange,
+    className,
+    activeField,
+}) => {
     const isMobile = useIsMobile(768);
 
     const {
@@ -34,7 +41,7 @@ export const Calendar: FC<Props> = ({ language = 'ru', dateRange, onChange, clas
         goToPreviousMonth,
         goToNextMonth,
         handleApply,
-    } = useCalendar(dateRange, onChange);
+    } = useCalendar(dateRange, onChange, activeField);
 
     const texts = i18n(language);
 
@@ -99,7 +106,7 @@ export const Calendar: FC<Props> = ({ language = 'ru', dateRange, onChange, clas
                         fullWidth
                         style={{ borderRadius: 12, marginTop: 20 }}
                         onClick={handleApply}
-                        disabled={!selectedRange.startDate || !selectedRange.endDate}
+                        disabled={!selectedRange.startDate && !selectedRange.endDate}
                     >
                         <Typography variant="h2" color="inherit">
                             {texts.applyButton}

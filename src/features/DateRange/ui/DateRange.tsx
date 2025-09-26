@@ -27,6 +27,9 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
     // Состояние модального окна с выбором даты
     const [isOpen, setIsOpen] = useState(false);
 
+    // Добавляем состояние для отслеживания какая кнопка была нажата
+    const [activeField, setActiveField] = useState<'startDate' | 'endDate' | null>(null);
+
     // Дата начала - Дата конца
     const { startDate, endDate } = {
         startDate: value?.startDate ? normalizeDate(value.startDate) : null,
@@ -51,7 +54,10 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={() => {
+                    setActiveField('startDate');
+                    setIsOpen((prev) => !prev);
+                }}
             >
                 <Typography as="span" variant="h2" color="inherit">
                     {startDateLabel}
@@ -63,7 +69,10 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={() => {
+                    setActiveField('endDate');
+                    setIsOpen((prev) => !prev);
+                }}
             >
                 <Typography as="span" variant="h2" color="inherit">
                     {endDateLabel}
@@ -81,6 +90,7 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                         dateRange={{ startDate, endDate }}
                         onChange={handleDateRangeChange}
                         className={styles.panelInner}
+                        activeField={activeField}
                     />
                 </Popup>
             )}
