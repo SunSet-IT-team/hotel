@@ -5,9 +5,7 @@ import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 
-import { Slider, type SliderProps, Typography } from '@/shared/ui';
-
-import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
+import { NavigationBlock, Slider, type SliderProps, Typography } from '@/shared/ui';
 
 import styles from './PricesSlider.module.scss';
 
@@ -61,7 +59,7 @@ export const PricesSlider: FC<Props> = ({ prices, className, ...rest }) => {
             }}
             {...rest}
         >
-            <NavigationBlock />
+            <NavigationBlock className={styles.navigationBlock} buttonsColor="dark" />
         </Slider>
     );
 };

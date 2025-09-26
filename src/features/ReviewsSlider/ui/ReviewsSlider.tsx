@@ -5,9 +5,7 @@ import clsx from 'clsx';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 
-import { Slider, type SliderProps, Typography } from '@/shared/ui';
-
-import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
+import { NavigationBlock, Slider, type SliderProps, Typography } from '@/shared/ui';
 
 import styles from './ReviewsSlider.module.scss';
 
@@ -41,7 +39,7 @@ export const ReviewsSlider: FC<Props> = ({ reviews, className, ...rest }) => {
             }}
             {...rest}
         >
-            <NavigationBlock />
+            <NavigationBlock className={styles.navigationBlock} />
         </Slider>
     );
 };

@@ -1,0 +1,29 @@
+.root {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .white {
+            color: #fff;
+        }
+
+        .blue {
+            color: var(--color-primary-blue);
+        }
+    }
+
+    &__btn {
+        &_next {
+        }
+
+        &_prev {
+            transform: rotateY(-180deg);
+        }
+    }
+}

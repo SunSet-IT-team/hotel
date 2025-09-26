@@ -9,6 +9,7 @@ import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
 import { Select } from './Select';
 import { Skeleton } from './Skeleton';
+import { NavigationBlock, Slider, type SliderProps } from './Slider';
 import { Typography } from './Typography';
 
 export {
@@ -19,9 +20,12 @@ export {
     Container,
     Counter,
     Input,
+    NavigationBlock,
     RangeSlider,
     SearchInput,
     Select,
     Skeleton,
+    Slider,
+    type SliderProps,
     Typography,
 };

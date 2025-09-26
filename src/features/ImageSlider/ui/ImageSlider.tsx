@@ -6,9 +6,7 @@ import Image from 'next/image';
 import { Navigation } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 
-import { Slider, type SliderProps } from '@/shared/ui/Slider';
-
-import { NavigationBlock } from '../NavigationBlock/NavigationBlock';
+import { NavigationBlock, Slider, type SliderProps } from '@/shared/ui/Slider';
 
 import styles from './ImageSlider.module.scss';
 
@@ -38,7 +36,7 @@ export const ImageSlider: FC<Props> = ({ className, ...rest }) => {
             }}
             {...rest}
         >
-            <NavigationBlock />
+            <NavigationBlock className={styles.navigationBlock} buttonsColor="white" />
         </Slider>
     );
 };

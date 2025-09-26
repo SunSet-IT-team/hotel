@@ -1,1 +1,1 @@
-export { PricesSlider } from './ui/PricesSlider/PricesSlider';
+export { PricesSlider } from './ui/PricesSlider';
