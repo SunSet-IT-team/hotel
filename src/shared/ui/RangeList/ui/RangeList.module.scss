@@ -91,6 +91,18 @@
     }
 }
 
+// Скрытие границ элементов
+.item_noBorder {
+    box-shadow: none;
+    border: none;
+}
+.item_selected_noBorder {
+    color: var(--color-primary-blue);
+    &:hover {
+        color: var(--color-primary-blue);
+    }
+}
+
 .item_selected {
     background-color: var(--color-primary-blue);
     color: white;
