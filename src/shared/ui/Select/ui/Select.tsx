@@ -1,17 +1,5 @@
 'use client';
 
-/**
- * Универсальный компонент выпадающего списка для выбора опций
- * Используется в фильтре для цены
- * Внутри используется Typography для отображения текста
- * @see Typography
- *  * Пропсы:
- * - options: SelectOption[] — список опций вида { value: string; label: string }.
- *            `value` должен быть уникальным и стабильным ключом.
- * - onChange?: (value: string) => void — колбэк, вызывается только при явном выборе пользователем.
- * - className?: string — дополнительный CSS-класс для корневого элемента.
- */
-
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
@@ -21,6 +9,20 @@ import { Typography } from '../../Typography';
 
 import styles from './Select.module.scss';
 
+/**
+ * Универсальный компонент выпадающего списка для выбора опций
+ * Используется в фильтре для цены
+ * Внутри используется Typography для отображения текста
+ * @see Typography
+ *  * Пропсы:
+ * - options: SelectOption[] — список опций вида { value: string; label: string }.
+ *            `value` должен быть уникальным и стабильным ключом.
+ * - onChange?: (value: string) => void — колбэк, вызывается только при явном выборе пользователем.
+ * - placeholder?: string — плейсхолдер, отображаемый когда ничего не выбрано.
+ * - value?: string — контролируемое значение.
+ * - className?: string — дополнительный CSS-класс для корневого элемента.
+
+ */
 export interface SelectOption {
     value: string;
     label: string;
@@ -30,19 +32,24 @@ export interface SelectProps {
     options: SelectOption[];
     onChange?: (value: string) => void;
     className?: string;
+    placeholder?: string;
+    /** Контролируемое значение */
+    value?: string;
 }
 
-export const Select = ({ options, onChange, className }: SelectProps) => {
+export const Select = ({ options, onChange, className, placeholder, value }: SelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState<string>('');
+    const [selectedValue, setSelectedValue] = useState<string>(value || '');
     const selectRef = useRef<HTMLDivElement>(null);
     const isMobile = useIsMobile(768);
 
     useEffect(() => {
-        if (options.length > 0 && !selectedValue) {
+        if (value !== undefined) {
+            setSelectedValue(value);
+        } else if (options.length > 0 && !selectedValue && !placeholder) {
             setSelectedValue(options[0].value);
         }
-    }, [options, selectedValue]);
+    }, [options, selectedValue, placeholder, value]);
 
     const selectedOption = options.find((option) => option.value === selectedValue);
 
@@ -74,6 +81,10 @@ export const Select = ({ options, onChange, className }: SelectProps) => {
     const getDisplayText = () => {
         if (selectedOption) {
             return selectedOption.label;
+        }
+
+        if (placeholder) {
+            return placeholder;
         }
 
         return options[0]?.label || '';
