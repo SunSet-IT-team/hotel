@@ -1,36 +1,69 @@
-// widgets/SearchFormWidget/index.tsx
 'use client';
 
-import { type FC } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 
-import { Container, Typography } from '@/shared/ui';
+import { Button, Container, Typography } from '@/shared/ui';
 
 import { useSearchForm } from '../hooks/useSearchForm';
+import { type FormData } from '../model/types';
+import { buildFormSummary } from '../utils/buildFormSummary';
+import { type ParsedFormFromURL } from '../utils/parseSearchParams';
 
 import { SearchFormFields } from './SearchFromFields';
 
 import styles from './SearchForm.module.scss';
 
-export const SearchForm: FC = () => {
-    const hook = useSearchForm();
+export const SearchForm: FC<{
+    initialValues?: Partial<FormData> | ParsedFormFromURL;
+    collapsedInitially?: boolean;
+    title?: string;
+}> = ({ initialValues, collapsedInitially, title = 'Открой мир и путешествуй легко' }) => {
+    const hook = useSearchForm(initialValues);
+    const [collapsed, setCollapsed] = useState(!!collapsedInitially);
+    // Синхронизируем состояние при изменении пропса/перемонтировании
+    useEffect(() => {
+        if (collapsedInitially !== undefined) setCollapsed(!!collapsedInitially);
+    }, [collapsedInitially]);
+
+    const summary = useMemo(() => buildFormSummary(hook.formData), [hook.formData]);
 
     return (
         <div className={styles.root}>
             <Container variant="header">
-                <Typography color="white" variant="h1" as="h1" className={styles.root__title}>
-                    Открой мир и путешествуй легко
-                </Typography>
+                {!collapsed && (
+                    <Typography color="white" variant="h1" as="h1" className={styles.root__title}>
+                        {title}
+                    </Typography>
+                )}
 
-                <SearchFormFields
-                    formData={hook.formData}
-                    errors={hook.errors}
-                    isSubmitting={hook.isSubmitting}
-                    onChangeQuery={hook.onChangeQuery}
-                    onSelectDestination={hook.onSelectDestination}
-                    onChangeDateRange={hook.onChangeDateRange}
-                    onChangePeoplesCount={hook.onChangePeoplesCount}
-                    onSubmit={hook.handleSubmit}
-                />
+                {collapsed ? (
+                    // Свёрнутый режим: показываем одну большую кнопку с резюме
+                    <Button
+                        type="button"
+                        className={`${styles.formBody__item} ${styles.formBody__item_searchAllBtn}`}
+                        onClick={() => setCollapsed(false)}
+                        aria-label="Развернуть поиск"
+                        variant="white"
+                    >
+                        <Typography variant="h2" as="span" color="inherit">
+                            {summary || 'Поиск'}
+                        </Typography>
+                    </Button>
+                ) : (
+                    <SearchFormFields
+                        formData={hook.formData}
+                        errors={hook.errors}
+                        isSubmitting={hook.isSubmitting}
+                        onChangeQuery={hook.onChangeQuery}
+                        onSelectDestination={hook.onSelectDestination}
+                        onChangeDateRange={hook.onChangeDateRange}
+                        onChangePeoplesCount={hook.onChangePeoplesCount}
+                        onSubmit={(e) => {
+                            setCollapsed(true);
+                            return hook.handleSubmit(e);
+                        }}
+                    />
+                )}
             </Container>
         </div>
     );

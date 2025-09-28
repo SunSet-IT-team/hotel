@@ -1,0 +1,79 @@
+// Day.module.scss - расширенная версия
+@use '../../../../assets/styles/variables.module' as *;
+@use '../../../../assets/styles/mixins' as *;
+
+.root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    // Модификаторы состояний
+    &.inRange {
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -4px;
+            right: -4px;
+            background: rgba($color-primary-blue, 0.5);
+            z-index: 0;
+        }
+    }
+
+    &.isRangeStart {
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 2px;
+            right: -4px;
+            background: rgba($color-primary-blue, 0.5);
+            z-index: 0;
+        }
+    }
+
+    &.isRangeEnd {
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -4px;
+            right: 2px;
+            background: rgba($color-primary-blue, 0.5);
+            z-index: 0;
+        }
+    }
+}
+
+.day {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    font-weight: 400;
+    aspect-ratio: 1;
+    z-index: 1;
+    @include magicAdapt('width', 47, 18, 1920, 320);
+    @include magicAdapt('font-size', 24, 16, 1920, 320);
+
+    &:hover {
+        background: rgba($color-primary-blue, 0.3);
+        box-shadow: 0 4px 16px rgba($color-primary-blue, 0.5);
+    }
+
+    .root.selected & {
+        background: $color-primary-blue;
+        color: white;
+        transform: scale(1.15);
+        box-shadow: 0 4px 16px rgba($color-primary-blue, 0.3);
+    }
+}

@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import { type FC } from 'react';
 import Image from 'next/image';
 
 import HeaderBg from '@/shared/assets/img/header-bg.png';
@@ -8,7 +8,6 @@ import { SearchForm } from '@/widgets/SearchForm';
 
 import styles from './Home.module.scss';
 
-/** Главная страница */
 const Home: FC = () => {
     return (
         <main className={styles.mainPage}>
@@ -21,7 +20,7 @@ const Home: FC = () => {
                         priority
                     />
                 </div>
-                <SearchForm />
+                <SearchForm title="Открой мир и путешествуй легко" />
             </section>
             <BookingButtons className={styles.bookingButtons} />
             <FaqSection />

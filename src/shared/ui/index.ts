@@ -5,6 +5,7 @@ import { Calendar } from './Calendar';
 import { Container } from './Container';
 import { Counter } from './Counter';
 import { Input } from './Input';
+import { RangeList } from './RangeList';
 import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
 import { Select } from './Select';
@@ -21,6 +22,7 @@ export {
     Counter,
     Input,
     NavigationBlock,
+    RangeList,
     RangeSlider,
     SearchInput,
     Select,

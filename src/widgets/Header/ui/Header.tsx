@@ -3,7 +3,7 @@
 import { type FC } from 'react';
 import clsx from 'clsx';
 
-import { LogoIcon } from '@/shared/assets/icons/LogoIcon';
+import { LogoIcon } from '@/shared/assets/icons';
 import { Container, Typography } from '@/shared/ui';
 
 import styles from './Header.module.scss';
@@ -24,7 +24,8 @@ export const Header: FC<HeaderProps> = ({ className, variant = 'transparent' }) 
         <header className={clsx(styles.root, styles[variant], className)}>
             <Container variant="header">
                 <div className={styles.body}>
-                    <LogoIcon />
+                    <LogoIcon className={styles.logo} />
+
                     <ChangeLaguageMenu />
                 </div>
             </Container>

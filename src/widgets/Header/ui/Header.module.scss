@@ -28,3 +28,7 @@
         }
     }
 }
+.logo {
+    aspect-ratio: 1;
+    @include magicAdapt('max-width', 103, 40);
+}
