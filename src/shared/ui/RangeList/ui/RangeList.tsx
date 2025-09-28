@@ -91,6 +91,14 @@ export interface RangeListProps {
      * @defaultValue "auto"
      */
     itemWidth?: string;
+
+    /**
+     * Скрывать ли границы элементов.
+     * Если false, границы элементов будут скрыты.
+     *
+     * @defaultValue true
+     */
+    hideBorder?: boolean;
 }
 
 /**
@@ -127,6 +135,7 @@ export const RangeList: FC<RangeListProps> = ({
     showStarIcon = false,
     align = 'left',
     itemWidth = 'auto',
+    hideBorder = true,
 }) => {
     const isMobile = useIsMobile();
     const getItemKey = (item: RangeListOption) => item.id || item.value;
@@ -172,7 +181,9 @@ export const RangeList: FC<RangeListProps> = ({
                         className={clsx(
                             styles.item,
                             styles[`item_${align}`],
-                            isSelected && styles.item_selected,
+                            isSelected &&
+                                (hideBorder ? styles.item_selected : styles.item_selected_noBorder),
+                            !hideBorder && styles.item_noBorder,
                         )}
                         onClick={() => handleItemClick(item)}
                     >
@@ -180,7 +191,7 @@ export const RangeList: FC<RangeListProps> = ({
                             variant={isMobile ? 'h2' : 'h3'}
                             as="span"
                             className={styles.text}
-                            color={isSelected ? 'white' : 'dark'}
+                            color={isSelected ? (hideBorder ? 'white' : 'blue') : 'dark'}
                         >
                             {item.label}
                         </Typography>
