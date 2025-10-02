@@ -7,15 +7,13 @@ export interface HotelInfoProps {
     address: string;
     /** Вариант отображения компонента */
     variant?: 'default' | 'detailed';
-    /** Опциональная ссылка на карту */
-    mapLink?: string;
     /** Рейтинг отеля (только для detailed варианта) */
     rating?: number;
     /** Количество отзывов */
     reviewCount?: number;
     /** Опциональные удобства */
     amenities?: string[];
-    /** Опциональная ссылка на отзывы */
+    /** Опциональная ссылка на отзывы (можете пригодиться в будущем)*/
     reviewsLink?: string;
     /** Дополнительные CSS классы */
     className?: string;

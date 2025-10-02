@@ -72,23 +72,23 @@
 .location {
     display: flex;
     align-items: center;
-    @include magicAdapt('gap', 8, 4, 1920, 768);
     flex-wrap: wrap;
+    @include magicAdapt('gap', 8, 4, 1920, 768);
 }
 
 .addressContainer {
     display: flex;
     align-items: center;
-    @include magicAdapt('gap', 12, 5, 1920, 430);
     min-width: 0;
+    @include magicAdapt('gap', 12, 5, 1920, 430);
 }
 
 .mapIcon {
     width: 19px;
     height: 25px;
+    flex-shrink: 0;
     @include magicAdapt('width', 19, 11, 1920, 430);
     @include magicAdapt('height', 25, 11, 1920, 430);
-    flex-shrink: 0;
 
     svg {
         width: 100%;
@@ -125,9 +125,9 @@
 }
 
 .amenitiesIcon {
+    flex-shrink: 0;
     @include magicAdapt('width', 19, 12, 1920, 430);
     @include magicAdapt('height', 25, 12, 1920, 430);
-    flex-shrink: 0;
 
     svg {
         width: 100%;
@@ -230,15 +230,15 @@
     }
 
     .address {
-        @include magicAdapt('margin-right', 20, 10, 1920, 430);
         padding-bottom: 10px;
+        @include magicAdapt('margin-right', 20, 10, 1920, 430);
     }
 
     .location {
         margin-bottom: 0;
-        @include magicAdapt('gap', 16, 5, 1920, 430);
         align-items: flex-start;
         flex-wrap: nowrap;
+        @include magicAdapt('gap', 16, 5, 1920, 430);
     }
 
     @media (max-width: 1440px) {

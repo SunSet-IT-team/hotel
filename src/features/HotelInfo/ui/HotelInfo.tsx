@@ -1,9 +1,9 @@
 import { type FC } from 'react';
 import clsx from 'clsx';
 
-import { AmenitiesIcon, MapIcon, StarIcon } from '@/shared/assets/icons';
+import { AmenitiesIcon, MapIcon } from '@/shared/assets/icons';
 import { useIsMobile } from '@/shared/hooks/useMediaQuery';
-import { Box, Typography } from '@/shared/ui';
+import { Box, StarRating, Typography } from '@/shared/ui';
 
 import { type HotelInfoProps } from '../model/types';
 
@@ -14,19 +14,23 @@ export const HotelInfo: FC<HotelInfoProps> = ({
     starRating,
     address,
     variant = 'default',
-    mapLink = '#',
     rating,
     reviewCount,
     amenities,
     reviewsLink = '#',
     className,
 }) => {
-    const renderStars = (count: number) => {
-        return Array.from({ length: count }, (_, index) => (
-            <StarIcon key={index} className={styles.starIcon} />
-        ));
-    };
     const isMobile = useIsMobile(768);
+
+    // Генерируем ссылку на Яндекс.Карты на основе адреса
+    const yandexMapLink = `https://yandex.ru/maps/?text=${encodeURIComponent(address)}`;
+
+    // Определяем статус отзывов на основе рейтинга
+    const getReviewStatus = (rating: number): string => {
+        if (rating >= 9) return 'Отлично';
+        if (rating >= 7.0) return 'Хорошо';
+        return 'Плохо';
+    };
 
     return (
         <div className={clsx(styles.root, styles[variant], className)}>
@@ -40,7 +44,11 @@ export const HotelInfo: FC<HotelInfoProps> = ({
                 >
                     {hotelName}
                 </Typography>
-                <div className={styles.stars}>{renderStars(starRating)}</div>
+                <StarRating
+                    count={starRating}
+                    className={styles.stars}
+                    classNameStar={styles.starIcon}
+                />
             </div>
 
             {/* Рейтинг и отзывы (только для detailed варианта) */}
@@ -59,7 +67,7 @@ export const HotelInfo: FC<HotelInfoProps> = ({
                         </Box>
                     )}
                     <Typography variant="h3" as="span" color="dark" className={styles.reviewStatus}>
-                        Хорошо
+                        {rating ? getReviewStatus(rating) : 'Хорошо'}
                     </Typography>
                     {reviewCount && (
                         <Typography variant="h3" as="span" color="#2DC1DB82">
@@ -80,7 +88,12 @@ export const HotelInfo: FC<HotelInfoProps> = ({
                     </Typography>
 
                     <Typography variant="h3" as="span" color="blue">
-                        <a className={styles.mapLink} href={mapLink}>
+                        <a
+                            className={styles.mapLink}
+                            href={yandexMapLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             {isMobile ? 'На карте' : 'Посмотреть на карте'}
                         </a>
                     </Typography>
