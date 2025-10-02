@@ -4,6 +4,14 @@ import { type RangeListOption, type StarRatingFilterProps } from '../model/types
 
 import styles from './StarRatingFilter.module.scss';
 
+/**
+ * @Kempek
+ *
+ * TODO:
+ *
+ * Тут нужно сделать так, чтоб мы видели какой по рейтигу у нас выбран
+ */
+
 export const StarRatingFilter = ({
     title = 'Количество звезд',
     ratingOptions,

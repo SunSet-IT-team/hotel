@@ -4,6 +4,13 @@ import { type ReviewRatingFilterProps } from '../model/types';
 
 import styles from './ReviewRatingFilter.module.scss';
 
+/**
+ * @Kempek
+ *
+ * TODO:
+ *
+ * Тут нужно сделать так, чтоб мы видели какой промежуток у нас выбран, так как у цены
+ */
 export const ReviewRatingFilter = ({
     title = 'Рейтинг по отзывам',
     minRating = 1,

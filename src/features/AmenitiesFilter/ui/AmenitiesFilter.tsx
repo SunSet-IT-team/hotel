@@ -3,7 +3,13 @@ import { RangeList, Typography } from '@/shared/ui';
 import { type AmenitiesFilterProps, type RangeListOption } from '../model/types';
 
 import styles from './AmenitiesFilter.module.scss';
-
+/**
+ * @Kempek
+ *
+ * TODO:
+ *
+ * Тут нужно сделать так, чтоб мы видели какие удобства у нас выбраны
+ */
 export const AmenitiesFilter = ({
     title = 'Удобства и услуги',
     amenities,

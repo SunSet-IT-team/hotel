@@ -1,6 +1,14 @@
 import React from 'react';
 
-import { PriceFilter, type PriceProp, type RangeItem, type SelectItem } from '@/features/PriceFilter';
+import { AmenitiesFilter } from '@/features/AmenitiesFilter';
+import { LocationFilter } from '@/features/LocationFilter';
+import {
+    PriceFilter,
+    type PriceProp,
+    type RangeItem,
+    type SelectItem,
+} from '@/features/PriceFilter';
+import { ReviewRatingFilter } from '@/features/ReviewRatingFilter';
 import { StarRatingFilter } from '@/features/StarRatingFilter/ui/StarRatingFilter';
 import { Box } from '@/shared/ui';
 import { type RangeListOption } from '@/shared/ui/RangeList';
@@ -40,12 +48,30 @@ const ratingOptions: RangeListOption[] = [
     },
 ];
 
+// const amenities: RangeListOption[] = ['1', '2']
+
 export const FilterForm = () => {
     return (
         <div className={styles.root}>
             <Box className={styles.box}>
-                <PriceFilter price={prices} selectItems={items} rangeItems={rangeItems} />
-                <StarRatingFilter ratingOptions={ratingOptions} />
+                <PriceFilter
+                    price={prices}
+                    selectItems={items}
+                    onPriceChange={(range) => {
+                        console.log('on price change ', range);
+                    }}
+                    onSelectChange={(range) => {
+                        console.log('on select change ', range);
+                    }}
+                    rangeItems={rangeItems}
+                />
+                <StarRatingFilter
+                    ratingOptions={ratingOptions}
+                    onRatingChange={(raitings) => console.log(raitings)}
+                />
+                <ReviewRatingFilter />
+                <AmenitiesFilter amenities={ratingOptions} />
+                <LocationFilter popularPresets={rangeItems} />
             </Box>
         </div>
     );
