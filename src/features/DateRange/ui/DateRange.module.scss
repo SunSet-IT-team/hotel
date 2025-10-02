@@ -17,25 +17,7 @@
     flex: 1 1 auto;
 }
 
-.panelInner {
+.panel {
     width: 100%;
     padding: 0;
 }
-
-// .panel {
-//     position: absolute;
-//     top: 100%;
-//     left: 50%;
-//     transform: translateX(-50%);
-//     border-radius: 24px;
-//     z-index: 10;
-//     margin-top: 12px;
-//     max-width: min(100vw - 16px, 920px);
-//     padding-bottom: 8px;
-// }
-
-// .panel--right {
-//     left: auto;
-//     right: 0;
-//     transform: none;
-// }

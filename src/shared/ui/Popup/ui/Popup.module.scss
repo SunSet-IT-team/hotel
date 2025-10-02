@@ -1,4 +1,7 @@
+@use '../../../assets/styles/index' as *;
+
 .root {
     position: absolute;
     z-index: 1000;
+    @include magicAdapt('padding-top', 27, 12, $widthContainer, $sm);
 }
