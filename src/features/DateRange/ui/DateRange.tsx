@@ -84,12 +84,13 @@ export const DateRange: FC<Props> = ({ value, onChange, className }) => {
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
                     position="center"
+                    isUseContainer
                 >
                     <Calendar
                         language="ru"
                         dateRange={{ startDate, endDate }}
                         onChange={handleDateRangeChange}
-                        className={styles.panelInner}
+                        className={styles.panel}
                         activeField={activeField}
                     />
                 </Popup>
