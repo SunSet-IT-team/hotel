@@ -8,7 +8,7 @@ export interface AmenitiesFilterProps {
     /** Выбранные удобства */
     selectedAmenities?: RangeListOption[];
     /** Callback при изменении выбора */
-    onAmenitiesChange?: (amenities: string[]) => void;
+    onAmenitiesChange?: (amenities: RangeListOption[]) => void;
     /** Дополнительные CSS классы */
     className?: string;
 }

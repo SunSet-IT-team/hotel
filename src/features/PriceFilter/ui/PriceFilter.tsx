@@ -11,19 +11,6 @@ import type { PriceFilterProps } from '../model/types';
 
 import styles from './PriceFilter.module.scss';
 
-/**
- * @Kempek
- *
- * TODO:
- *
- * У селекта стоит max-width? Лучше дать ему width: 100%;
- *
- * val -> value (ну опять таки это вкусовщина, но хотелось бы не додумывать)
- * it -> items или item
- *
- * Так ведь проще, когда у нас есть value и items или item
- */
-
 export const PriceFilter: FC<PriceFilterProps> = ({
     title = 'Цена',
     price,
@@ -57,18 +44,18 @@ export const PriceFilter: FC<PriceFilterProps> = ({
     const formatPrice = useCallback((v: number) => `${v.toLocaleString('ru-RU')}₽`, []);
 
     const handleSliderChange = useCallback(
-        (val: [number, number]) => {
-            setRange(val);
+        (value: [number, number]) => {
+            setRange(value);
             setSelectedRange('');
-            onPriceChange?.(val);
+            onPriceChange?.(value);
         },
         [onPriceChange],
     );
 
     const handleSelectChange = useCallback(
-        (val: string) => {
-            setSelectedValue(val);
-            onSelectChange?.(val);
+        (value: string) => {
+            setSelectedValue(value);
+            onSelectChange?.(value);
         },
         [onSelectChange],
     );

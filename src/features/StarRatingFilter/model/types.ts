@@ -6,9 +6,9 @@ export interface StarRatingFilterProps {
     /** Опции рейтинга (value должен быть string для совместимости с RangeList) */
     ratingOptions: RangeListOption[];
     /** Выбранные рейтинги */
-    selectedRating?: RangeListOption[];
-    /** Callback при изменении рейтинга (возвращает массив чисел) */
-    onRatingChange?: (ratings: number[]) => void;
+    selectedRatings?: RangeListOption[];
+    /** Callback при изменении рейтинга */
+    onRatingsChange?: (ratings: RangeListOption[]) => void;
     /** Дополнительные CSS классы */
     className?: string;
 }
