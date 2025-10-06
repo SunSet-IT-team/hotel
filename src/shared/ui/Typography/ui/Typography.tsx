@@ -1,15 +1,15 @@
-import { createElement, type CSSProperties, type FC, type ReactNode } from 'react';
+import { createElement, type CSSProperties, type FC, type HTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './Typography.module.scss';
 
 type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
-type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type As = 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div';
 type NamedColor = 'white' | 'blue' | 'dark' | 'green';
 
 type Color = NamedColor | CSSProperties['color'];
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLElement> {
     /**
      * Визуальный стиль текста (например, h1, h2, p, span).
      * Возможные значения:
@@ -36,7 +36,7 @@ interface Props {
     /**
      * Содержимое текста или вложенные элементы.
      */
-    children: ReactNode;
+    children?: ReactNode;
 
     /**
      * Дополнительные CSS-классы.
