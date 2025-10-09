@@ -1,9 +1,15 @@
+# Использование:
+# Dev окружение:  docker compose --profile development up -d
+# Production:     docker compose --profile production up -d
+# Остановка:      docker compose down
+
 volumes:
     app_node_modules:
     pnpm_store:
 
 services:
     app:
+        profiles: ['development']
         build:
             context: .
             dockerfile: Dockerfile
@@ -21,6 +27,7 @@ services:
         restart: unless-stopped
 
     storybook:
+        profiles: ['development']
         build:
             context: .
             dockerfile: Dockerfile
@@ -35,7 +42,6 @@ services:
         command: sh -c "[ -d node_modules ] || pnpm install; pnpm storybook -p 6006 --ci"
         restart: unless-stopped
 
-    # docker compose --profile production up -d --build --remove-orphans
     app-prod:
         profiles: ['production']
         build:
