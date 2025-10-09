@@ -6,7 +6,7 @@ import { BookingButtons } from '@/widgets/BookingButtons';
 import { FaqSection } from '@/widgets/Faq';
 import { SearchForm } from '@/widgets/SearchForm';
 
-import styles from './Home.module.scss';
+import styles from './page.module.scss';
 
 const Home: FC = () => {
     return (
