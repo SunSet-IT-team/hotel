@@ -1,5 +1,8 @@
-name: SSH Deploy
+name: CD (Деплой)
 
+# Когда запускается:
+# - При пуше в ветки main и dev (только после успешного CI)
+# - Можно запустить вручную через интерфейс GitHub
 on:
     push:
         branches: [main, dev]
@@ -8,27 +11,55 @@ on:
 permissions:
     contents: read
 
+# Отменяем предыдущий деплой если запустился новый для той же ветки
 concurrency:
     group: deploy-${{ github.ref }}
     cancel-in-progress: true
 
 jobs:
+    check-ci:
+        name: Ожидание проверки CI
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        if: github.event_name == 'push'
+
+        steps:
+            - name: Ожидание завершения CI workflow
+              uses: lewagon/wait-on-check-action@v1.3.4
+              with:
+                  ref: ${{ github.sha }}
+                  check-name: 'Проверка качества кода'
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  wait-interval: 10
+
+            - name: CI проверки пройдены успешно
+              run: echo "Все проверки кода прошли успешно, можно деплоить"
+
     deploy:
+        name: Деплой на сервер
         runs-on: ubuntu-latest
         timeout-minutes: 60
 
+        # Деплоим только если CI прошел успешно или при ручном запуске
+        needs: [check-ci]
+        if: always() && (needs.check-ci.result == 'success' || github.event_name == 'workflow_dispatch')
+
         steps:
-            - name: Decide target (dir/project/services)
+            # Определяем параметры деплоя в зависимости от ветки
+            - name: Определение параметров деплоя
               id: cfg
               shell: bash
               run: |
                   set -e
                   BRANCH="${GITHUB_REF_NAME:-${GITHUB_REF##*/}}"
+
+                  # Для ветки main - продакшн окружение (порт 8080)
                   if [ "$BRANCH" = "main" ]; then
                     echo "DIR=hotel"              >> "$GITHUB_OUTPUT"
                     echo "PROJECT=hotel"          >> "$GITHUB_OUTPUT"
                     echo "ENV_FILE=.env"          >> "$GITHUB_OUTPUT"
                     echo "PORTS=8080"             >> "$GITHUB_OUTPUT"
+                  # Для ветки dev - dev окружение (порты 3000, 6006)
                   else
                     echo "DIR=hotel-dev"          >> "$GITHUB_OUTPUT"
                     echo "PROJECT=hotel-dev"      >> "$GITHUB_OUTPUT"
@@ -36,18 +67,20 @@ jobs:
                     echo "PORTS=3000 6006"        >> "$GITHUB_OUTPUT"
                   fi
 
-            - name: Precheck secrets
+            # Проверяем что все необходимые секреты настроены
+            - name: Проверка наличия секретов
               env:
                   SSH_HOST: ${{ secrets.SERVER_HOST }}
                   SSH_USER: ${{ secrets.SERVER_USER }}
                   SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
               run: |
                   set -e
-                  [ -n "$SSH_HOST" ] || { echo "Missing SERVER_HOST secret"; exit 1; }
-                  [ -n "$SSH_USER" ] || { echo "Missing SERVER_USER secret"; exit 1; }
-                  [ -n "$SSH_KEY"  ] || { echo "Missing SERVER_SSH_KEY secret"; exit 1; }
+                  [ -n "$SSH_HOST" ] || { echo "Отсутствует секрет SERVER_HOST"; exit 1; }
+                  [ -n "$SSH_USER" ] || { echo "Отсутствует секрет SERVER_USER"; exit 1; }
+                  [ -n "$SSH_KEY"  ] || { echo "Отсутствует секрет SERVER_SSH_KEY"; exit 1; }
+                  echo "Все секреты настроены"
 
-            - name: Deploy over SSH
+            - name: Деплой через SSH
               uses: appleboy/ssh-action@v1.2.0
               with:
                   host: ${{ secrets.SERVER_HOST }}
@@ -65,45 +98,81 @@ jobs:
                       ENV_FILE="${{ steps.cfg.outputs.ENV_FILE }}"
                       PORTS="${{ steps.cfg.outputs.PORTS }}"
 
-                      echo "::group::Подготовка"
-                      echo "Branch:   $BRANCH"
-                      echo "Dir:      $HOME/$DIR"
-                      echo "Project:  $PROJECT"
-                      echo "Env file: $ENV_FILE"
-                      echo "Ports:    $PORTS"
+                      echo "::group::Подготовка к деплою"
+                      echo "Ветка:        $BRANCH"
+                      echo "Директория:   $HOME/$DIR"
+                      echo "Проект:       $PROJECT"
+                      echo "Env файл:     $ENV_FILE"
+                      echo "Порты:        $PORTS"
+
+                      # Проверяем что директория существует
                       test -d "$HOME/$DIR" || { echo "Ошибка: $HOME/$DIR не найдена"; exit 1; }
                       cd "$HOME/$DIR"
+
+                      # Проверяем что env файл существует
                       test -f "$ENV_FILE" || { echo "Ошибка: $ENV_FILE не найден в $PWD"; exit 1; }
+                      echo "Все файлы на месте"
                       echo "::endgroup::"
 
-                      echo "::group::Подтягиваем актуальную версию с github"
+                      echo "::group::Получение последней версии с GitHub"
                       git fetch --all --prune
                       git reset --hard "origin/$BRANCH"
+                      # Очищаем неотслеживаемые файлы, но сохраняем .env файлы
                       git clean -fd -e .env -e .env.dev
-                      echo "HEAD: $(git rev-parse --short HEAD)"
+                      echo "Текущий коммит: $(git rev-parse --short HEAD)"
                       echo "::endgroup::"
 
-                      echo "::group::Удаление старых образов"
-                      docker compose -p "$PROJECT" down -v --remove-orphans
+                      echo "::group::Остановка старых контейнеров"
+                      docker compose -p "$PROJECT" down --remove-orphans
+                      echo "Старые контейнеры остановлены"
                       echo "::endgroup::"
 
-                      echo "::group::Полная очистка"
-                      docker compose -p "$PROJECT" images -q | sort -u | xargs -r docker rmi -f
-                      echo "::endgroup::"
-
-                      echo "::group::Билдим без кэша"
-                      docker compose -p "$PROJECT" build --no-cache
-                      echo "::endgroup::"
-
-                      echo "::group::Запускаем сервисы"
+                      echo "::group::Сборка Docker образов"
+                      # Параметр --pull гарантирует, что базовые образы актуальны
                       if [ "$BRANCH" = "main" ]; then
-                      docker compose -p "$PROJECT" --profile production up -d --build --remove-orphans
+                        echo "Сборка продакшн образа..."
+                        docker compose -p "$PROJECT" build --pull
                       else
-                      docker compose -p "$PROJECT" up -d --build --remove-orphans
+                        echo "Сборка dev образа..."
+                        docker compose -p "$PROJECT" build --pull
                       fi
-                      docker compose -p "$PROJECT" ps
+                      echo "Образы собраны"
                       echo "::endgroup::"
 
-                      echo "::group::Очистка после окончания всех работ"
-                      docker system prune -f
+                      echo "::group::Запуск сервисов"
+                      if [ "$BRANCH" = "main" ]; then
+                        echo "Запуск продакшн окружения..."
+                        docker compose -p "$PROJECT" --profile production up -d --remove-orphans
+                      else
+                        echo "Запуск dev окружения..."
+                        docker compose -p "$PROJECT" up -d --remove-orphans
+                      fi
+                      echo "Сервисы запущены"
                       echo "::endgroup::"
+
+                      echo "::group::Проверка статуса контейнеров"
+                      echo "Список всех контейнеров:"
+                      docker compose -p "$PROJECT" ps -a
+
+                      # Проверяем что нет контейнеров со статусом Exited
+                      if docker compose -p "$PROJECT" ps | grep -q "Exited"; then
+                        echo "Некоторые контейнеры не запустились!"
+                        echo ""
+                        echo "Логи контейнеров:"
+                        docker compose -p "$PROJECT" logs --tail=50
+                        exit 1
+                      fi
+                      echo "Все контейнеры работают корректно"
+                      echo "::endgroup::"
+
+                      echo "::group::Очистка неиспользуемых ресурсов"
+                      # Удаляем остановленные контейнеры, неиспользуемые образы и volume
+                      docker system prune -f --volumes
+                      echo "Очистка завершена"
+                      echo "::endgroup::"
+
+                      echo ""
+                      echo "Деплой успешно завершен!"
+                      echo "Ветка: $BRANCH"
+                      echo "Проект: $PROJECT"
+                      echo "Порты: $PORTS"
