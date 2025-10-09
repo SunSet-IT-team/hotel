@@ -68,39 +68,42 @@ jobs:
                       ENV_FILE="${{ steps.cfg.outputs.ENV_FILE }}"
                       PORTS="${{ steps.cfg.outputs.PORTS }}"
 
-                      echo "::group::Preflight"
+                      echo "::group::Подготовка"
                       echo "Branch:   $BRANCH"
                       echo "Dir:      $HOME/$DIR"
                       echo "Project:  $PROJECT"
                       echo "Services: $SERVICES"
                       echo "Env file: $ENV_FILE"
                       echo "Ports:    $PORTS"
-                      test -d "$HOME/$DIR" || { echo "ERROR: $HOME/$DIR not found"; exit 1; }
+                      test -d "$HOME/$DIR" || { echo "Ошибка: $HOME/$DIR не найдена"; exit 1; }
                       cd "$HOME/$DIR"
-                      test -f "$ENV_FILE" || { echo "ERROR: $ENV_FILE not found in $PWD"; exit 1; }
+                      test -f "$ENV_FILE" || { echo "Ошибка: $ENV_FILE не найден в $PWD"; exit 1; }
                       echo "::endgroup::"
 
-                      echo "::group::Git sync"
+                      echo "::group::Подтягиваем актуальную версию с github"
                       git fetch --all --prune
                       git reset --hard "origin/$BRANCH"
                       git clean -fd -e .env -e .env.dev
                       echo "HEAD: $(git rev-parse --short HEAD)"
                       echo "::endgroup::"
 
-                      echo "::group::Cleanup old project resources"
+                      echo "::group::Удаление старых образов"
                       docker compose -p "$PROJECT" down -v
-                      rm -rf .pnpm-store node_modules
                       echo "::endgroup::"
 
-                      echo "::group::Build without cache"
+                      echo "::group::Полная очистка"
+                      docker compose -p "$PROJECT" images -q | sort -u | xargs -r docker rmi -f
+                      echo "::endgroup::"
+
+                      echo "::group::Билдим без кэша"
                       docker compose -p "$PROJECT" build --no-cache
                       echo "::endgroup::"
 
-                      echo "::group::Start services"
+                      echo "::group::Запускаем сервисы"
                       docker compose -p "$PROJECT" up -d
                       docker compose -p "$PROJECT" ps
                       echo "::endgroup::"
 
-                      echo "::group::Final cleanup"
+                      echo "::group::Очистка после окончания всех работ"
                       docker system prune -af
                       echo "::endgroup::"
