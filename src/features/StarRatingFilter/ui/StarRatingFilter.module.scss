@@ -1,0 +1,15 @@
+@use '@/shared/assets/styles/variables.module.scss' as *;
+.title {
+    margin-bottom: 16px;
+    @media (max-width: #{$md+px}) {
+        margin-bottom: 8px;
+    }
+}
+
+.titleText {
+    font-weight: 700;
+    line-height: 0.8;
+    @media (max-width: #{$md+px}) {
+        line-height: 1.1;
+    }
+}

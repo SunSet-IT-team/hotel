@@ -3,33 +3,31 @@
 .root {
     display: inline-block;
     position: relative;
-
-    .searchInput {
-        padding: 15px 0;
-        color: var(--color-text-dark);
-
-        @include magicAdapt('padding-left', 60, 25, 1600);
-        @include magicAdapt('padding-right', 60, 25, 1600);
-        @include magicAdapt('font-size', 36, 18, 1600);
-
-        border-radius: 24px;
-
-        @media (max-width: #{$md+px}) {
-            & {
-                border-radius: 12px;
-            }
-        }
-    }
 }
 
-.root .searchMenu {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 30px);
+.searchInput {
+    padding: 15px 0;
+    color: var(--color-text-dark);
+    border-radius: 24px;
+
+    @media (max-width: #{$md+px}) {
+        & {
+            border-radius: 12px;
+        }
+    }
+
+    @include magicAdapt('padding-left', 60, 25, 1600);
+    @include magicAdapt('padding-right', 60, 25, 1600);
+    @include magicAdapt('font-size', 36, 18, 1600);
+}
+
+.searchMenu {
+    // position: absolute;
+    // left: 0;
+    // top: calc(100% + 30px);
 
     width: 100%;
     background-color: var(--color-primary-white);
-    z-index: 1;
 
     &__title {
         font-size: 24px;
@@ -39,11 +37,11 @@
         margin-top: 10px;
     }
 
-    @media (max-width: #{$md+px}) {
-        & {
-            top: calc(100% + 12px);
-        }
-    }
+    // @media (max-width: #{$md+px}) {
+    //     & {
+    //         top: calc(100% + 12px);
+    //     }
+    // }
 }
 
 // .searchMenu__resultOptions {

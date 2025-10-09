@@ -1,0 +1,22 @@
+.root {
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 24px;
+
+    .slide {
+        padding-bottom: 100%;
+
+        img {
+            border-radius: 24px;
+        }
+    }
+}
+
+.navigationBlock {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 0 10px;
+}

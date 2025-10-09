@@ -1,6 +1,8 @@
 import type { CSSProperties, FC, JSX, ReactNode } from 'react';
 import clsx from 'clsx';
 
+import { buildFlexClasses, buildPaddingClasses, clampToScale } from '../utils/utils';
+
 import styles from './Box.module.scss';
 
 interface BoxProps {
@@ -46,27 +48,17 @@ export const Box: FC<BoxProps> = ({
     padding,
     flexDirection,
 }) => {
-    const resolvedPaddingTop = paddingTop ?? padding ?? 16;
-    const resolvedPaddingRight = paddingRight ?? padding ?? 8;
-    const resolvedPaddingBottom = paddingBottom ?? padding ?? 16;
-    const resolvedPaddingLeft = paddingLeft ?? padding ?? 8;
+    const resolvedTop = clampToScale(paddingTop ?? padding, 16);
+    const resolvedRight = clampToScale(paddingRight ?? padding, 8);
+    const resolvedBottom = clampToScale(paddingBottom ?? padding, 16);
+    const resolvedLeft = clampToScale(paddingLeft ?? padding, 8);
 
-    const boxStyle: CSSProperties = {
-        '--padding-top': `${resolvedPaddingTop}px`,
-        '--padding-right': `${resolvedPaddingRight}px`,
-        '--padding-bottom': `${resolvedPaddingBottom}px`,
-        '--padding-left': `${resolvedPaddingLeft}px`,
-        ...(flexDirection && {
-            '--display': 'flex',
-            '--flex-direction': flexDirection,
-        }),
-    } as CSSProperties;
-
-    const boxClasses = clsx(styles.box, className);
-
-    return (
-        <TagName className={boxClasses} style={boxStyle}>
-            {children}
-        </TagName>
+    const boxClasses = clsx(
+        styles.box,
+        ...buildPaddingClasses(resolvedTop, resolvedRight, resolvedBottom, resolvedLeft),
+        ...buildFlexClasses(flexDirection as 'row' | 'column' | undefined),
+        className,
     );
+
+    return <TagName className={boxClasses}>{children}</TagName>;
 };

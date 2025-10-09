@@ -1,0 +1,17 @@
+@use '../../../assets/styles/index' as *;
+
+.message {
+    @include magicAdapt('margin-bottom', 10, 5, 1920, 430);
+}
+
+@media (max-width: #{$md+px}) {
+    .message {
+        font-family: var(--font-family-heading);
+        font-weight: 700;
+        line-height: 1.4;
+    }
+    .subMessage {
+        line-height: 1.2;
+        width: 70%;
+    }
+}

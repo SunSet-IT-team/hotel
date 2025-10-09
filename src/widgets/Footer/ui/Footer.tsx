@@ -1,3 +1,4 @@
+import { LogoIcon } from '@/shared/assets/icons';
 import { Container } from '@/shared/ui/Container';
 import { Typography } from '@/shared/ui/Typography';
 
@@ -14,9 +15,7 @@ export const Footer = () => {
                         </Typography>
                     </div>
                     <div className={styles.container}>
-                        <Typography variant="h2" as="p" color="white" className={styles.logo}>
-                            LOGO
-                        </Typography>
+                        <LogoIcon className={styles.logo} />
                     </div>
                     <div className={styles.nav}>
                         <Typography

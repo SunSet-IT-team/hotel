@@ -44,7 +44,7 @@ export const useInputDebounce = <T>({
     const debouncedSearch = useMemo(
         () =>
             debounce<[string]>(async (q) => {
-                if (!q.trim()) {
+                if (!q?.trim()) {
                     onData([]);
                     return;
                 }
@@ -58,7 +58,7 @@ export const useInputDebounce = <T>({
                     onLoadingChange?.(false);
                 }
             }, delay),
-        [delay, resultsCount],
+        [delay, resultsCount, fetchData, onData, onError, onLoadingChange],
     );
 
     useEffect(() => {

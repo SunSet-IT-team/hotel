@@ -1,0 +1,21 @@
+@use '@/shared/assets/styles/index' as *;
+.title {
+    width: 290px;
+    @include magicAdapt(width, 290, 175, 1920, 430);
+    margin-bottom: 12px;
+    @media (max-width: #{$md+px}) {
+        margin-bottom: 8px;
+    }
+}
+
+.titleText {
+    font-weight: 700;
+    line-height: 0.8;
+    @media (max-width: #{$md+px}) {
+        line-height: 1.2;
+    }
+}
+
+.listContainer {
+    padding: 8px 0;
+}

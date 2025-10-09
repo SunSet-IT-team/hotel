@@ -7,20 +7,30 @@ import { useIsMobile, useOutsideClick } from '@/shared/hooks';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
 
+import { type GuestsFieldValue } from '../model/types';
+
 import styles from './GuestsField.module.scss';
 
 interface Props {
+    /** Дополнительные классы для стилей */
     className?: string;
+
+    value: GuestsFieldValue;
+
+    /** Функция, вызываемая при изменении значения компонента */
+    onChange: (value: GuestsFieldValue) => void;
 }
 
-export const GuestsField: FC<Props> = ({ className }) => {
-    const adults = 1;
-    const children = 1;
+/**
+ * Компонент формы поиска на главной странице.
+ * Позволяет выбрать число взрослых и детей для поездки.
+ */
+export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [applied, setApplied] = useState(false);
+    const [applied, setApplied] = useState(value.adults !== 0 || value.children !== 0);
     const isMobile = useIsMobile(768);
 
-    const label = !applied ? 'Кол-во гостей' : `${adults} взрос. ${children} реб.`;
+    const label = !applied ? 'Кол-во гостей' : `${value.adults} взрос. ${value.children} реб.`;
 
     const rootRef = useRef<HTMLDivElement>(null);
     useOutsideClick(rootRef, () => {
@@ -37,7 +47,7 @@ export const GuestsField: FC<Props> = ({ className }) => {
                 onClick={() => setIsOpen((v) => !v)}
                 fullWidth
             >
-                <Typography as="span" variant="h2">
+                <Typography as="span" variant="h2" color="inherit">
                     {label}
                 </Typography>
             </Button>
@@ -59,8 +69,10 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             </Typography>
                         </div>
                         <Counter
-                            value={adults}
-                            onChange={() => {}}
+                            value={value.adults}
+                            onChange={(v) => {
+                                onChange({ adults: v, children: value.children });
+                            }}
                             min={1}
                             max={10}
                             className={styles.count}
@@ -82,8 +94,10 @@ export const GuestsField: FC<Props> = ({ className }) => {
                             </Typography>
                         </div>
                         <Counter
-                            value={children}
-                            onChange={() => {}}
+                            value={value.children}
+                            onChange={(v) => {
+                                onChange({ adults: value.adults, children: v });
+                            }}
                             min={0}
                             max={10}
                             className={styles.count}

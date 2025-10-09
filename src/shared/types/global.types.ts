@@ -20,4 +20,7 @@ export type Prettify<T> = T extends (...args: unknown[]) => unknown
         ? { [K in keyof T]: Prettify<T[K]> }
         : T;
 
+/** Версия утилитарного типа Required, работающая для вложенных типов */
 export type DeepRequired<T> = Prettify<_DeepRequired<T>>;
+
+export type ISODate = string & { readonly __brand: 'ISODate' };

@@ -1,0 +1,22 @@
+@use '../../../../assets/styles/mixins' as *;
+
+.monthView {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 10px;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.weekday {
+    font-weight: 100;
+    @include magicAdapt('font-size', 24, 16, 1920, 320);
+}
+
+.daysGrid {
+    display: grid;
+    column-gap: 8px;
+    row-gap: 8px;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}

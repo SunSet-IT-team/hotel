@@ -5,8 +5,112 @@
     box-shadow: 1px 2px 3.9px 0px rgba(9, 25, 20, 0.28);
     width: fit-content;
     min-width: min-content;
+}
 
-    padding: var(--padding-top, 16px) var(--padding-right, 8px) var(--padding-bottom, 16px) var(--padding-left, 8px);
-    display: var(--display, block);
-    flex-direction: var(--flex-direction, initial);
+// Padding tokens
+$space-none: 0;
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+
+@mixin p-y($v) {
+    padding-top: $v;
+    padding-bottom: $v;
+}
+
+@mixin p-x($v) {
+    padding-left: $v;
+    padding-right: $v;
+}
+
+.p-t-none {
+    padding-top: $space-none;
+}
+.p-t-xs {
+    padding-top: $space-xs;
+}
+.p-t-sm {
+    padding-top: $space-sm;
+}
+.p-t-md {
+    padding-top: $space-md;
+}
+.p-t-lg {
+    padding-top: $space-lg;
+}
+.p-t-xl {
+    padding-top: $space-xl;
+}
+
+.p-r-none {
+    padding-right: $space-none;
+}
+.p-r-xs {
+    padding-right: $space-xs;
+}
+.p-r-sm {
+    padding-right: $space-sm;
+}
+.p-r-md {
+    padding-right: $space-md;
+}
+.p-r-lg {
+    padding-right: $space-lg;
+}
+.p-r-xl {
+    padding-right: $space-xl;
+}
+
+.p-b-none {
+    padding-bottom: $space-none;
+}
+.p-b-xs {
+    padding-bottom: $space-xs;
+}
+.p-b-sm {
+    padding-bottom: $space-sm;
+}
+.p-b-md {
+    padding-bottom: $space-md;
+}
+.p-b-lg {
+    padding-bottom: $space-lg;
+}
+.p-b-xl {
+    padding-bottom: $space-xl;
+}
+
+.p-l-none {
+    padding-left: $space-none;
+}
+.p-l-xs {
+    padding-left: $space-xs;
+}
+.p-l-sm {
+    padding-left: $space-sm;
+}
+.p-l-md {
+    padding-left: $space-md;
+}
+.p-l-lg {
+    padding-left: $space-lg;
+}
+.p-l-xl {
+    padding-left: $space-xl;
+}
+
+// Flex helpers
+.dir-row {
+    display: flex;
+    flex-direction: row;
+}
+.dir-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.fullWidth {
+    width: 100%;
 }

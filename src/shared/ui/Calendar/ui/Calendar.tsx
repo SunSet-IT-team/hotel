@@ -1,329 +1,127 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import React, { type FC } from 'react';
 import clsx from 'clsx';
+
+import { SelectArrowIcon } from '@/shared/assets/icons';
+import { useIsMobile } from '@/shared/hooks';
 
 import { Box } from '../../Box';
 import { Button } from '../../Button';
 import { Typography } from '../../Typography';
+import { useCalendar } from '../hooks/useCalendar';
+import { type DateRange, type Language } from '../model/types';
+import { i18n } from '../utils/i18n';
+
+import { MonthView } from './MonthView/MonthView';
 
 import styles from './Calendar.module.scss';
 
-export type Language = 'ru' | 'en';
-
-export interface DateRange {
-    startDate: Date | null;
-    endDate: Date | null;
-}
-
-export interface CalendarProps {
-    /** Язык интерфейса */
+interface Props {
     language?: Language;
-    /** Выбранный диапазон дат */
-    value?: DateRange;
-    /** Обработчик изменения диапазона дат */
-    onChange?: (dateRange: DateRange) => void;
-    /** Дополнительные CSS классы */
+    dateRange: DateRange;
+    onChange: (dateRange: DateRange) => void;
     className?: string;
+    activeField?: 'startDate' | 'endDate' | null;
 }
 
-const localization = {
-    ru: {
-        months: [
-            'январь',
-            'февраль',
-            'март',
-            'апрель',
-            'май',
-            'июнь',
-            'июль',
-            'август',
-            'сентябрь',
-            'октябрь',
-            'ноябрь',
-            'декабрь',
-        ],
-        weekdays: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
-        applyButton: 'Применить',
-    },
-    en: {
-        months: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ],
-        weekdays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-        applyButton: 'Apply',
-    },
-};
-
-export const Calendar: React.FC<CalendarProps> = ({
+export const Calendar: FC<Props> = ({
     language = 'ru',
-    value,
+    dateRange,
     onChange,
     className,
+    activeField,
 }) => {
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const [selectedRange, setSelectedRange] = useState<DateRange>(
-        value || { startDate: null, endDate: null },
-    );
-    const [hoverDate, setHoverDate] = useState<Date | null>(null);
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useIsMobile(768);
 
-    const texts = localization[language];
-    const isUSWeek = language === 'en';
+    const {
+        currentDate,
+        selectedRange,
+        handleDayClick,
+        goToPreviousMonth,
+        goToNextMonth,
+        handleApply,
+    } = useCalendar(dateRange, onChange, activeField);
 
-    useEffect(() => {
-        const checkIsMobile = () => {
-            if (typeof window !== 'undefined') {
-                setIsMobile(window.innerWidth <= 768);
-            }
-        };
+    const texts = i18n(language);
 
-        checkIsMobile();
+    const firstMonthDate = currentDate;
+    const secondMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
 
-        if (typeof window !== 'undefined') {
-            window.addEventListener('resize', checkIsMobile);
-        }
-
-        return () => {
-            if (typeof window !== 'undefined') {
-                window.removeEventListener('resize', checkIsMobile);
-            }
-        };
-    }, []);
-
-    const firstMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const secondMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-
-    const getWeekdays = useCallback(() => {
-        return texts.weekdays;
-    }, [texts.weekdays]);
-
-    const getFirstDayOfMonth = useCallback(
-        (date: Date) => {
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            let dayOfWeek = firstDay.getDay();
-
-            if (!isUSWeek) {
-                dayOfWeek = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-            }
-
-            return dayOfWeek;
-        },
-        [isUSWeek],
-    );
-
-    const getDaysInMonth = useCallback((date: Date) => {
-        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    }, []);
-
-    const isInRange = useCallback(
-        (date: Date) => {
-            if (!selectedRange.startDate || !selectedRange.endDate) return false;
-            const startTime = selectedRange.startDate.getTime();
-            const endTime = selectedRange.endDate.getTime();
-            const dateTime = date.getTime();
-            return dateTime >= startTime && dateTime <= endTime;
-        },
-        [selectedRange],
-    );
-
-    const isRangeEnd = useCallback(
-        (date: Date) => {
-            if (!selectedRange.endDate) return false;
-            const dateTime = date.getTime();
-            return dateTime === selectedRange.endDate.getTime();
-        },
-        [selectedRange],
-    );
-
-    const isRangeStart = useCallback(
-        (date: Date) => {
-            if (!selectedRange.startDate) return false;
-            const dateTime = date.getTime();
-            return dateTime === selectedRange.startDate.getTime();
-        },
-        [selectedRange],
-    );
-
-    const handleDayClick = useCallback(
-        (date: Date) => {
-            let newRange: DateRange;
-
-            if (!selectedRange.startDate || (selectedRange.startDate && selectedRange.endDate)) {
-                newRange = { startDate: date, endDate: null };
-            } else {
-                if (date < selectedRange.startDate) {
-                    newRange = { startDate: date, endDate: selectedRange.startDate };
-                } else {
-                    newRange = { startDate: selectedRange.startDate, endDate: date };
-                }
-            }
-
-            setSelectedRange(newRange);
-        },
-        [selectedRange],
-    );
-
-    const goToPreviousMonth = useCallback(() => {
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
-    }, [currentDate]);
-
-    const goToNextMonth = useCallback(() => {
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
-    }, [currentDate]);
-
-    const handleApply = useCallback(() => {
-        onChange?.(selectedRange);
-    }, [onChange, selectedRange]);
-
-    const generateCalendarDays = useCallback(
-        (monthDate: Date) => {
-            const firstDay = getFirstDayOfMonth(monthDate);
-            const daysInMonth = getDaysInMonth(monthDate);
-            const days: Array<Date | null> = [];
-
-            for (let i = 0; i < firstDay; i++) {
-                days.push(null);
-            }
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                days.push(new Date(monthDate.getFullYear(), monthDate.getMonth(), day));
-            }
-
-            return days;
-        },
-        [getFirstDayOfMonth, getDaysInMonth],
-    );
-
-    const firstMonthDays = generateCalendarDays(firstMonth);
-    const secondMonthDays = generateCalendarDays(secondMonth);
-    const weekdays = getWeekdays();
-
-    const renderMonth = (monthDate: Date, days: Array<Date | null>, monthIndex: number) => (
-        <div className={styles.monthContainer}>
-            <div className={styles.monthHeader}>
-                {monthIndex === 0 && (
-                    <button
-                        className={clsx(styles.navButton, styles.navButtonLeft)}
-                        onClick={goToPreviousMonth}
-                        aria-label="Previous month"
-                    >
-                        <div className={styles.navIcon} />
-                    </button>
-                )}
-
-                <Typography
-                    variant={isMobile ? 'h2' : 'h2'}
-                    color="blue"
-                    className={styles.monthTitle}
-                >
-                    {texts.months[monthDate.getMonth()].toLowerCase()}
-                </Typography>
-
-                {monthIndex === 1 && (
-                    <button
-                        className={clsx(styles.navButton, styles.navButtonRight)}
-                        onClick={goToNextMonth}
-                        aria-label="Next month"
-                    >
-                        <div className={styles.navIcon} />
-                    </button>
-                )}
-            </div>
-
-            <div className={styles.weekdaysRow}>
-                {weekdays.map((day) => (
-                    <Typography
-                        key={day}
-                        variant={isMobile ? 'h2' : 'h4'}
-                        className={styles.weekday}
-                        color="blue"
-                    >
-                        {day}
-                    </Typography>
-                ))}
-            </div>
-
-            <div className={styles.calendarGrid}>
-                {days.map((date) => {
-                    if (!date) {
-                        return <div key={date} className={styles.emptyDay} />;
-                    }
-
-                    const isSingleDay =
-                        selectedRange.startDate &&
-                        selectedRange.endDate &&
-                        selectedRange.startDate.getTime() === selectedRange.endDate.getTime();
-
-                    const dayClasses = clsx(styles.day, {
-                        [styles.rangeEnd]: isRangeEnd(date),
-                        [styles.rangeStart]: isRangeStart(date),
-                        [styles.inRange]:
-                            isInRange(date) && !isRangeEnd(date) && !isRangeStart(date),
-                        [styles.singleDay]: isSingleDay && (isRangeEnd(date) || isRangeStart(date)),
-                        [styles.hovered]: hoverDate && date.getTime() === hoverDate.getTime(),
-                    });
-
-                    return (
-                        <button
-                            key={date.getDate()}
-                            className={dayClasses}
-                            onClick={() => handleDayClick(date)}
-                            onMouseEnter={() => setHoverDate(date)}
-                            onMouseLeave={() => setHoverDate(null)}
-                        >
-                            <Typography
-                                variant={isMobile ? 'h2' : 'h4'}
-                                color={isRangeEnd(date) || isRangeStart(date) ? 'white' : 'dark'}
-                                className={styles.dayNumber}
-                            >
-                                {date.getDate()}
-                            </Typography>
-                        </button>
-                    );
-                })}
-            </div>
-        </div>
-    );
+    const firstMonthName = texts.months[firstMonthDate.getMonth()];
+    const secondMonthName = texts.months[secondMonthDate.getMonth()];
 
     return (
-        <Box
-            className={clsx(styles.calendar, className, {
-                [styles.english]: language === 'en',
-            })}
-            paddingTop={25}
-            paddingRight={23}
-            paddingBottom={25}
-            paddingLeft={23}
-        >
-            <div className={styles.monthsContainer}>
-                {renderMonth(firstMonth, firstMonthDays, 0)}
-                {renderMonth(secondMonth, secondMonthDays, 1)}
-            </div>
+        <Box className={clsx(styles.root)}>
+            <div className={clsx(styles.calendar)}>
+                <button
+                    type="button"
+                    className={clsx(styles.button, styles.buttonPrev)}
+                    onClick={goToPreviousMonth}
+                >
+                    <SelectArrowIcon className={styles.icon} />
+                </button>
 
-            <Button
-                variant="cyan"
-                size="big"
-                fullWidth
-                className={styles.applyButton}
-                onClick={handleApply}
-                disabled={!selectedRange.startDate || !selectedRange.endDate}
-            >
-                <Typography variant="h2" color="white">
-                    {texts.applyButton}
-                </Typography>
-            </Button>
+                <div>
+                    <div className={styles.direction}>
+                        <div className={styles.monthWrapper}>
+                            <div className={styles.monthHeader}>
+                                <Typography
+                                    variant={isMobile ? 'h1' : 'h2'}
+                                    className={styles.monthTitle}
+                                    color="blue"
+                                >
+                                    {firstMonthName}
+                                </Typography>
+                            </div>
+                            <MonthView
+                                language={language}
+                                currentDate={firstMonthDate}
+                                dateRange={selectedRange}
+                                onDayClick={handleDayClick}
+                                className={clsx(styles.monthView, styles['monthView--prev'])}
+                            />
+                        </div>
+
+                        <div className={styles.monthWrapper}>
+                            <div className={styles.monthHeader}>
+                                <Typography
+                                    variant={isMobile ? 'h1' : 'h2'}
+                                    className={styles.monthTitle}
+                                    color="blue"
+                                >
+                                    {secondMonthName}
+                                </Typography>
+                            </div>
+                            <MonthView
+                                language={language}
+                                currentDate={secondMonthDate}
+                                dateRange={selectedRange}
+                                onDayClick={handleDayClick}
+                                className={clsx(styles.monthView, styles['monthView--next'])}
+                            />
+                        </div>
+                    </div>
+                    <Button
+                        fullWidth
+                        style={{ borderRadius: 12, marginTop: 20 }}
+                        onClick={handleApply}
+                        disabled={!selectedRange.startDate && !selectedRange.endDate}
+                    >
+                        <Typography variant="h2" color="inherit">
+                            {texts.applyButton}
+                        </Typography>
+                    </Button>
+                </div>
+
+                <button
+                    type="button"
+                    className={clsx(styles.button, styles.buttonNext)}
+                    onClick={goToNextMonth}
+                >
+                    <SelectArrowIcon className={styles.icon} />
+                </button>
+            </div>
         </Box>
     );
 };

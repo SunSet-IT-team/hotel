@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
+import { fetchMockData1 } from '@/shared/mocks/searchLocation';
+
 import { type FetchData, type Option } from '../model/types';
 import { SearchLocation } from '../ui/SearchLocation';
 
 import { mockData } from './mockData';
 
-const fetchData: FetchData<Option> = () =>
+const _fetchData: FetchData<Option> = () =>
     new Promise((resolve) => setTimeout(() => resolve(mockData), 1000));
 
 const meta = {
@@ -26,6 +28,14 @@ export const Interactive: Story = {
     args: {},
 
     render: () => {
-        return <SearchLocation fetchData={fetchData} />;
+        return (
+            <SearchLocation
+                value={''}
+                onChange={(_v) => {}}
+                onSelect={(_v) => {}}
+                placeholder="Город или отель"
+                fetchData={fetchMockData1}
+            />
+        );
     },
 };

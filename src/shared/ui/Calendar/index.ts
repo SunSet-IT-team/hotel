@@ -1,2 +1,2 @@
-export type { CalendarProps, DateRange, Language } from './ui/Calendar';
+export type { DateRange } from './model/types';
 export { Calendar } from './ui/Calendar';

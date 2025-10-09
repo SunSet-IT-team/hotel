@@ -3,50 +3,49 @@
 import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { useOutsideClick } from '@/shared/hooks';
+import { type ISODate } from '@/shared/types/global.types';
 import { Button, Calendar, Typography } from '@/shared/ui';
-import { Box } from '@/shared/ui/Box';
 import type { DateRange as DateRangeType } from '@/shared/ui/Calendar';
+import { Popup } from '@/shared/ui/Popup';
 import { formatDateRuShort } from '@/shared/utils/date/formatDate';
+import { toISODate } from '@/shared/utils/date/isoDate';
+import { normalizeDate } from '@/shared/utils/date/normalizeDate';
 
 import styles from './DateRange.module.scss';
 
 interface Props {
+    /** Значение из вне в ISO формате */
+    value: DateRangeType<ISODate>;
+    onChange: (value: DateRangeType<ISODate>) => void;
+    /** Дополнительные классы для стилей */
     className?: string;
-    /* eslint-disable */
-    onChange?: (value: any) => void;
 }
 
-export const DateRange: FC<Props> = ({ onChange, className }) => {
+export const DateRange: FC<Props> = ({ value, onChange, className }) => {
+    const rootRef = useRef(null); // Родительский компонент
+
+    // Состояние модального окна с выбором даты
     const [isOpen, setIsOpen] = useState(false);
 
-    const [selectedRange, setSelectedRange] = useState<DateRangeType>({
-        startDate: null,
-        endDate: null,
-    });
+    // Добавляем состояние для отслеживания какая кнопка была нажата
+    const [activeField, setActiveField] = useState<'startDate' | 'endDate' | null>(null);
 
-    const startDateLabel = !selectedRange.startDate
-        ? 'Дата заезда'
-        : formatDateRuShort(selectedRange.startDate);
-
-    const endDateLabel = !selectedRange.endDate
-        ? 'Дата выезда'
-        : formatDateRuShort(selectedRange.endDate);
-
-    const handleOpenCalendar = () => {
-        setIsOpen((v) => !v);
+    // Дата начала - Дата конца
+    const { startDate, endDate } = {
+        startDate: value?.startDate ? normalizeDate(value.startDate) : null,
+        endDate: value?.endDate ? normalizeDate(value.endDate) : null,
     };
 
-    const handleDateRangeChange = (dateRange: DateRangeType) => {
-        setSelectedRange(dateRange);
-        onChange?.(dateRange);
+    const startDateLabel = !startDate ? 'Дата заезда' : formatDateRuShort(startDate);
+    const endDateLabel = !endDate ? 'Дата выезда' : formatDateRuShort(endDate);
+
+    const handleDateRangeChange = ({ startDate, endDate }: DateRangeType) => {
+        onChange({
+            startDate: startDate && toISODate(startDate),
+            endDate: endDate && toISODate(endDate),
+        });
         setIsOpen(false);
     };
-
-    const rootRef = useRef<HTMLDivElement>(null);
-    useOutsideClick(rootRef, () => {
-        setIsOpen(false);
-    });
 
     return (
         <div className={clsx(styles.root, className)} ref={rootRef}>
@@ -55,9 +54,12 @@ export const DateRange: FC<Props> = ({ onChange, className }) => {
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={handleOpenCalendar}
+                onClick={() => {
+                    setActiveField('startDate');
+                    setIsOpen((prev) => !prev);
+                }}
             >
-                <Typography as="span" variant="h2" color="dark">
+                <Typography as="span" variant="h2" color="inherit">
                     {startDateLabel}
                 </Typography>
             </Button>
@@ -67,22 +69,31 @@ export const DateRange: FC<Props> = ({ onChange, className }) => {
                 variant="white"
                 size="big"
                 className={styles.trigger}
-                onClick={handleOpenCalendar}
+                onClick={() => {
+                    setActiveField('endDate');
+                    setIsOpen((prev) => !prev);
+                }}
             >
-                <Typography as="span" variant="h2" color="dark">
+                <Typography as="span" variant="h2" color="inherit">
                     {endDateLabel}
                 </Typography>
             </Button>
             {isOpen && (
-                <Box className={styles.panel}>
+                <Popup
+                    triggerRef={rootRef}
+                    isOpen={isOpen}
+                    onClose={() => setIsOpen(false)}
+                    position="center"
+                    isUseContainer
+                >
                     <Calendar
-                        // key={`${checkIn}-${checkOut}`}
                         language="ru"
-                        value={selectedRange}
+                        dateRange={{ startDate, endDate }}
                         onChange={handleDateRangeChange}
-                        className={styles.calendar}
+                        className={styles.panel}
+                        activeField={activeField}
                     />
-                </Box>
+                </Popup>
             )}
         </div>
     );
