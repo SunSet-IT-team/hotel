@@ -1,0 +1,84 @@
+@use '../../../shared/assets/styles/index' as *;
+.root {
+    width: 100%;
+    @include magicAdapt('padding', 40, 14, 1920, 430);
+}
+
+.title {
+    margin-bottom: 42px;
+    font-family: var(--font-family-heading);
+    @include magicAdapt('margin-bottom', 42, 11, 1920, 430);
+}
+
+.amenitiesList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 17px;
+    column-gap: 0px;
+    @include magicAdapt('row-gap', 17, 0, 1920, 1240);
+}
+.amenityItem {
+    display: flex;
+    align-content: center;
+    width: 33%;
+}
+.showAllButton {
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+    justify-content: flex-start;
+    @include magicAdapt('padding-left', 68, 35, 1920, 430);
+}
+
+.popupContent {
+    background: var(--color-primary-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 1147px;
+    @include magicAdapt('width', 1147, 400, 1920, 430);
+    overflow-y: auto;
+    @include magicAdapt('padding-top', 70, 10, 1920, 430);
+    @include magicAdapt('padding-left', 102, 10, 1920, 430);
+    @include magicAdapt('padding-bottom', 69, 10, 1920, 430);
+    @include magicAdapt('padding-right', 100, 10, 1920, 430);
+}
+
+.allAmenitiesList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 0px;
+    @include magicAdapt('row-gap', 30, 5, 1920, 430);
+}
+
+.amenityGroup {
+    display: flex;
+    flex-direction: column;
+    @include magicAdapt('gap', 19, 0, 1920, 430);
+}
+
+@media (max-width: #{$xl+px}) {
+    .amenityItem {
+        width: 40%;
+    }
+}
+@media (max-width: #{$md+px}) {
+    .amenitiesList {
+        row-gap: 12px;
+    }
+    .amenityItem {
+        width: 100%;
+        padding: 0px;
+    }
+    .showAllButton {
+        width: 100%;
+        padding: 0px;
+    }
+    .allAmenitiesList {
+        display: flex;
+        flex-direction: column;
+    }
+}
