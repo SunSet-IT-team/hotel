@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
@@ -12,42 +12,8 @@ import { parseSearchParamsToFormData } from '@/widgets/SearchForm/utils/parseSea
 
 import styles from './SearchHotels.module.scss';
 
-// interface SearchParams {
-//     query?: string;
-//     destination?: string;
-//     destinationId?: string;
-//     city?: string;
-//     checkIn?: string;
-//     checkOut?: string;
-//     adults?: string;
-//     children?: string;
-// }
-
-const SearchHotels = () => {
+const SearchHotelsContent = () => {
     const searchParams = useSearchParams();
-
-    // Парсим GET-параметры из App Router
-    // const params: SearchParams = useMemo(() => {
-    useMemo(() => {
-        if (!searchParams) return {};
-        const get = (key: string): string | undefined => searchParams.get(key) ?? undefined;
-        return {
-            query: get('query'),
-            destination: get('destination'),
-            destinationId: get('destinationId'),
-            city: get('city'),
-            checkIn: get('checkIn'),
-            checkOut: get('checkOut'),
-            adults: get('adults'),
-            children: get('children'),
-        };
-    }, [searchParams]);
-
-    // Формируем URL на основе searchParams
-    useMemo(() => {
-        const qs = searchParams?.toString();
-        return qs ? `/search/hotels?${qs}` : '/search/hotels';
-    }, [searchParams]);
 
     return (
         <main className={styles.mainPage}>
@@ -60,21 +26,30 @@ const SearchHotels = () => {
                         priority
                     />
                 </div>
-                {/* Сворачиваем форму на этой странице и инициализируем из URL */}
+
                 <SearchForm
+                    // ключ можно оставить, если вы хотите реинициализировать форму на изменение параметров
                     key={searchParams?.toString() || 'hotels-form'}
                     initialValues={useMemo(() => {
-                        // Переводим URLSearchParams -> структуру формы
                         const sp = new URLSearchParams(searchParams?.toString());
                         return parseSearchParamsToFormData(sp);
                     }, [searchParams])}
                     collapsedInitially
                 />
             </section>
+
             <Container variant="header">
                 <FilterForm />
             </Container>
         </main>
+    );
+};
+
+const SearchHotels = () => {
+    return (
+        <Suspense fallback={<div>Загрузка...</div>}>
+            <SearchHotelsContent />
+        </Suspense>
     );
 };
 

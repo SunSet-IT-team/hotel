@@ -62,11 +62,11 @@ export const FilterForm = () => {
                 <PriceFilter
                     price={prices}
                     selectItems={items}
-                    onPriceChange={(range) => {
-                        console.log('on price change ', range);
+                    onPriceChange={() => {
+                        // Price change handler
                     }}
-                    onSelectChange={(range) => {
-                        console.log('on select change ', range);
+                    onSelectChange={() => {
+                        // Select change handler
                     }}
                     rangeItems={rangeItems}
                 />

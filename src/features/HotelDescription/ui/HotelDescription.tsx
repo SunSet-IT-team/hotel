@@ -14,8 +14,8 @@ export const HotelDescription: FC<HotelDescriptionProps> = ({ title, description
                 <Typography variant="h5" as="h3" color="blue" className={styles.title}>
                     {title}
                 </Typography>
-                {description.map((item, index) => (
-                    <div key={index}>
+                {description.map((item) => (
+                    <div key={item.subtitle || item.subtext.substring(0, 50)}>
                         {item.subtitle && (
                             <Typography
                                 variant="h2"
