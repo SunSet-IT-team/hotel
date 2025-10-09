@@ -1,0 +1,74 @@
+@use '../../../shared/assets/styles/index' as *;
+.root {
+    display: flex;
+    width: 100%;
+    @include magicAdapt('padding-right', 45, 11, 1920, 430);
+    @include magicAdapt('padding-left', 30, 11, 1920, 430);
+    @include magicAdapt('padding-top', 38, 17, 1920, 430);
+    @include magicAdapt('padding-bottom', 29, 14, 1920, 430);
+    @include magicAdapt('gap', 43, 8, 1920, 430);
+}
+.imageContainer {
+    position: relative;
+    aspect-ratio: 498/287;
+    @include magicAdapt('width', 498, 312, 1920, 430);
+}
+.image {
+    @include magicAdapt('border-radius', 24, 12, 1920, 430);
+}
+.starIcon {
+    width: 24px;
+    height: 24px;
+}
+.stars {
+    gap: 12px;
+    padding-bottom: 10px;
+}
+.title {
+    font-weight: 700;
+}
+.price {
+    font-weight: 700;
+}
+.amenities {
+    @include magicAdapt('padding-bottom', 24, 15, 1920, 430);
+}
+.priceContainer {
+    display: flex;
+    align-items: center;
+    @include magicAdapt('gap', 15, 10, 1920, 430);
+    @include magicAdapt('padding-bottom', 23, 0, 1920, 430);
+}
+.content {
+    width: 65%;
+}
+@media (max-width: #{$md+px}) {
+    .root {
+        flex-direction: column;
+        align-items: center;
+    }
+    .mobileContainer {
+        display: flex;
+        justify-content: space-between;
+    }
+    .content {
+        width: 100%;
+    }
+    .title {
+        font-family: var(--font-family-heading);
+        line-height: 1.2;
+    }
+    .price {
+        font-family: var(--font-family-heading);
+    }
+    .button {
+        padding-left: 13px;
+        padding-right: 13px;
+        padding-top: 3.5px;
+        padding-bottom: 3.5px;
+        width: max-content;
+    }
+    .priceContainer {
+        padding-bottom: 0px;
+    }
+}
