@@ -1,6 +1,9 @@
+packages:
+    - '.'
+
 onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - core-js-pure
-  - esbuild
-  - sharp
-  - unrs-resolver
+    - '@parcel/watcher'
+    - core-js-pure
+    - esbuild
+    - sharp
+    - unrs-resolver

@@ -1,0 +1,186 @@
+name: PR (Проверка Pull Request)
+
+# Запускается при создании или обновлении Pull Request
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+
+permissions:
+    contents: read
+    pull-requests: write # Нужно для добавления комментариев
+
+# Отменяем предыдущие проверки для того же PR при новом коммите
+concurrency:
+    group: pr-${{ github.event.pull_request.number }}
+    cancel-in-progress: true
+
+jobs:
+    checks:
+        name: Проверка качества кода в PR
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+
+        steps:
+            # Получаем код из PR
+            - name: Получение кода из PR
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Полная история для сравнения с base веткой
+
+            - name: Установка Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '23'
+
+            - name: Установка pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9.12.3
+                  run_install: false
+
+            - name: Определение директории кэша pnpm
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+            - name: Настройка кэша зависимостей
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Установка зависимостей
+              run: pnpm install --frozen-lockfile
+
+            # Запускаем линтер (не прерываем выполнение при ошибках)
+            - name: Проверка кода линтером (ESLint)
+              id: lint
+              run: pnpm lint
+              continue-on-error: true
+
+            # Проверяем типы TypeScript
+            - name: Проверка типов TypeScript
+              id: typecheck
+              run: pnpm type:check
+              continue-on-error: true
+
+            # Пробуем собрать приложение
+            - name: Сборка приложения
+              id: build
+              run: pnpm build
+              continue-on-error: true
+              env:
+                  CI: true
+
+            # Добавляем красивый комментарий с результатами в PR
+            - name: Публикация результатов в PR
+              uses: actions/github-script@v7
+              if: always()
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  script: |
+                      // Определяем статус каждой проверки
+                      const lintStatus = '${{ steps.lint.outcome }}' === 'success' ? 'пройден' : 'не пройден';
+                      const typeStatus = '${{ steps.typecheck.outcome }}' === 'success' ? 'пройден' : 'не пройден';
+                      const buildStatus = '${{ steps.build.outcome }}' === 'success' ? 'пройден' : 'не пройден';
+
+                      const allPassed = lintStatus === 'пройден' && typeStatus === 'пройден' && buildStatus === 'пройден';
+
+                      // Формируем красивый комментарий
+                      const body = `## Результаты проверки кода
+
+                      | Проверка | Статус |
+                      |----------|--------|
+                      | **ESLint** | ${lintStatus} |
+                      | **TypeScript** | ${typeStatus} |
+                      | **Сборка** | ${buildStatus} |
+
+                      ${allPassed 
+                        ? '### Все проверки пройдены' 
+                        : '### Некоторые проверки не прошли. Пожалуйста, исправьте ошибки выше.'}
+
+                      ---
+                      <sub>Коммит: \`${context.sha.substring(0, 7)}\` | Запуск: [#${context.runNumber}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})</sub>`;
+
+                      github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: body
+                      });
+
+            # Завершаем с ошибкой если хотя бы одна проверка не прошла
+            - name: Проверка результатов
+              if: steps.lint.outcome != 'success' || steps.typecheck.outcome != 'success' || steps.build.outcome != 'success'
+              run: |
+                  echo "Некоторые проверки не прошли:"
+                  [ "${{ steps.lint.outcome }}" != "success" ] && echo "  - ESLint"
+                  [ "${{ steps.typecheck.outcome }}" != "success" ] && echo "  - TypeScript"
+                  [ "${{ steps.build.outcome }}" != "success" ] && echo "  - Сборка"
+                  exit 1
+
+    size-check:
+        name: Проверка размера бандла
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+
+        steps:
+            - name: Получение кода
+              uses: actions/checkout@v4
+
+            - name: Установка Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '23'
+
+            - name: Установка pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9.12.3
+                  run_install: false
+
+            - name: Определение директории кэша pnpm
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+            - name: Настройка кэша зависимостей
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Установка зависимостей
+              run: pnpm install --frozen-lockfile
+
+            - name: Сборка приложения
+              run: pnpm build
+              env:
+                  CI: true
+
+            # Показываем размер собранного приложения
+            - name: Анализ размера бандла
+              run: |
+                  echo "Размер собранного приложения:"
+                  du -sh .next/ 2>/dev/null || echo "Папка .next/ не найдена"
+
+                  if [ -d ".next/static" ]; then
+                    echo ""
+                    echo "Статические файлы по папкам:"
+                    du -sh .next/static/* 2>/dev/null || echo "Нет статических файлов"
+                  fi
+
+                  if [ -d ".next/standalone" ]; then
+                    echo ""
+                    echo "Размер standalone сборки:"
+                    du -sh .next/standalone 2>/dev/null
+                  fi
+
+                  echo ""
+                  echo "Анализ размера завершен"

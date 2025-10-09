@@ -1,0 +1,139 @@
+name: CI (Проверка кода)
+
+# Когда запускается:
+# - При пуше в ветки main и dev
+# - При создании Pull Request
+# - Можно запустить вручную через интерфейс GitHub
+on:
+    push:
+        branches: [main, dev]
+    pull_request:
+        branches: [main, dev]
+    workflow_dispatch: {}
+
+permissions:
+    contents: read
+
+# Отмена предыдущих запусков при новом пуше в ту же ветку
+concurrency:
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    quality-checks:
+        name: Проверка качества кода
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+
+        steps:
+            - name: Получение кода
+              uses: actions/checkout@v4
+
+            - name: Установка Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '23'
+
+            - name: Установка pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9.12.3
+                  run_install: false
+
+            - name: Определение директории кэша pnpm
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+            - name: Настройка кэша зависимостей
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Установка зависимостей
+              run: pnpm install --frozen-lockfile
+
+            - name: Проверка ESLint
+              run: pnpm lint
+
+            - name: Проверка типов TypeScript
+              run: pnpm type:check
+
+            - name: Сборка Next.js приложения
+              run: pnpm build
+              env:
+                  CI: true
+
+    storybook-build:
+        name: Проверка сборки Storybook
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+
+        steps:
+            - name: Получение кода
+              uses: actions/checkout@v4
+
+            - name: Установка Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '23'
+
+            - name: Установка pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9.12.3
+                  run_install: false
+
+            - name: Определение директории кэша pnpm
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+            - name: Настройка кэша зависимостей
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Установка зависимостей
+              run: pnpm install --frozen-lockfile
+
+            # Собираем статическую версию Storybook
+            - name: Сборка Storybook
+              run: pnpm build-storybook
+              env:
+                  CI: true
+
+    docker-build:
+        name: Проверка сборки Docker образов
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        strategy:
+            matrix:
+                dockerfile: [Dockerfile, Dockerfile.prod]
+
+        steps:
+            - name: Получение кода
+              uses: actions/checkout@v4
+
+            # Настраиваем Docker Buildx для расширенных возможностей сборки
+            - name: Настройка Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            # Собираем Docker образ для проверки (не пушим в registry)
+            - name: Сборка Docker образа (${{ matrix.dockerfile }})
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  file: ${{ matrix.dockerfile }}
+                  push: false # Не публикуем образ, только проверяем сборку
+                  cache-from: type=gha # Используем GitHub Actions cache
+                  cache-to: type=gha,mode=max # Сохраняем в кэш для следующих запусков
+                  tags: hotel:${{ github.sha }}

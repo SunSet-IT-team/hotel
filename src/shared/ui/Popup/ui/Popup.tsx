@@ -225,13 +225,16 @@ export const Popup = forwardRef<HTMLDivElement, Props>(
                 });
             }
 
-            observerRef.current.observe(triggerRef.current);
+            const currentTrigger = triggerRef.current;
+            observerRef.current.observe(currentTrigger);
 
             return () => {
-                if (observerRef.current && triggerRef.current) {
+                if (observerRef.current && currentTrigger) {
                     try {
-                        observerRef.current.unobserve(triggerRef.current);
-                    } catch (_error) {}
+                        observerRef.current.unobserve(currentTrigger);
+                    } catch {
+                        // Игнорируем ошибку
+                    }
                 }
 
                 if (rafRef.current) {

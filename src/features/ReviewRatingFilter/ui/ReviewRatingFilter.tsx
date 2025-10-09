@@ -45,7 +45,7 @@ export const ReviewRatingFilter = ({
                     variant="roundedThumbs"
                     fullWidth={true}
                     options={{
-                        renderDisplayedValues: (value, type) => String(Math.round(value * 10) / 10),
+                        renderDisplayedValues: (value) => String(Math.round(value * 10) / 10),
                         thumbs: { toggleVisible: false },
                     }}
                 />

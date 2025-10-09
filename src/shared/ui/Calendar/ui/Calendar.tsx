@@ -25,13 +25,7 @@ interface Props {
     activeField?: 'startDate' | 'endDate' | null;
 }
 
-export const Calendar: FC<Props> = ({
-    language = 'ru',
-    dateRange,
-    onChange,
-    className,
-    activeField,
-}) => {
+export const Calendar: FC<Props> = ({ language = 'ru', dateRange, onChange, activeField }) => {
     const isMobile = useIsMobile(768);
 
     const {

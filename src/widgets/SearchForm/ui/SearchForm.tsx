@@ -19,8 +19,9 @@ export const SearchForm: FC<{
     title?: string;
 }> = ({ initialValues, collapsedInitially, title = 'Открой мир и путешествуй легко' }) => {
     const hook = useSearchForm(initialValues);
-    const [collapsed, setCollapsed] = useState(!!collapsedInitially);
-    // Синхронизируем состояние при изменении пропса/перемонтировании
+    const [collapsed, setCollapsed] = useState<boolean>(() => !!collapsedInitially);
+
+    // Синхронизируем collapsed, если пропс явно поменялся
     useEffect(() => {
         if (collapsedInitially !== undefined) setCollapsed(!!collapsedInitially);
     }, [collapsedInitially]);

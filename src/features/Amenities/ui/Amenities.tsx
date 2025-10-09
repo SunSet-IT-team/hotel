@@ -30,9 +30,9 @@ export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобст
             </Typography>
 
             <div className={styles.amenitiesList} ref={rootRef}>
-                {previewAmenities.map((amenity, index) => (
+                {previewAmenities.map((amenity) => (
                     <Convenience
-                        key={`preview-${amenity.label}-${index}`}
+                        key={`preview-${amenity.label}`}
                         label={amenity.label}
                         icon={amenity.icon}
                         className={styles.amenityItem}
