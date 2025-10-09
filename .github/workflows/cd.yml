@@ -26,7 +26,7 @@ jobs:
                   BRANCH="${GITHUB_REF_NAME:-${GITHUB_REF##*/}}"
                   if [ "$BRANCH" = "main" ]; then
                     echo "DIR=hotel"              >> "$GITHUB_OUTPUT"
-                    echo "PROJECT=production"          >> "$GITHUB_OUTPUT"
+                    echo "PROJECT=hotel"          >> "$GITHUB_OUTPUT"
                     echo "ENV_FILE=.env"          >> "$GITHUB_OUTPUT"
                     echo "PORTS=8080"             >> "$GITHUB_OUTPUT"
                   else
@@ -96,7 +96,11 @@ jobs:
                       echo "::endgroup::"
 
                       echo "::group::Запускаем сервисы"
-                      docker compose -p "$PROJECT" up -d
+                      if [ "$BRANCH" = "main" ]; then
+                      docker compose -p "$PROJECT" --profile production up -d --build --remove-orphans
+                      else
+                      docker compose -p "$PROJECT" up -d --build --remove-orphans
+                      fi
                       docker compose -p "$PROJECT" ps
                       echo "::endgroup::"
 
