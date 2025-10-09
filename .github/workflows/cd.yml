@@ -88,22 +88,22 @@ jobs:
                       echo "::endgroup::"
 
                       echo "::group::Удаление старых образов"
-                      docker compose -p "$PROJECT" down -v
+                      docker compose -p "$PROJECT" down -v --remove-orphans
                       echo "::endgroup::"
 
                       echo "::group::Полная очистка"
-                      docker compose -p "$PROJECT" images -q | sort -u | xargs -r docker rmi -f
+                      docker compose -p "$PROJECT" images -q "$SERVICES" | sort -u | xargs -r docker rmi -f
                       echo "::endgroup::"
 
                       echo "::group::Билдим без кэша"
-                      docker compose -p "$PROJECT" build --no-cache
+                      docker compose -p "$PROJECT" build --no-cache "$SERVICES"
                       echo "::endgroup::"
 
                       echo "::group::Запускаем сервисы"
-                      docker compose -p "$PROJECT" up -d
-                      docker compose -p "$PROJECT" ps
+                      docker compose -p "$PROJECT" up -d "$SERVICES"
+                      docker compose -p "$PROJECT" ps "$SERVICES"
                       echo "::endgroup::"
 
                       echo "::group::Очистка после окончания всех работ"
-                      docker system prune -af
+                      docker system prune -f
                       echo "::endgroup::"
