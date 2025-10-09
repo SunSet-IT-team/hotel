@@ -131,10 +131,10 @@ jobs:
                       # Параметр --pull гарантирует, что базовые образы актуальны
                       if [ "$BRANCH" = "main" ]; then
                         echo "Сборка продакшн образа..."
-                        docker compose -p "$PROJECT" build --pull
+                        docker compose -p "$PROJECT" --profile production build --pull
                       else
                         echo "Сборка dev образа..."
-                        docker compose -p "$PROJECT" build --pull
+                        docker compose -p "$PROJECT" --profile development build --pull
                       fi
                       echo "Образы собраны"
                       echo "::endgroup::"
@@ -145,7 +145,7 @@ jobs:
                         docker compose -p "$PROJECT" --profile production up -d --remove-orphans
                       else
                         echo "Запуск dev окружения..."
-                        docker compose -p "$PROJECT" up -d --remove-orphans
+                        docker compose -p "$PROJECT" --profile development up -d --remove-orphans
                       fi
                       echo "Сервисы запущены"
                       echo "::endgroup::"
