@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { RangeSlider, Typography } from '@/shared/ui';
 
 import { type ReviewRatingFilterProps } from '../model/types';
@@ -8,13 +10,22 @@ export const ReviewRatingFilter = ({
     title = 'Рейтинг по отзывам',
     minRating = 1,
     maxRating = 10,
-    value = [1, 10],
-    onRatingChange,
+    ratingRange = [1, 10],
+    onRatingRangeChange,
     step = 0.5,
     className,
 }: ReviewRatingFilterProps) => {
+    // Внутреннее состояние для диапазона рейтинга
+    const [internalRatingRange, setInternalRatingRange] = useState<[number, number]>(ratingRange);
+
+    // Синхронизируем внутреннее состояние с внешним
+    useEffect(() => {
+        setInternalRatingRange(ratingRange);
+    }, [ratingRange]);
+
     const handleRatingChange = (newValue: [number, number]) => {
-        onRatingChange?.(newValue);
+        setInternalRatingRange(newValue);
+        onRatingRangeChange?.(newValue);
     };
 
     return (
@@ -28,17 +39,14 @@ export const ReviewRatingFilter = ({
                 <RangeSlider
                     min={minRating}
                     max={maxRating}
-                    value={value}
+                    value={internalRatingRange}
                     onChange={handleRatingChange}
                     step={step}
                     variant="roundedThumbs"
                     fullWidth={true}
                     options={{
                         renderDisplayedValues: (value, type) => String(Math.round(value * 10) / 10),
-                        thumbs: {
-                            visibleTime: 2000,
-                            toggleVisible: false,
-                        },
+                        thumbs: { toggleVisible: false },
                     }}
                 />
             </div>

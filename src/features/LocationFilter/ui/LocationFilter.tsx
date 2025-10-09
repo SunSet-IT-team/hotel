@@ -9,6 +9,14 @@ import { type LocationFilterProps } from '../model/types';
 
 import styles from './LocationFilter.module.scss';
 
+/**
+ * @Kempek
+ *
+ * TODO:
+ *
+ * Нужно прикрутить сюда модалку Popup
+ */
+
 export const LocationFilter = ({
     title = 'Расположение',
     popularPresets,

@@ -6,9 +6,9 @@ export interface ReviewRatingFilterProps {
     /** Максимальное значение рейтинга */
     maxRating?: number;
     /** Текущий диапазон рейтинга [min, max] */
-    value?: [number, number];
+    ratingRange?: [number, number];
     /** Callback при изменении рейтинга */
-    onRatingChange?: (value: [number, number]) => void;
+    onRatingRangeChange?: (value: [number, number]) => void;
     /** Шаг изменения рейтинга */
     step?: number;
     /** Дополнительные CSS классы */

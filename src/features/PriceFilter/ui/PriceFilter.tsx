@@ -44,18 +44,18 @@ export const PriceFilter: FC<PriceFilterProps> = ({
     const formatPrice = useCallback((v: number) => `${v.toLocaleString('ru-RU')}₽`, []);
 
     const handleSliderChange = useCallback(
-        (val: [number, number]) => {
-            setRange(val);
+        (value: [number, number]) => {
+            setRange(value);
             setSelectedRange('');
-            onPriceChange?.(val);
+            onPriceChange?.(value);
         },
         [onPriceChange],
     );
 
     const handleSelectChange = useCallback(
-        (val: string) => {
-            setSelectedValue(val);
-            onSelectChange?.(val);
+        (value: string) => {
+            setSelectedValue(value);
+            onSelectChange?.(value);
         },
         [onSelectChange],
     );

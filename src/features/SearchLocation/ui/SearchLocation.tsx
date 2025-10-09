@@ -1,116 +1,227 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import { type FetchData, type Option } from '@/features/SearchLocation/model/types';
-import { useOutsideClick } from '@/shared/hooks/useOutsideClick';
 import { Box, Button, SearchInput, Typography } from '@/shared/ui';
+import { Popup } from '@/shared/ui/Popup';
 import { Skeleton } from '@/shared/ui/Skeleton';
 
 import styles from './SearchLocation.module.scss';
 
+/**
+ * Свойства компонента SearchLocation
+ * @template T - Тип опции, расширяющий базовый интерфейс Option
+ */
 interface Props<T extends Option> {
-    /** Функция, для получения отфильтрованных значений от Api */
+    /**
+     * Асинхронная функция для получения отфильтрованных данных от API
+     * @param query - Поисковый запрос пользователя
+     * @returns Promise с массивом опций типа T
+     */
     fetchData: FetchData<T>;
 
-    /** Значение input-компонента панели поиска */
-    value: string;
-
-    /** Событие изменения значения у input поиска */
+    /**
+     * Обработчик изменения значения в поле поиска
+     * @param value - Новое значение поискового запроса
+     */
     onChange: (value: string) => void;
 
-    /** Стартовые пункты поисковых результатов меню */
+    /** Текущее значение поискового запроса */
+    value: string;
+
+    /**
+     * Начальный набор опций для отображения до выполнения поиска
+     * @default []
+     */
     options?: T[];
 
-    /** Событие выбора ползователем одного из поисковых результатов меню */
+    /**
+     * Обработчик выбора опции из результатов поиска
+     * @param option - Выбранная пользователем опция
+     */
     onSelect: (option: T) => void;
 
-    /** Дополнительные классы для стилей */
+    /**
+     * Дополнительные CSS классы для корневого элемента
+     * @default undefined
+     */
     className?: string;
 
-    /** Изначальный текст в пустом инпуте */
+    /**
+     * Текст placeholder для пустого поля ввода
+     * @default undefined
+     */
     placeholder?: string;
 }
 
 /**
- * Компонент формы поиска на главной странице.
- * Позволяет получить из Api на выбор 3 варианта города/отеля по поисковому запросу.
+ * Количество skeleton-загрузчиков при загрузке результатов
+ */
+const SKELETON_COUNT = 3;
+
+/**
+ * Компонент поиска локаций с выпадающим меню результатов
+ *
+ * @description
+ * Реализует функциональность поиска городов/отелей с динамической подгрузкой
+ * результатов от API. Отображает до 3 вариантов в выпадающем меню.
+ *
+ * @template T - Тип данных опций, должен расширять базовый интерфейс Option
+ *
+ * @example
+ * ```tsx
+ * <SearchLocation
+ *   value={searchQuery}
+ *   onChange={setSearchQuery}
+ *   onSelect={(city) => console.log(city)}
+ *   fetchData={fetchCities}
+ *   placeholder="Введите город"
+ * />
+ * ```
  */
 export const SearchLocation = <T extends Option>({
-    value,
     onChange,
+    value,
     onSelect,
     fetchData,
     options = [],
     className,
     placeholder,
 }: Props<T>) => {
+    // Состояние открытия/закрытия выпадающего меню
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    // Массив полученных от API результатов поиска
     const [responseData, setResponseData] = useState<T[]>(options);
+
+    // Флаг процесса загрузки данных от API
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    // Ссылка на корневой DOM-элемент компонента
     const rootRef = useRef<HTMLDivElement>(null);
-    useOutsideClick(rootRef, () => {
-        setIsOpen(false);
-    });
 
-    const isShowResults = !isLoading && responseData.length;
-    const isZeroResults = !isLoading && !responseData.length;
+    /**
+     * Обработчик закрытия выпадающего меню
+     * Мемоизирован для предотвращения лишних ре-рендеров дочерних компонентов
+     */
+    const handleClose = useCallback(() => {
+        setIsOpen(false);
+    }, []);
+
+    /**
+     * Обработчик открытия выпадающего меню
+     * Мемоизирован для оптимизации производительности
+     */
+    const handleOpen = useCallback(() => {
+        setIsOpen(true);
+    }, []);
+
+    /**
+     * Обработчик выбора опции из результатов поиска
+     * Закрывает меню и вызывает внешний callback с выбранной опцией
+     */
+    const handleSelect = useCallback(
+        (item: T) => {
+            onSelect(item);
+            setIsOpen(false);
+        },
+        [onSelect],
+    );
+
+    /**
+     * Вычисляемое значение: есть ли результаты для отображения
+     * true - когда загрузка завершена и есть данные
+     */
+    const hasResults = useMemo(
+        () => !isLoading && responseData.length > 0,
+        [isLoading, responseData.length],
+    );
+
+    /**
+     * Вычисляемое значение: пустой результат поиска
+     * true - когда загрузка завершена, но результатов нет
+     */
+    const isEmptyResult = useMemo(
+        () => !isLoading && responseData.length === 0,
+        [isLoading, responseData.length],
+    );
+
+    /**
+     * Рендер skeleton-загрузчиков во время загрузки данных
+     */
+    const renderSkeletons = useMemo(
+        () =>
+            Array.from({ length: SKELETON_COUNT }, (_, i) => (
+                <Skeleton key={`skeleton-${i}`} className={styles.searchMenu__resultOption} />
+            )),
+        [],
+    );
 
     return (
         <div className={clsx(styles.root, className)} ref={rootRef}>
+            {/* Поле ввода с встроенной логикой debounce и запросов к API */}
             <SearchInput
                 value={value}
                 onChange={onChange}
                 fetchData={fetchData}
                 onData={setResponseData}
                 className={styles.searchInput}
-                onClick={() => setIsOpen(true)}
-                onLoadingChange={(v) => setIsLoading(v)}
+                onClick={handleOpen}
+                onLoadingChange={setIsLoading}
                 placeholder={placeholder}
                 fullWidth
             />
+
+            {/* Выпадающее меню с результатами поиска */}
             {isOpen && (
-                <Box className={styles.searchMenu} padding={10}>
-                    <Typography color="blue" className={styles.searchMenu__title}>
-                        Город или страна
-                    </Typography>
-                    <div className={styles.searchMenu__resultOptions}>
-                        {isLoading && (
-                            <>
-                                <Skeleton className={styles.searchMenu__resultOption} />
-                                <Skeleton className={styles.searchMenu__resultOption} />
-                                <Skeleton className={styles.searchMenu__resultOption} />
-                            </>
-                        )}
+                <Popup
+                    isOpen={isOpen}
+                    onClose={handleClose}
+                    triggerRef={rootRef}
+                    position="left"
+                    matchTriggerWidth
+                >
+                    <Box className={styles.searchMenu} padding={20}>
+                        {/* Заголовок меню */}
+                        <Typography color="blue" className={styles.searchMenu__title}>
+                            Город или страна
+                        </Typography>
 
-                        {isShowResults &&
-                            responseData.map((item) => (
-                                <Button
-                                    key={item.id}
-                                    className={clsx(
-                                        styles.searchMenu__resultOption,
-                                        styles.resultOption,
-                                    )}
-                                    onClick={() => {
-                                        onSelect?.(item);
-                                        setIsOpen(false);
-                                    }}
-                                    fullWidth
-                                >
-                                    <Typography as="span" color="white" variant="h2">
-                                        {item.name}
-                                    </Typography>
-                                    <Typography as="span" color="white">
-                                        {item.city}
-                                    </Typography>
-                                </Button>
-                            ))}
+                        {/* Контейнер результатов поиска */}
+                        <div className={styles.searchMenu__resultOptions}>
+                            {/* Состояние загрузки: отображаем skeleton-загрузчики */}
+                            {isLoading && renderSkeletons}
 
-                        {isZeroResults && <Typography>Ничего не нашлось</Typography>}
-                    </div>
-                </Box>
+                            {/* Состояние успеха: отображаем результаты */}
+                            {hasResults &&
+                                responseData.map((item) => (
+                                    <Button
+                                        key={item.id}
+                                        className={clsx(
+                                            styles.searchMenu__resultOption,
+                                            styles.resultOption,
+                                        )}
+                                        onClick={() => handleSelect(item)}
+                                        fullWidth
+                                    >
+                                        {/* Название локации */}
+                                        <Typography as="span" color="white" variant="h2">
+                                            {item.name}
+                                        </Typography>
+                                        {/* Город/регион */}
+                                        <Typography as="span" color="white">
+                                            {item.city}
+                                        </Typography>
+                                    </Button>
+                                ))}
+
+                            {/* Состояние пустого результата */}
+                            {isEmptyResult && <Typography>Ничего не нашлось</Typography>}
+                        </div>
+                    </Box>
+                </Popup>
             )}
         </div>
     );
