@@ -2,7 +2,7 @@
 .title {
     margin-bottom: 16px;
     @media (max-width: #{$md+px}) {
-        margin-bottom: 8px;
+        margin-bottom: 2px;
     }
 }
 
@@ -10,6 +10,6 @@
     font-weight: 700;
     line-height: 0.8;
     @media (max-width: #{$md+px}) {
-        line-height: 1.1;
+        line-height: 1.2;
     }
 }

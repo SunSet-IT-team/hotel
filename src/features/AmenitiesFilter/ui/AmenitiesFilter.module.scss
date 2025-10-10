@@ -2,7 +2,7 @@
 .title {
     width: 290px;
     @include magicAdapt(width, 290, 175, 1920, 430);
-    margin-bottom: 12px;
+    margin-bottom: 11px;
     @media (max-width: #{$md+px}) {
         margin-bottom: 8px;
     }
@@ -18,4 +18,9 @@
 
 .listContainer {
     padding: 8px 0;
+}
+@media (max-width: #{$md+px}) {
+    .list {
+        gap: 8px;
+    }
 }

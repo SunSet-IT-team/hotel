@@ -1,6 +1,6 @@
+@use '../../../shared/assets/styles/index' as *;
 .root {
-    width: 456px;
-    padding: 20px 0px;
+    @include magicAdapt('width', 476, 400, 1920, 768);
 }
 
 .box {
@@ -8,4 +8,49 @@
     display: flex;
     flex-direction: column;
     gap: 43px;
+    padding-left: 16px;
+    padding-right: 29px;
+    padding-bottom: 19px;
+    padding-top: 30px;
+}
+
+.starRatingContainer {
+    padding-left: 16px;
+}
+.reviewRatingContainer {
+    padding-left: 16px;
+    padding-right: 8px;
+}
+.amenitiesContainer {
+    padding-left: 16px;
+    padding-right: 17px;
+}
+@media (max-width: #{$md+px}) {
+    .box {
+        padding-left: 21px;
+        padding-right: 7px;
+        padding-bottom: 10px;
+        padding-top: 64px;
+        gap: 30px;
+    }
+    .starRatingContainer {
+        padding-top: 3px;
+        padding-left: 2px;
+        padding-right: 38px;
+    }
+    .reviewRatingContainer {
+        padding-left: 2px;
+        padding-right: 38px;
+        padding-top: 9px;
+    }
+    .amenitiesContainer {
+        padding-left: 6px;
+        padding-right: 17px;
+        padding-top: 0px;
+    }
+    .locationContainer {
+        padding-left: 6px;
+        padding-right: 28px;
+        padding-top: 0px;
+    }
 }

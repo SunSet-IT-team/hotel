@@ -46,6 +46,7 @@ export const AmenitiesFilter = ({
                     align="left"
                     selectedItems={selectedAmenities}
                     onChange={handleAmenitiesChange}
+                    className={styles.list}
                 />
             </div>
         </div>
