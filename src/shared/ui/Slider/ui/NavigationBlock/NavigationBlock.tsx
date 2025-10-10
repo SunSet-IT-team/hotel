@@ -25,16 +25,24 @@ interface Props {
      * Дополнительные css стили
      */
     className?: string;
+
+    /**
+     * Возможность скрыть панель навигации
+     */
+    hidden?: boolean;
 }
 
 /**
  * Блок навигации со стрелочками для слайдера
  */
-export const NavigationBlock: FC<Props> = ({ buttonsColor = 'blue', className }) => {
+export const NavigationBlock: FC<Props> = ({ buttonsColor = 'blue', hidden, className }) => {
     const swiper = useSwiper();
 
     return (
-        <div slot="container-end" className={clsx(styles.root, className)}>
+        <div
+            slot="container-end"
+            className={clsx(styles.root, { [styles.hidden]: hidden }, className)}
+        >
             <SliderButton
                 color={buttonsColor}
                 className={clsx(styles.root__btn, styles.root__btn_prev)}

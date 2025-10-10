@@ -2,6 +2,7 @@ import { Accordion } from './Accordion';
 import { Box } from './Box';
 import { Button } from './Button';
 import { Calendar } from './Calendar';
+import { Chip, type ChipProps } from './Chip';
 import { Container } from './Container';
 import { Counter } from './Counter';
 import { Input } from './Input';
@@ -19,6 +20,8 @@ export {
     Box,
     Button,
     Calendar,
+    Chip,
+    type ChipProps,
     Container,
     Counter,
     Input,

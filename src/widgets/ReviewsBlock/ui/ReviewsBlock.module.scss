@@ -1,0 +1,38 @@
+.root {
+    padding: 24px 64px;
+    padding-bottom: 34px;
+    width: 100%;
+    min-width: 0;
+
+    max-width: 1620px;
+    margin: 0 auto;
+
+    &__headerBlock {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+}
+
+.headerBlock {
+    & :not(:last-child) {
+        margin-right: 10px;
+    }
+
+    &__title {
+        font-family: 'Actay Wide';
+        font-weight: 700;
+        font-size: 48px;
+        margin-right: 20px;
+    }
+
+    &__averageRating {
+    }
+
+    &__averageRatingResult {
+    }
+
+    &__reviewsCount {
+        opacity: 0.5;
+    }
+}

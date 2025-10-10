@@ -1,0 +1,10 @@
+.root {
+    &__text {
+        line-height: 29px !important;
+    }
+
+    &__rating {
+        margin-top: 15px;
+        margin-bottom: 4px;
+    }
+}
