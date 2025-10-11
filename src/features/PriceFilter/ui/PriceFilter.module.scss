@@ -3,13 +3,13 @@
 .root {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 27px;
     padding: 0px;
     border-radius: 8px;
 }
 .titleContainer {
     padding-left: 15px;
-    padding-right: 30px;
+    padding-right: 15px;
     .title {
         margin-bottom: 34px;
     }
@@ -26,7 +26,7 @@
     flex-wrap: wrap;
 
     justify-content: flex-start;
-    gap: 10px;
+    gap: 8px;
     @media (max-width: #{$md+px}) {
         gap: 6px;
     }
@@ -37,5 +37,20 @@
 }
 
 .select {
-    width: 100%;
+    @include magicAdapt('width', 431, 335);
+}
+
+@media (max-width: #{$md+px}) {
+    .sliderContainer {
+        padding-right: 13px;
+    }
+    .selectContainer {
+        padding: 0px 4px;
+    }
+    .root {
+        gap: 20px;
+    }
+    .rangesContainer {
+        padding-top: 10px;
+    }
 }
