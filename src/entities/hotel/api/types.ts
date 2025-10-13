@@ -54,6 +54,9 @@ export interface SearchHotelsParams {
 
     /** Количество результатов на странице */
     pageSize?: number;
+
+    /** Индексная сигнатура для совместимости с Record */
+    [key: string]: string | number | boolean | string[] | number[] | undefined;
 }
 
 /**

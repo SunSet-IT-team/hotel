@@ -51,11 +51,7 @@ const SearchHotelsContent = () => {
                     <section className={styles.hotelsSection}>
                         <div className={styles.hotelsList}>
                             {mockHotels.map((hotel) => (
-                                <HotelCard
-                                    key={hotel.id}
-                                    hotel={hotel}
-                                    onClick={(hotelId) => console.log('Clicked hotel:', hotelId)}
-                                />
+                                <HotelCard key={hotel.id} hotel={hotel} />
                             ))}
                         </div>
                     </section>

@@ -13,7 +13,7 @@ import { type HotelCardProps } from '../model/types';
 
 import styles from './HotelCard.module.scss';
 
-export const HotelCard: FC<HotelCardProps> = ({ hotel, onClick }) => {
+export const HotelCard: FC<HotelCardProps> = ({ hotel }) => {
     return (
         <Box as="article" className={styles.root}>
             <div className={styles.topSection}>

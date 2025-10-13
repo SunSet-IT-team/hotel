@@ -4,8 +4,10 @@
  * @module shared/api/base
  */
 
+type ParamValue = string | number | boolean | string[] | number[];
+
 interface RequestConfig extends RequestInit {
-    params?: Record<string, string | number | boolean>;
+    params?: Record<string, ParamValue>;
 }
 
 /**
@@ -42,9 +44,15 @@ class ApiClient {
 
         // Добавляем query параметры
         if (params) {
-            const searchParams = new URLSearchParams(
-                Object.entries(params).map(([k, v]) => [k, String(v)]),
-            );
+            const searchParams = new URLSearchParams();
+            Object.entries(params).forEach(([key, value]) => {
+                if (Array.isArray(value)) {
+                    // Для массивов добавляем каждый элемент отдельно
+                    value.forEach((item) => searchParams.append(key, String(item)));
+                } else {
+                    searchParams.append(key, String(value));
+                }
+            });
             url += `?${searchParams.toString()}`;
         }
 
@@ -81,8 +89,14 @@ class ApiClient {
     /**
      * GET запрос
      */
-    async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
-        return this.request<T>(endpoint, { method: 'GET', params });
+    async get<T>(
+        endpoint: string,
+        params?: Record<string, ParamValue> | Record<string, ParamValue | undefined>,
+    ): Promise<T> {
+        return this.request<T>(endpoint, {
+            method: 'GET',
+            params: params as Record<string, ParamValue>,
+        });
     }
 
     /**
