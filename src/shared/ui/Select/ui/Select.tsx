@@ -41,7 +41,7 @@ export const Select = ({ options, onChange, className, placeholder, value }: Sel
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string>(value || '');
     const selectRef = useRef<HTMLDivElement>(null);
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         if (value !== undefined) {
