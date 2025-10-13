@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 import { DateRange } from '@/features/DateRange';
 import { GuestsField } from '@/features/GuestsField';
-import type { Option as SearchLocationOption } from '@/features/SearchLocation';
+import type { LocationOption as SearchLocationOption } from '@/features/SearchLocation';
 import { SearchLocation } from '@/features/SearchLocation';
 import { fetchMockData1 } from '@/shared/mocks/searchLocation';
 import type { ISODate } from '@/shared/types/global.types';

@@ -1,0 +1,42 @@
+@use '../../../../shared/assets/styles/index' as *;
+
+.reviews {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.rating {
+    padding: 4px 11px;
+    display: flex;
+    align-items: center;
+}
+
+.ratingText {
+    font-weight: 400;
+}
+
+.reviewStatus {
+    font-weight: 500;
+}
+
+.reviewCount {
+    color: rgba(45, 193, 219, 0.51);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+@media (max-width: 430px) {
+    .reviews {
+        margin-bottom: 4px;
+    }
+
+    .rating {
+        padding: 3px 16px;
+        border-radius: 8px;
+    }
+}

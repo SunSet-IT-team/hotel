@@ -1,0 +1,19 @@
+@use '../../../../shared/assets/styles/index' as *;
+
+.amenities {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.amenitiesIcon {
+    flex-shrink: 0;
+    @include magicAdapt('width', 19, 12, 1920, 430);
+    @include magicAdapt('height', 25, 12, 1920, 430);
+}
+
+@media (max-width: 430px) {
+    .amenities {
+        gap: 3px;
+    }
+}

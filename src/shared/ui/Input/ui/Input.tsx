@@ -28,6 +28,11 @@ export const Input: FC<Props> = ({
     className,
     ...rest
 }) => {
+    // Если value передан (даже если undefined), преобразуем undefined в ''
+    // чтобы избежать переключения из неконтролируемого в контролируемый режим
+    const controlledProps =
+        'value' in rest && rest.value === undefined ? { ...rest, value: '' } : rest;
+
     return (
         <input
             className={clsx(
@@ -36,7 +41,7 @@ export const Input: FC<Props> = ({
                 { [styles.fullWidth]: fullWidth },
                 className,
             )}
-            {...rest}
+            {...controlledProps}
             placeholder={placeholder}
         />
     );

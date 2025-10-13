@@ -3,7 +3,6 @@
 import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { type ISODate } from '@/shared/types/global.types';
 import { Button, Calendar, Typography } from '@/shared/ui';
 import type { DateRange as DateRangeType } from '@/shared/ui/Calendar';
 import { Popup } from '@/shared/ui/Popup';
@@ -11,17 +10,15 @@ import { formatDateRuShort } from '@/shared/utils/date/formatDate';
 import { toISODate } from '@/shared/utils/date/isoDate';
 import { normalizeDate } from '@/shared/utils/date/normalizeDate';
 
+import { type DateRangeProps } from '../model/types';
+
 import styles from './DateRange.module.scss';
 
-interface Props {
-    /** Значение из вне в ISO формате */
-    value: DateRangeType<ISODate>;
-    onChange: (value: DateRangeType<ISODate>) => void;
-    /** Дополнительные классы для стилей */
-    className?: string;
-}
-
-export const DateRange: FC<Props> = ({ value, onChange, className }) => {
+/**
+ * Компонент выбора диапазона дат (заезд/выезд)
+ * Отображает две кнопки с датами и календарь при клике
+ */
+export const DateRange: FC<DateRangeProps> = ({ value, onChange, className }) => {
     const rootRef = useRef(null); // Родительский компонент
 
     // Состояние модального окна с выбором даты

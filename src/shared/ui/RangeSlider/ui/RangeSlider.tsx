@@ -1,6 +1,13 @@
 'use client';
 
-import { type ChangeEvent, type FC, type InputHTMLAttributes, useRef, useState } from 'react';
+import {
+    type ChangeEvent,
+    type FC,
+    type InputHTMLAttributes,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import clsx from 'clsx';
 
 import { Typography } from '../../Typography';
@@ -41,7 +48,11 @@ export const RangeSlider: FC<Props> = ({
     ...rest
 }) => {
     validateValue(min, max);
-    normalizeValue({ min, max, value, step, onChange });
+
+    // Normalize value after render to avoid setState during render
+    useEffect(() => {
+        normalizeValue({ min, max, value, step, onChange });
+    }, [min, max, value, step, onChange]);
 
     // ── РЕЗОЛВ ОПЦИЙ ПО ОТДЕЛЬНОСТИ (без merged-объекта) ────────────────────────
     type RDV = NonNullable<RangeSliderOptions['renderDisplayedValues']>;

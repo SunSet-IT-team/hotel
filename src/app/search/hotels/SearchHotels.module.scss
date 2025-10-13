@@ -3,8 +3,11 @@
 /* Базовые стили для MainPage */
 .mainPage {
     width: 100%;
-    // position: relative;
     background-color: var(--color-primary-white);
+}
+
+.headerText {
+    padding-top: 21px;
 }
 
 .bookingButtons {
@@ -47,9 +50,7 @@
         width: 100%;
         object-fit: cover;
 
-        // При изменении ширины, положение изображения остается 80% по гроизонтали и по вертиали - в центре.
-        // Таким образом мы всегда видим нужную часть изображения с домом примерно как на макете
-        object-position: 80% center;
+        object-position: center;
     }
 
     @media (max-width: #{$md+px}) {
@@ -83,4 +84,71 @@
     border-radius: 8px;
     font-family: monospace;
     word-break: break-all;
+}
+
+// Двухколоночная раскладка: фильтр слева, отели справа
+.contentGrid {
+    display: grid;
+    grid-template-columns: 476px 1fr;
+    gap: 31px;
+    align-items: start;
+    padding: 21px 0;
+
+    // Ниже 1280px - одна колонка на всю ширину
+    @media (max-width: 1280px) {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+.filterAside {
+    position: sticky;
+    top: 0px; // Отступ сверху при прокрутке
+    width: 100%;
+    max-height: 100vh; // Высота экрана минус отступы сверху и снизу
+
+    // Скрываем фильтр ниже 1280px
+    @media (max-width: 1280px) {
+        display: none;
+    }
+}
+
+.hotelsSection {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; // Позволяет содержимому сжиматься при необходимости
+}
+
+.hotelsHeader {
+    margin-bottom: 32px;
+
+    @media (max-width: #{$lg+px}) {
+        margin-bottom: 28px;
+    }
+
+    @media (max-width: #{$md+px}) {
+        margin-bottom: 24px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        margin-bottom: 20px;
+    }
+}
+
+.hotelsList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (max-width: #{$lg+px}) {
+        gap: 20px;
+    }
+
+    @media (max-width: #{$md+px}) {
+        gap: 16px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        gap: 12px;
+    }
 }

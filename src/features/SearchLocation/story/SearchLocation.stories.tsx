@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import { fetchMockData1 } from '@/shared/mocks/searchLocation';
 
-import { type FetchData, type Option } from '../model/types';
+import { type FetchData, type LocationOption } from '../model/types';
 import { SearchLocation } from '../ui/SearchLocation';
 
 import { mockData } from './mockData';
 
-const _fetchData: FetchData<Option> = () =>
+const _fetchData: FetchData<LocationOption> = () =>
     new Promise((resolve) => setTimeout(() => resolve(mockData), 1000));
 
 const meta = {

@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { type FetchData, type Option } from '@/features/SearchLocation/model/types';
+import { type FetchData, type LocationOption } from '@/features/SearchLocation/model/types';
 import { Box, Button, SearchInput, Typography } from '@/shared/ui';
 import { Popup } from '@/shared/ui/Popup';
 import { Skeleton } from '@/shared/ui/Skeleton';
@@ -12,9 +12,9 @@ import styles from './SearchLocation.module.scss';
 
 /**
  * Свойства компонента SearchLocation
- * @template T - Тип опции, расширяющий базовый интерфейс Option
+ * @template T - Тип опции, расширяющий базовый интерфейс LocationOption
  */
-interface Props<T extends Option> {
+interface Props<T extends LocationOption> {
     /**
      * Асинхронная функция для получения отфильтрованных данных от API
      * @param query - Поисковый запрос пользователя
@@ -68,7 +68,7 @@ const SKELETON_COUNT = 3;
  * Реализует функциональность поиска городов/отелей с динамической подгрузкой
  * результатов от API. Отображает до 3 вариантов в выпадающем меню.
  *
- * @template T - Тип данных опций, должен расширять базовый интерфейс Option
+ * @template T - Тип данных опций, должен расширять базовый интерфейс LocationOption
  *
  * @example
  * ```tsx
@@ -81,7 +81,7 @@ const SKELETON_COUNT = 3;
  * />
  * ```
  */
-export const SearchLocation = <T extends Option>({
+export const SearchLocation = <T extends LocationOption>({
     onChange,
     value,
     onSelect,

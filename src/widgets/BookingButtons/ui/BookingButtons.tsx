@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const BookingButtons: FC<Props> = ({ className }) => {
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile();
 
     return (
         <section className={className}>

@@ -1,4 +1,4 @@
-import { type Option as BaseOption } from '../model/types';
+import { type LocationOption as BaseOption } from '../model/types';
 
 type Option = {
     description: string;

@@ -6,17 +6,22 @@ import clsx from 'clsx';
 import { useIsMobile } from '@/shared/hooks';
 import { Box, Button, Convenience, Popup, Typography } from '@/shared/ui';
 
+import { AMENITIES_PREVIEW_COUNT, AMENITIES_SHOW_MORE_THRESHOLD } from '../model/constants';
 import { type AmenitiesProps } from '../model/types';
 
 import styles from './Amenities.module.scss';
 
+/**
+ * Компонент отображения удобств отеля
+ * Показывает превью удобств с возможностью открыть полный список в модальном окне
+ */
 export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобства', className }) => {
     const rootRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
-    const isMobile = useIsMobile(768);
-    // Показываем только первые 5 удобства в превью
-    const previewAmenities = amenities.slice(0, 5);
-    const hasMoreAmenities = amenities.length > 6;
+    const isMobile = useIsMobile();
+
+    const previewAmenities = amenities.slice(0, AMENITIES_PREVIEW_COUNT);
+    const hasMoreAmenities = amenities.length > AMENITIES_SHOW_MORE_THRESHOLD;
 
     return (
         <Box className={clsx(styles.root, className)}>

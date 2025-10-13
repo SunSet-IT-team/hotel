@@ -2,7 +2,10 @@
  * Типы для компонента PriceFilter
  */
 
-export interface PriceProp {
+/**
+ * Диапазон цен
+ */
+export interface PriceRange {
     /** Минимальное значение диапазона */
     min: number;
     /** Максимальное значение диапазона */
@@ -13,14 +16,20 @@ export interface PriceProp {
     value?: [number, number];
 }
 
-export interface SelectItem {
+/**
+ * Опция для выбора периода оплаты
+ */
+export interface PriceSelectOption {
     /** Значение опции */
     value: string;
     /** Отображаемый текст опции */
     label: string;
 }
 
-export interface RangeItem {
+/**
+ * Предустановленный диапазон цен
+ */
+export interface PriceRangePreset {
     /** Значение диапазона */
     value: string;
     /** Отображаемый текст диапазона */
@@ -31,15 +40,18 @@ export interface RangeItem {
     maxPrice?: number;
 }
 
+/**
+ * Пропсы компонента PriceFilter
+ */
 export interface PriceFilterProps {
     /** Заголовок компонента */
     title?: string;
     /** Настройки диапазона цен */
-    price: PriceProp;
+    price: PriceRange;
     /** Опции для селекта периода */
-    selectItems: SelectItem[];
+    selectItems: PriceSelectOption[];
     /** Предустановленные диапазоны цен для RangeList */
-    rangeItems?: RangeItem[];
+    rangeItems?: PriceRangePreset[];
     /** Callback при изменении диапазона цен */
     onPriceChange?: (range: [number, number]) => void;
     /** Callback при изменении выбранного периода */

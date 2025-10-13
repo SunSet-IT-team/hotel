@@ -1,13 +1,66 @@
+@use '../../../shared/assets/styles/' as *;
+
 .root {
-    max-width: 500px;
-    max-height: 500px;
+    width: 100%;
     border-radius: 24px;
 
+    // От 1920px до 1280px: ширина 498px → 300px
+    @media (min-width: 1281px) {
+        @include magicAdapt('max-width', 498, 300, 1920, 1280);
+    }
+
+    // От 1280px до 768px: ширина 498px → 300px
+    @media (max-width: 1280px) and (min-width: 769px) {
+        @include magicAdapt('max-width', 498, 300, 1280, 768);
+    }
+
+    @media (max-width: #{$md+px}) {
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    @media (max-width: #{$lg+px}) {
+        border-radius: 20px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        border-radius: 12px;
+    }
+
     .slide {
-        padding-bottom: 100%;
+        position: relative;
+        width: 100%;
+
+        // От 1920px до 1280px: padding меняется от 100% до 133.33%
+        @media (min-width: 1281px) {
+            @include magicAdapt('padding-bottom', 100, 133.33, 1920, 1280);
+        }
+
+        // От 1280px до 768px: padding меняется от 133.33% до 100%
+        @media (max-width: 1280px) and (min-width: 769px) {
+            @include magicAdapt('padding-bottom', 133.33, 100, 1280, 768);
+        }
+
+        // Ниже 768px: квадрат 100%
+        @media (max-width: 768px) {
+            padding-bottom: 100%;
+        }
 
         img {
             border-radius: 24px;
+            object-fit: cover;
+
+            @media (max-width: #{$lg+px}) {
+                border-radius: 20px;
+            }
+
+            @media (max-width: #{$md+px}) {
+                border-radius: 16px;
+            }
+
+            @media (max-width: #{$sm+px}) {
+                border-radius: 12px;
+            }
         }
     }
 }
@@ -19,4 +72,8 @@
     transform: translateY(-50%);
     z-index: 10;
     padding: 0 10px;
+
+    @media (max-width: #{$sm+px}) {
+        padding: 0 5px;
+    }
 }

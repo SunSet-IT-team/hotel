@@ -1,0 +1,39 @@
+@use '../../../../shared/assets/styles/index' as *;
+
+.location {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    @include magicAdapt('gap', 8, 4, 1920, 768);
+}
+
+.mapIcon {
+    flex-shrink: 0;
+    @include magicAdapt('width', 19, 11, 1920, 430);
+    @include magicAdapt('height', 25, 11, 1920, 430);
+}
+
+.address {
+    line-height: 1.4;
+}
+
+.mapLink {
+    text-decoration: none;
+    flex-shrink: 0;
+    color: inherit;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Вариант default
+.location[data-variant='default'] {
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    @include magicAdapt('gap', 8, 4, 1920, 430);
+
+    .address {
+        @include magicAdapt('margin-right', 12, 6, 1920, 430);
+    }
+}

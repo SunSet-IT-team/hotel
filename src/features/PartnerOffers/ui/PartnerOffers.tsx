@@ -19,7 +19,7 @@ export const PartnerOffers: FC<PartnerOffersProps> = ({
     link,
     className,
 }) => {
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile();
     return (
         <Box className={clsx(styles.root, className)}>
             <div className={styles.imageContainer}>

@@ -1,6 +1,9 @@
 @use '../../../shared/assets/styles/index' as *;
+
 .root {
-    @include magicAdapt('width', 476, 400, 1920, 768);
+    width: 100%;
+    overflow: hidden;
+    // @include magicAdapt('width', 476, 400, 1920, 768);
 }
 
 .box {
@@ -12,6 +15,32 @@
     padding-right: 29px;
     padding-bottom: 19px;
     padding-top: 30px;
+    max-height: 100vh; // Высота экрана
+    overflow-y: auto; // Включаем вертикальный скролл
+    overflow-x: hidden; // Скрываем горизонтальный скролл
+
+    // Улучшаем скроллинг на мобильных устройствах
+    -webkit-overflow-scrolling: touch;
+
+    // Стилизация скроллбара (для webkit браузеров)
+    &::-webkit-scrollbar {
+        width: 6px;
+        margin-left: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(14, 179, 179, 0.05);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(14, 179, 179, 0.2);
+        border-radius: 3px;
+
+        &:hover {
+            background: rgba(14, 179, 179, 0.3);
+        }
+    }
 }
 
 .starRatingContainer {
@@ -32,6 +61,8 @@
         padding-bottom: 10px;
         padding-top: 64px;
         gap: 30px;
+        max-height: none;
+        overflow-y: visible;
     }
     .starRatingContainer {
         padding-top: 3px;

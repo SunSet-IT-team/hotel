@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { type GuestsFieldValue } from '@/features/GuestsField';
+import type { GuestsCount } from '@/entities/booking';
 
 import type { DateRange, Destination } from './types';
 
@@ -16,7 +16,7 @@ export interface SearchFormSlice {
         dateRange?: DateRange;
 
         /** Количество взрослых/детей */
-        peoplesCount?: GuestsFieldValue;
+        peoplesCount?: GuestsCount;
     };
     isSubmitting: boolean;
 }
@@ -56,7 +56,7 @@ const searchFormSlice = createSlice({
             state.values.dateRange = { startDate, endDate };
         },
 
-        setPeoplesCount(state, { payload }: PayloadAction<GuestsFieldValue>) {
+        setPeoplesCount(state, { payload }: PayloadAction<GuestsCount>) {
             state.values.peoplesCount = payload;
         },
 

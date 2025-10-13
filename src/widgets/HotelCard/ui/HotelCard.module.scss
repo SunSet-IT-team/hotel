@@ -1,0 +1,74 @@
+@use '../../../shared/assets/styles/' as *;
+
+.root {
+    padding: 0 !important;
+    border-radius: 24px;
+}
+
+// Верхний блок: слайдер + информация
+.topSection {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    padding: 24px;
+    flex: 1;
+
+    @media (max-width: #{$xl+px}) {
+        gap: 20px;
+        padding: 20px;
+    }
+
+    @media (max-width: #{$lg+px}) {
+        gap: 16px;
+        padding: 16px;
+    }
+
+    @media (max-width: #{$md+px}) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 16px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        padding: 12px;
+        gap: 16px;
+    }
+}
+
+.infoSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0; // Позволяет содержимому правильно сжиматься
+
+    @media (max-width: #{$sm+px}) {
+        gap: 16px;
+    }
+}
+
+// Нижний блок: слайдер с ценами + кнопка
+.bottomSection {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    padding: 0 24px 24px;
+
+    @media (max-width: #{$xl+px}) {
+        padding: 0 20px 20px;
+    }
+
+    @media (max-width: #{$lg+px}) {
+        gap: 16px;
+        padding: 0 16px 16px;
+    }
+
+    @media (max-width: #{$md+px}) {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 16px 16px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        padding: 0 12px 12px;
+    }
+}

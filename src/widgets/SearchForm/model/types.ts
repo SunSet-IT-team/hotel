@@ -1,4 +1,4 @@
-import { type Option as SearchLocationOption } from '@/features/SearchLocation';
+import { type LocationOption as SearchLocationOption } from '@/features/SearchLocation';
 import { type ISODate } from '@/shared/types/global.types';
 
 // Разрешаем только город или страну

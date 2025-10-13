@@ -4,9 +4,9 @@ import { AmenitiesFilter } from '@/features/AmenitiesFilter';
 import { LocationFilter } from '@/features/LocationFilter';
 import {
     PriceFilter,
-    type PriceProp,
-    type RangeItem,
-    type SelectItem,
+    type PriceRange,
+    type PriceRangePreset,
+    type PriceSelectOption,
 } from '@/features/PriceFilter';
 import { ReviewRatingFilter } from '@/features/ReviewRatingFilter';
 import { StarRatingFilter } from '@/features/StarRatingFilter/ui/StarRatingFilter';
@@ -15,20 +15,20 @@ import { type RangeListOption } from '@/shared/ui/RangeList';
 
 import styles from './FilterForm.module.scss';
 
-const prices: PriceProp = {
+const prices: PriceRange = {
     max: 30000,
     min: 0,
     step: 100,
     value: [5000, 30000],
 };
 
-const items: SelectItem[] = [
+const items: PriceSelectOption[] = [
     { value: '0', label: 'цена за номер/ночь (без налогов и сборов)' },
     { value: '1', label: 'цена за номер/ночь (вкл. налоги и сборы)' },
     { value: '3', label: 'итого (в т.ч. налоги и сборы)' },
 ];
 
-const rangeItems: RangeItem[] = [
+const rangeItems: PriceRangePreset[] = [
     { value: '1', label: '0 - 4000', minPrice: 0, maxPrice: 4000 },
     { value: '2', label: '4000 - 8000', minPrice: 4000, maxPrice: 8000 },
     { value: '3', label: '8000 - 12000', minPrice: 8000, maxPrice: 12000 },

@@ -1,25 +1,121 @@
+@use '../../../shared/assets/styles/' as *;
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex: 1;
+    min-width: 0; // Позволяет слайдеру правильно сжиматься
+
+    @media (max-width: #{$lg+px}) {
+        gap: 16px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        gap: 12px;
+    }
+}
+
 .root {
     min-height: 39px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #fff;
-    padding: 0 40px;
+
+    // Для 2 цен на больших экранах (>= 1600px)
+    @media (min-width: 1600px) {
+        padding: 0 40px;
+    }
+
+    // Для 1 цены на средних и маленьких экранах
+    @media (max-width: 1599px) {
+        padding: 0 50px;
+    }
+
+    @media (max-width: #{$lg+px}) {
+        padding: 0 45px;
+    }
+
+    @media (max-width: #{$md+px}) {
+        padding: 0 40px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        padding: 0 30px;
+    }
 
     .slide {
         display: flex;
         justify-content: center;
+        width: 100%;
+        max-width: 100%;
 
         &__container {
             display: inline-flex;
             align-items: flex-end;
+            gap: 10px;
+            flex-shrink: 1;
+            min-width: 0;
+
+            @media (max-width: #{$lg+px}) {
+                gap: 8px;
+            }
+
+            @media (max-width: #{$md+px}) {
+                gap: 6px;
+            }
+
+            @media (max-width: #{$sm+px}) {
+                gap: 5px;
+            }
         }
 
         &__price {
-            margin-right: 10px;
+            // Адаптивный размер шрифта для цены
+            font-size: 36px;
+            line-height: 1;
+            flex-shrink: 1;
+            min-width: 0;
+
+            @media (max-width: #{$xl+px}) {
+                font-size: 32px;
+            }
+
+            @media (max-width: #{$lg+px}) {
+                font-size: 28px;
+            }
+
+            @media (max-width: #{$md+px}) {
+                font-size: 24px;
+            }
+
+            @media (max-width: #{$sm+px}) {
+                font-size: 20px;
+            }
         }
 
         &__website {
+            // Адаптивный размер шрифта для названия сайта
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 1;
+            min-width: 0;
+
+            @media (max-width: #{$xl+px}) {
+                font-size: 18px;
+            }
+
+            @media (max-width: #{$lg+px}) {
+                font-size: 16px;
+            }
+
+            @media (max-width: #{$md+px}) {
+                font-size: 14px;
+            }
+
+            @media (max-width: #{$sm+px}) {
+                font-size: 12px;
+            }
         }
     }
 }
@@ -41,11 +137,31 @@
     &::after {
         content: '';
         position: absolute;
-        width: 40px;
         height: 100%;
         top: 0;
-        background-color: #fff;
         z-index: -1;
+
+        // Для 2 цен на больших экранах (>= 1600px)
+        @media (min-width: 1600px) {
+            width: 40px;
+        }
+
+        // Для 1 цены на средних экранах
+        @media (max-width: 1599px) {
+            width: 50px;
+        }
+
+        @media (max-width: #{$lg+px}) {
+            width: 45px;
+        }
+
+        @media (max-width: #{$md+px}) {
+            width: 40px;
+        }
+
+        @media (max-width: #{$sm+px}) {
+            width: 30px;
+        }
     }
 
     &::before {

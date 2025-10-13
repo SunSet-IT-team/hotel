@@ -1,12 +1,25 @@
+@use '../../../shared/assets/styles/' as *;
+
 .root {
     min-height: 39px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     .slide {
         p {
             font-size: 20px;
             line-height: 29px;
+
+            @media (max-width: #{$md+px}) {
+                font-size: 18px;
+                line-height: 26px;
+            }
+
+            @media (max-width: #{$sm+px}) {
+                font-size: 16px;
+                line-height: 24px;
+            }
         }
     }
 
@@ -20,6 +33,10 @@
         left: 0;
         bottom: 0;
         pointer-events: none;
+
+        @media (max-width: #{$sm+px}) {
+            height: 30px;
+        }
 
         &:global(.swiper-pagination-clickable) {
             span:global(.swiper-pagination-bullet) {
@@ -36,8 +53,17 @@
             background-color: var(--color-primary-blue);
             transition: background-color 0.3s ease 0s;
 
+            @media (max-width: #{$sm+px}) {
+                width: 8px;
+                height: 8px;
+            }
+
             &:not(:last-child) {
                 margin-right: 10px;
+
+                @media (max-width: #{$sm+px}) {
+                    margin-right: 8px;
+                }
             }
 
             // Стили для активного кружочка пагинации (отображающего текущий слайд)
@@ -51,4 +77,55 @@
 .navigationBlock {
     height: 39px;
     margin-top: 40px;
+
+    @media (max-width: #{$md+px}) {
+        margin-top: 30px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        height: 30px;
+        margin-top: 20px;
+    }
+}
+
+.reviewCard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px;
+
+    @media (max-width: #{$sm+px}) {
+        gap: 8px;
+    }
+}
+
+.reviewHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    @media (max-width: #{$sm+px}) {
+        gap: 12px;
+    }
+}
+
+.reviewRating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+
+    @media (max-width: #{$sm+px}) {
+        gap: 6px;
+    }
+}
+
+.reviewText {
+    line-height: 1.6;
+}
+
+.reviewDate {
+    margin-top: 4px;
 }

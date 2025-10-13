@@ -1,0 +1,68 @@
+@use '../../../../shared/assets/styles/index' as *;
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.hotelName {
+    flex: 1;
+    min-width: 0;
+    font-weight: 700;
+    font-family: var(--font-family-heading);
+}
+
+.stars {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.starIcon {
+    fill: var(--color-text-blue);
+    @include magicAdapt('width', 24, 14, 1920, 430);
+    @include magicAdapt('height', 24, 14, 1920, 430);
+}
+
+@media (max-width: 430px) {
+    .header {
+        margin-bottom: 8px;
+    }
+
+    .stars {
+        gap: 2px;
+    }
+}
+
+// Вариант default
+.header[data-variant='default'] {
+    margin-bottom: 7px;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    .hotelName {
+        flex: none;
+        min-width: 0;
+    }
+
+    .stars {
+        gap: 7px;
+    }
+
+    .starIcon {
+        @include magicAdapt('width', 35, 19, 1920, 430);
+        @include magicAdapt('height', 35, 19, 1920, 430);
+    }
+
+    @media (max-width: 430px) {
+        gap: 16px;
+        margin-bottom: 3px;
+
+        .stars {
+            gap: 5px;
+        }
+    }
+}

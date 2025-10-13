@@ -4,9 +4,11 @@ import { Suspense, useMemo } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
+import { mockHotels } from '@/entities/hotel';
 import HeaderBg from '@/shared/assets/img/header-bg.png';
-import { Container } from '@/shared/ui';
+import { Container, Typography } from '@/shared/ui';
 import { FilterForm } from '@/widgets/FilterForm/ui/FilterForm';
+import { HotelCard } from '@/widgets/HotelCard';
 import { SearchForm } from '@/widgets/SearchForm';
 import { parseSearchParamsToFormData } from '@/widgets/SearchForm/utils/parseSearchParams';
 
@@ -28,7 +30,6 @@ const SearchHotelsContent = () => {
                 </div>
 
                 <SearchForm
-                    // ключ можно оставить, если вы хотите реинициализировать форму на изменение параметров
                     key={searchParams?.toString() || 'hotels-form'}
                     initialValues={useMemo(() => {
                         const sp = new URLSearchParams(searchParams?.toString());
@@ -38,8 +39,27 @@ const SearchHotelsContent = () => {
                 />
             </section>
 
-            <Container variant="header">
-                <FilterForm />
+            <Container>
+                <Typography variant="h1" color="green" className={styles.headerText}>
+                    Открой мир и путешествуй легко
+                </Typography>
+                <div className={styles.contentGrid}>
+                    <aside className={styles.filterAside}>
+                        <FilterForm />
+                    </aside>
+
+                    <section className={styles.hotelsSection}>
+                        <div className={styles.hotelsList}>
+                            {mockHotels.map((hotel) => (
+                                <HotelCard
+                                    key={hotel.id}
+                                    hotel={hotel}
+                                    onClick={(hotelId) => console.log('Clicked hotel:', hotelId)}
+                                />
+                            ))}
+                        </div>
+                    </section>
+                </div>
             </Container>
         </main>
     );

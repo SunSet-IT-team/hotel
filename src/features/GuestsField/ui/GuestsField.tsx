@@ -7,28 +7,19 @@ import { useIsMobile, useOutsideClick } from '@/shared/hooks';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
 
-import { type GuestsFieldValue } from '../model/types';
+import { GUESTS_INFO_TEXT, GUESTS_LIMITS } from '../model/constants';
+import { type GuestsFieldProps } from '../model/types';
 
 import styles from './GuestsField.module.scss';
 
-interface Props {
-    /** Дополнительные классы для стилей */
-    className?: string;
-
-    value: GuestsFieldValue;
-
-    /** Функция, вызываемая при изменении значения компонента */
-    onChange: (value: GuestsFieldValue) => void;
-}
-
 /**
- * Компонент формы поиска на главной странице.
+ * Компонент выбора количества гостей
  * Позволяет выбрать число взрослых и детей для поездки.
  */
-export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
+export const GuestsField: FC<GuestsFieldProps> = ({ value, onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [applied, setApplied] = useState(value.adults !== 0 || value.children !== 0);
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile();
 
     const label = !applied ? 'Кол-во гостей' : `${value.adults} взрос. ${value.children} реб.`;
 
@@ -73,8 +64,8 @@ export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
                             onChange={(v) => {
                                 onChange({ adults: v, children: value.children });
                             }}
-                            min={1}
-                            max={10}
+                            min={GUESTS_LIMITS.ADULTS_MIN}
+                            max={GUESTS_LIMITS.ADULTS_MAX}
                             className={styles.count}
                         />
                     </div>
@@ -98,8 +89,8 @@ export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
                             onChange={(v) => {
                                 onChange({ adults: value.adults, children: v });
                             }}
-                            min={0}
-                            max={10}
+                            min={GUESTS_LIMITS.CHILDREN_MIN}
+                            max={GUESTS_LIMITS.CHILDREN_MAX}
                             className={styles.count}
                         />
                     </div>
@@ -111,19 +102,7 @@ export const GuestsField: FC<Props> = ({ value, onChange, className }) => {
                             variant={isMobile ? 'h2' : 'h3'}
                             color="dark"
                         >
-                            Ваш возраст на момент поездки должен соответствовать категории
-                            забронированного билета. У авиакомпаний есть ограничения для пассажиров
-                            младше 18 лет, путешествующих без сопровождения. У авиакомпаний есть
-                            ограничения для пассажиров младше 18 лет, путешествующих без
-                            сопровождения. Ваш возраст на момент поездки должен соответствовать
-                            категории забронированного билета. У авиакомпаний есть ограничения для
-                            пассажиров младше 18 лет, путешествующих без сопровождения. У
-                            авиакомпаний есть ограничения для пассажиров младше 18 лет,
-                            путешествующих без сопровождения. Ваш возраст на момент поездки должен
-                            соответствовать категории забронированного билета. У авиакомпаний есть
-                            ограничения для пассажиров младше 18 лет, путешествующих без
-                            сопровождения. У авиакомпаний есть ограничения для пассажиров младше 18
-                            лет, путешествующих без сопровождения.
+                            {GUESTS_INFO_TEXT}
                         </Typography>
                     </div>
 
