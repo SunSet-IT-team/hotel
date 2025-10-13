@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const Calendar: FC<Props> = ({ language = 'ru', dateRange, onChange, activeField }) => {
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile();
 
     const {
         currentDate,
