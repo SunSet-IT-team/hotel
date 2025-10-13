@@ -1,10 +1,18 @@
+@use '../../../assets/styles/' as *;
+
 .box {
     box-sizing: border-box;
     border: 1px solid #d1d5db;
     border-radius: 14px;
-    box-shadow: 1px 2px 3.9px 0px rgba(9, 25, 20, 0.28);
-    width: fit-content;
-    min-width: min-content;
+    box-shadow: 1px 2px 3px 0px rgba(9, 25, 20, 0.28);
+
+    @media (max-width: #{$md+px}) {
+        border-radius: 12px;
+    }
+
+    @media (max-width: #{$sm+px}) {
+        border-radius: 10px;
+    }
 }
 
 // Padding tokens
