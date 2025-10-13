@@ -76,6 +76,7 @@
             line-height: 1;
             flex-shrink: 1;
             min-width: 0;
+            white-space: nowrap;
 
             @media (max-width: #{$xl+px}) {
                 font-size: 32px;
@@ -100,6 +101,7 @@
             line-height: 1;
             flex-shrink: 1;
             min-width: 0;
+            white-space: nowrap;
 
             @media (max-width: #{$xl+px}) {
                 font-size: 18px;
