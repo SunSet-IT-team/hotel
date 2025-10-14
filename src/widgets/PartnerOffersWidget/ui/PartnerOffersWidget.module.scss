@@ -1,0 +1,49 @@
+@use '../../../shared/assets/styles/index' as *;
+
+.root {
+    width: 100%;
+}
+
+.desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .offer {
+        flex: 1;
+    }
+}
+
+.mobile {
+    display: block;
+    width: 100%;
+
+    .slide {
+        width: 100%;
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 8px;
+
+    // Активная точка
+    --swiper-pagination-color: var(--color-primary-blue);
+    // Неактивные точки
+    --swiper-pagination-bullet-inactive-color: var(--color-primary-blue);
+    --swiper-pagination-bullet-inactive-opacity: 0.4;
+}
+
+@media (max-width: #{$md+px}) {
+    .desktop {
+        display: none;
+    }
+}
+
+@media (min-width: #{$md+1+px}) {
+    .mobile {
+        display: none;
+    }
+}
