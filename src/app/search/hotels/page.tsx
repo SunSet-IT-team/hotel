@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { mockHotels } from '@/entities/hotel';
 import HeaderBg from '@/shared/assets/img/header-bg.png';
-import { Container, Typography } from '@/shared/ui';
+import { Container, SearchHotelsSkeleton, Typography } from '@/shared/ui';
 import { FilterForm } from '@/widgets/FilterForm/ui/FilterForm';
 import { HotelCard } from '@/widgets/HotelCard';
 import { SearchForm } from '@/widgets/SearchForm';
@@ -63,7 +63,7 @@ const SearchHotelsContent = () => {
 
 const SearchHotels = () => {
     return (
-        <Suspense fallback={<div>Загрузка...</div>}>
+        <Suspense fallback={<SearchHotelsSkeleton />}>
             <SearchHotelsContent />
         </Suspense>
     );
