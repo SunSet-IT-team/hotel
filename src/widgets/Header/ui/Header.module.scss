@@ -1,10 +1,6 @@
 @use '../../../shared/assets/styles/index' as *;
 
 .root {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 5;
     width: 100%;
 
     &.withSolidBg {
@@ -12,7 +8,11 @@
     }
 
     &.transparent {
+        position: absolute;
+        top: 0;
+        left: 0;
         background-color: transparent;
+        z-index: 100;
     }
 
     .body {
