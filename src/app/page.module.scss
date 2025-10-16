@@ -16,6 +16,16 @@
     }
 }
 
+.gallerySection {
+    @include magicAdapt('padding-top', 100, 40);
+    @include magicAdapt('padding-bottom', 100, 40);
+}
+
+.galleryTitle {
+    @include magicAdapt('margin-bottom', 60, 30);
+    text-align: center;
+}
+
 .headerContent {
     padding-top: 270px;
     position: relative;

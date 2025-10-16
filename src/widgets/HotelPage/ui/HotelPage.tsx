@@ -1,112 +1,63 @@
-import { type FC, useMemo } from 'react';
+import { type FC, memo } from 'react';
 import clsx from 'clsx';
 
-import { mockHotels } from '@/entities/hotel';
-import { Amenities } from '@/features/Amenities';
-import { BookingButton } from '@/features/BookingButton';
-import { HotelInfo } from '@/features/HotelInfo';
-import { ImageSlider } from '@/features/ImageSlider';
-import { PricesSlider } from '@/features/PricesSlider';
-import { ReviewsSlider } from '@/features/ReviewsSlider';
-import { AmenitiesIcon } from '@/shared/assets/icons';
-import { Container, Typography } from '@/shared/ui';
+import { Box, Container, NoResults } from '@/shared/ui';
 
+import {
+    useAmenitiesWithIcons,
+    useDescriptionItems,
+    useHotelData,
+    usePartnerOffers,
+} from '../hooks/useHotelPage';
 import { type HotelPageProps } from '../model/types';
+
+import {
+    HotelAmenitiesSection,
+    HotelDescriptionSection,
+    HotelGallerySection,
+    HotelInfoSection,
+    HotelPartnerOffersSection,
+    HotelReviewsSection,
+    HotelRulesSection,
+} from './sections';
 
 import styles from './HotelPage.module.scss';
 
 /**
  * Виджет страницы отеля
- * Отображает полную информацию об отеле: слайдер, описание, удобства, отзывы, цены
+ * Отображает полную информацию об отеле: галерея, описание, удобства, отзывы
  */
-export const HotelPage: FC<HotelPageProps> = ({ hotelId, className }) => {
-    // Находим отель по ID в моковых данных
-    const hotel = useMemo(() => {
-        return mockHotels.find((h) => h.id === hotelId) || mockHotels[0];
-    }, [hotelId]);
-
-    // Преобразуем удобства в формат для компонента Amenities
-    const amenitiesWithIcons = useMemo(() => {
-        return (hotel.amenities || []).map((amenity) => ({
-            label: amenity,
-            icon: <AmenitiesIcon />,
-        }));
-    }, [hotel.amenities]);
+const HotelPageComponent: FC<HotelPageProps> = ({ hotelId, className }) => {
+    const hotel = useHotelData(hotelId);
+    const amenitiesWithIcons = useAmenitiesWithIcons(hotel.amenities);
+    const accommodationRulesItems = useDescriptionItems(hotel.accommodationRules);
+    const accommodationDescriptionItems = useDescriptionItems(hotel.accommodationDescription);
+    const importantInfoItems = useDescriptionItems(hotel.importantInfo);
+    const partnerOffers = usePartnerOffers(hotel);
 
     if (!hotel) {
-        return (
-            <div className={clsx(styles.root, className)}>
-                <Container>
-                    <Typography variant="h1" color="dark">
-                        Отель не найден
-                    </Typography>
-                </Container>
-            </div>
-        );
+        return <NoResults />;
     }
 
     return (
         <div className={clsx(styles.root, className)}>
             <Container className={styles.container}>
-                {/* Слайдер изображений */}
-                <section className={styles.imageSection}>
-                    <ImageSlider slides={hotel.images} hotelName={hotel.name} slidesPerView={1} />
-                </section>
-
-                {/* Информация об отеле */}
-                <section className={styles.infoSection}>
-                    <HotelInfo
-                        hotelName={hotel.name}
-                        starRating={hotel.starRating}
-                        address={hotel.address}
-                        rating={hotel.rating}
-                        reviewCount={hotel.reviewCount}
-                        variant="detailed"
-                        className={styles.hotelInfo}
+                <Box className={styles.box}>
+                    <HotelGallerySection hotel={hotel} />
+                    <HotelInfoSection hotel={hotel} />
+                    <HotelAmenitiesSection amenities={amenitiesWithIcons} />
+                    <HotelReviewsSection reviews={hotel.reviews} />
+                    <HotelPartnerOffersSection offers={partnerOffers} />
+                    <HotelRulesSection rules={accommodationRulesItems} />
+                    <HotelDescriptionSection
+                        description={accommodationDescriptionItems}
+                        importantInfo={importantInfoItems}
                     />
-                </section>
-
-                {/* Описание отеля */}
-                {hotel.description && (
-                    <section className={styles.descriptionSection}>
-                        <Typography variant="h5" color="blue" className={styles.sectionTitle}>
-                            Описание
-                        </Typography>
-                        <Typography variant="h3" color="dark">
-                            {hotel.description}
-                        </Typography>
-                        {hotel.distanceFromCenter && (
-                            <Typography variant="h3" color="dark" className={styles.distance}>
-                                Расстояние от центра: {hotel.distanceFromCenter} км
-                            </Typography>
-                        )}
-                    </section>
-                )}
-
-                {/* Удобства */}
-                {amenitiesWithIcons.length > 0 && (
-                    <section className={styles.amenitiesSection}>
-                        <Amenities amenities={amenitiesWithIcons} title="Удобства" />
-                    </section>
-                )}
-
-                {/* Отзывы */}
-                {hotel.reviews && hotel.reviews.length > 0 && (
-                    <section className={styles.reviewsSection}>
-                        <ReviewsSlider reviews={hotel.reviews} slidesPerView={1} />
-                    </section>
-                )}
-
-                {/* Цены */}
-                <section className={styles.pricesSection}>
-                    <PricesSlider prices={hotel.prices} />
-                </section>
-
-                {/* Кнопка бронирования */}
-                <section className={styles.bookingSection}>
-                    <BookingButton hotelId={hotel.id} />
-                </section>
+                </Box>
             </Container>
         </div>
     );
 };
+
+// Экспортируем мемоизированный компонент
+export const HotelPage = memo(HotelPageComponent);

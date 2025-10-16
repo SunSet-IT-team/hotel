@@ -5,6 +5,7 @@ import { Calendar } from './Calendar';
 import { Container } from './Container';
 import { Convenience } from './Convenience';
 import { Counter } from './Counter';
+import { Gallery } from './Gallery';
 import { Input } from './Input';
 import { NoResults } from './NoResults';
 import { Popup } from './Popup';
@@ -25,6 +26,7 @@ export {
     Container,
     Convenience,
     Counter,
+    Gallery,
     Input,
     NavigationBlock,
     NoResults,

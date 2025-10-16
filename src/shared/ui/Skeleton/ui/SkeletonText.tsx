@@ -35,11 +35,18 @@ const SkeletonTextComponent: FC<SkeletonTextProps> = ({
 
     return (
         <SkeletonGroup direction="column" gap={8} className={className}>
-            {Array.from({ length: lines }).map((_, index) => {
+            {Array.from({ length: lines }, (_, index) => {
                 const isLastLine = index === lines - 1;
                 const width = isLastLine ? lastLineWidth : '100%';
 
-                return <Skeleton key={index} width={width} variant="text" animation={animation} />;
+                return (
+                    <Skeleton
+                        key={`skeleton-line-${index}-${width}`}
+                        width={width}
+                        variant="text"
+                        animation={animation}
+                    />
+                );
             })}
         </SkeletonGroup>
     );

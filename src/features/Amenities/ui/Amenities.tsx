@@ -34,28 +34,24 @@ export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобст
                 {title}
             </Typography>
 
-            <div className={styles.amenitiesList} ref={rootRef}>
+            <div className={styles.amenitiesGrid} ref={rootRef}>
                 {previewAmenities.map((amenity) => (
                     <Convenience
                         key={`preview-${amenity.label}`}
                         label={amenity.label}
                         icon={amenity.icon}
-                        className={styles.amenityItem}
                     />
                 ))}
                 {hasMoreAmenities && (
-                    <div className={styles.amenityItem}>
-                        <Button
-                            type="button"
-                            className={styles.showAllButton}
-                            onClick={() => setIsOpen(true)}
-                            fullWidth={true}
-                        >
-                            <Typography variant="h2" as="span" color="blue">
-                                Все удобства...
-                            </Typography>
-                        </Button>
-                    </div>
+                    <Button
+                        type="button"
+                        className={styles.showAllButton}
+                        onClick={() => setIsOpen(true)}
+                    >
+                        <Typography variant="h3" as="span" color="white">
+                            +{amenities.length - AMENITIES_PREVIEW_COUNT} еще
+                        </Typography>
+                    </Button>
                 )}
             </div>
 
@@ -68,29 +64,18 @@ export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобст
                     placement="bottom"
                 >
                     <Box className={styles.popupContent}>
-                        <div className={styles.allAmenitiesList}>
-                            {Array.from(
-                                { length: Math.ceil(amenities.length / 2) },
-                                (_, groupIndex) => {
-                                    const startIndex = groupIndex * 2;
-                                    const groupAmenities = amenities.slice(
-                                        startIndex,
-                                        startIndex + 2,
-                                    );
-
-                                    return (
-                                        <div key={groupIndex} className={styles.amenityGroup}>
-                                            {groupAmenities.map((amenity, itemIndex) => (
-                                                <Convenience
-                                                    key={`popup-${amenity.label}-${startIndex + itemIndex}`}
-                                                    label={amenity.label}
-                                                    icon={amenity.icon}
-                                                />
-                                            ))}
-                                        </div>
-                                    );
-                                },
-                            )}
+                        <Typography variant="h4" color="blue" className={styles.popupTitle}>
+                            Все удобства
+                        </Typography>
+                        <div className={styles.allAmenitiesGrid}>
+                            {amenities.map((amenity) => (
+                                <Convenience
+                                    key={`popup-${amenity.label}`}
+                                    label={amenity.label}
+                                    icon={amenity.icon}
+                                    className={styles.amenityCard}
+                                />
+                            ))}
                         </div>
                     </Box>
                 </Popup>

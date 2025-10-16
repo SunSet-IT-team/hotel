@@ -50,4 +50,10 @@ export interface Hotel {
     distanceFromCenter?: number;
     /** Отзывы об отеле */
     reviews?: HotelReview[];
+    /** Правила объекта размещения */
+    accommodationRules?: string;
+    /** Описание объекта размещения */
+    accommodationDescription?: string;
+    /** Важная информация */
+    importantInfo?: string;
 }
