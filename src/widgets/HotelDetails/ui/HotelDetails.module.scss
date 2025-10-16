@@ -1,0 +1,17 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.images {
+    width: 100%;
+    height: 409px;
+}
+.info {
+    display: flex;
+
+    justify-content: space-between;
+}
+.button {
+    padding: 19px 145px;
+}
