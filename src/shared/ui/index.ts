@@ -12,7 +12,7 @@ import { RangeList } from './RangeList';
 import { RangeSlider } from './RangeSlider';
 import { SearchInput } from './SearchInput';
 import { Select } from './Select';
-import { HotelCardSkeleton, HotelPageSkeleton, SearchHotelsSkeleton, Skeleton } from './Skeleton';
+import { Skeleton, SkeletonGroup, SkeletonText } from './Skeleton';
 import { NavigationBlock, Slider, type SliderProps } from './Slider';
 import { StarRating } from './StarRating';
 import { Typography } from './Typography';
@@ -25,18 +25,17 @@ export {
     Container,
     Convenience,
     Counter,
-    HotelCardSkeleton,
-    HotelPageSkeleton,
     Input,
     NavigationBlock,
     NoResults,
     Popup,
     RangeList,
     RangeSlider,
-    SearchHotelsSkeleton,
     SearchInput,
     Select,
     Skeleton,
+    SkeletonGroup,
+    SkeletonText,
     Slider,
     type SliderProps,
     StarRating,

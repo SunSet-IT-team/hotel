@@ -3,8 +3,7 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { HotelPageSkeleton } from '@/shared/ui';
-import { HotelPage } from '@/widgets/HotelPage';
+import { HotelPage, HotelPageSkeleton } from '@/widgets/HotelPage';
 
 /**
  * Контент страницы отеля с получением ID из URL

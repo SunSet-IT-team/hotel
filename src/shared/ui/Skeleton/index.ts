@@ -1,5 +1,10 @@
-export type { SkeletonProps } from './model/types';
-export { HotelCardSkeleton } from './ui/HotelCardSkeleton';
-export { HotelPageSkeleton } from './ui/HotelPageSkeleton';
-export { SearchHotelsSkeleton } from './ui/SearchHotelsSkeleton';
+export type {
+    SkeletonAnimation,
+    SkeletonGroupProps,
+    SkeletonProps,
+    SkeletonTextProps,
+    SkeletonVariant,
+} from './model/types';
 export { Skeleton } from './ui/Skeleton';
+export { SkeletonGroup } from './ui/SkeletonGroup';
+export { SkeletonText } from './ui/SkeletonText';
