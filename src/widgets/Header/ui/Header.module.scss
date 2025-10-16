@@ -30,5 +30,6 @@
 }
 .logo {
     aspect-ratio: 1;
-    @include magicAdapt('max-width', 103, 40);
+    transform: scale(2);
+    @include magicAdapt('width', 50, 15);
 }

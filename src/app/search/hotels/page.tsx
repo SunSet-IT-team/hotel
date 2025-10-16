@@ -7,8 +7,8 @@ import { useSearchParams } from 'next/navigation';
 import { mockHotels } from '@/entities/hotel';
 import HeaderBg from '@/shared/assets/img/header-bg.png';
 import { Container, Typography } from '@/shared/ui';
-import { FilterForm } from '@/widgets/FilterForm/ui/FilterForm';
-import { HotelCard } from '@/widgets/HotelCard';
+import { FilterForm, FilterFormSkeleton } from '@/widgets/FilterForm';
+import { HotelCard, HotelCardSkeleton } from '@/widgets/HotelCard';
 import { SearchForm } from '@/widgets/SearchForm';
 import { parseSearchParamsToFormData } from '@/widgets/SearchForm/utils/parseSearchParams';
 
@@ -63,7 +63,30 @@ const SearchHotelsContent = () => {
 
 const SearchHotels = () => {
     return (
-        <Suspense fallback={<div>Загрузка...</div>}>
+        <Suspense
+            fallback={
+                <main className={styles.mainPage}>
+                    <section
+                        className={styles.headerContent}
+                        style={{ minHeight: '270px' }}
+                     />
+                    <Container>
+                        <div className={styles.contentGrid}>
+                            <aside className={styles.filterAside}>
+                                <FilterFormSkeleton />
+                            </aside>
+                            <section className={styles.hotelsSection}>
+                                <div className={styles.hotelsList}>
+                                    {[1, 2, 3].map((i) => (
+                                        <HotelCardSkeleton key={i} />
+                                    ))}
+                                </div>
+                            </section>
+                        </div>
+                    </Container>
+                </main>
+            }
+        >
             <SearchHotelsContent />
         </Suspense>
     );

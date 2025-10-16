@@ -3,8 +3,7 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { Container, Skeleton } from '@/shared/ui';
-import { HotelPage } from '@/widgets/HotelPage';
+import { HotelPage, HotelPageSkeleton } from '@/widgets/HotelPage';
 
 /**
  * Контент страницы отеля с получением ID из URL
@@ -22,15 +21,7 @@ const HotelContent = () => {
  */
 const Hotel = () => {
     return (
-        <Suspense
-            fallback={
-                <div style={{ padding: '100px 0' }}>
-                    <Container>
-                        <Skeleton height={400} />
-                    </Container>
-                </div>
-            }
-        >
+        <Suspense fallback={<HotelPageSkeleton />}>
             <HotelContent />
         </Suspense>
     );

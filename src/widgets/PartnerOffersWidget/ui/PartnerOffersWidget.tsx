@@ -42,8 +42,8 @@ export const PartnerOffersWidget: FC<PartnerOffersWidgetProps> = ({ offers, clas
 
     return (
         <div className={clsx(styles.root, styles.desktop, className)}>
-            {offers.slice(0, 2).map((offer, index) => (
-                <div key={index} className={styles.offer}>
+            {offers.slice(0, 2).map((offer) => (
+                <div key={offer.link} className={styles.offer}>
                     <PartnerOffers {...offer} />
                 </div>
             ))}

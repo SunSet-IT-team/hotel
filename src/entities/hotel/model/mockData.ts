@@ -17,6 +17,12 @@ export const mockHotels: Hotel[] = [
             'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop',
+            'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
         ],
         prices: [
             { price: 2.341, website: 'part1.com' },
@@ -27,6 +33,12 @@ export const mockHotels: Hotel[] = [
         description:
             'Роскошный пятизвездочный отель в самом центре Санкт-Петербурга с видом на Невский проспект',
         distanceFromCenter: 0.5,
+        accommodationRules:
+            'Заезд с 14:00, выезд до 12:00. Дети до 2 лет размещаются бесплатно. Домашние животные не допускаются.',
+        accommodationDescription:
+            'Отель предлагает роскошные номера с современным дизайном, панорамными окнами и видом на исторический центр города. Все номера оснащены кондиционером, мини-баром и бесплатным Wi-Fi.',
+        importantInfo:
+            'Отель расположен в пешей доступности от основных достопримечательностей. Предоставляется трансфер от/до аэропорта за дополнительную плату.',
         reviews: [
             {
                 authorName: 'Анна С.',
@@ -69,6 +81,12 @@ export const mockHotels: Hotel[] = [
         description:
             'Исторический отель с великолепным видом на Исаакиевский собор и превосходным сервисом',
         distanceFromCenter: 0.8,
+        accommodationRules:
+            'Заезд с 15:00, выезд до 11:00. Дети до 3 лет размещаются бесплатно. Разрешены домашние животные до 5 кг.',
+        accommodationDescription:
+            'Историческое здание с отреставрированными номерами в классическом стиле. Все номера имеют высокие потолки, антикварную мебель и современные удобства.',
+        importantInfo:
+            'Отель находится в здании XIX века. Предоставляется экскурсионное обслуживание. Парковка ограничена.',
         reviews: [
             {
                 authorName: 'Сергей М.',

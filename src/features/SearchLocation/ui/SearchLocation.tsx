@@ -6,7 +6,8 @@ import clsx from 'clsx';
 import { type FetchData, type LocationOption } from '@/features/SearchLocation/model/types';
 import { Box, Button, SearchInput, Typography } from '@/shared/ui';
 import { Popup } from '@/shared/ui/Popup';
-import { Skeleton } from '@/shared/ui/Skeleton';
+
+import { SearchLocationSkeleton } from './SearchLocationSkeleton';
 
 import styles from './SearchLocation.module.scss';
 
@@ -55,11 +56,6 @@ interface Props<T extends LocationOption> {
      */
     placeholder?: string;
 }
-
-/**
- * Количество skeleton-загрузчиков при загрузке результатов
- */
-const SKELETON_COUNT = 3;
 
 /**
  * Компонент поиска локаций с выпадающим меню результатов
@@ -119,6 +115,27 @@ export const SearchLocation = <T extends LocationOption>({
     }, []);
 
     /**
+     * Обработчик изменения значения поиска
+     * Открывает popup при вводе текста и сбрасывает предыдущие результаты
+     */
+    const handleChange = useCallback(
+        (newValue: string) => {
+            onChange(newValue);
+            if (newValue.trim()) {
+                setIsOpen(true);
+                // Устанавливаем isLoading в true сразу при вводе
+                setIsLoading(true);
+                // Сбрасываем результаты при изменении запроса, чтобы показать скелетон
+                setResponseData([]);
+            } else {
+                setIsLoading(false);
+                setResponseData([]);
+            }
+        },
+        [onChange],
+    );
+
+    /**
      * Обработчик выбора опции из результатов поиска
      * Закрывает меню и вызывает внешний callback с выбранной опцией
      */
@@ -141,22 +158,11 @@ export const SearchLocation = <T extends LocationOption>({
 
     /**
      * Вычисляемое значение: пустой результат поиска
-     * true - когда загрузка завершена, но результатов нет
+     * true - когда загрузка завершена, но результатов нет, и есть поисковый запрос
      */
     const isEmptyResult = useMemo(
-        () => !isLoading && responseData.length === 0,
-        [isLoading, responseData.length],
-    );
-
-    /**
-     * Рендер skeleton-загрузчиков во время загрузки данных
-     */
-    const renderSkeletons = useMemo(
-        () =>
-            Array.from({ length: SKELETON_COUNT }, (_, i) => (
-                <Skeleton key={`skeleton-${i}`} className={styles.searchMenu__resultOption} />
-            )),
-        [],
+        () => !isLoading && responseData.length === 0 && value.trim().length > 0,
+        [isLoading, responseData.length, value],
     );
 
     return (
@@ -164,7 +170,7 @@ export const SearchLocation = <T extends LocationOption>({
             {/* Поле ввода с встроенной логикой debounce и запросов к API */}
             <SearchInput
                 value={value}
-                onChange={onChange}
+                onChange={handleChange}
                 fetchData={fetchData}
                 onData={setResponseData}
                 className={styles.searchInput}
@@ -192,7 +198,7 @@ export const SearchLocation = <T extends LocationOption>({
                         {/* Контейнер результатов поиска */}
                         <div className={styles.searchMenu__resultOptions}>
                             {/* Состояние загрузки: отображаем skeleton-загрузчики */}
-                            {isLoading && renderSkeletons}
+                            {isLoading && <SearchLocationSkeleton />}
 
                             {/* Состояние успеха: отображаем результаты */}
                             {hasResults &&

@@ -1,11 +1,12 @@
 @use '../../../shared/assets/styles/index' as *;
 
 .root {
-    min-height: 100vh;
+    padding: 72px 0;
     background-color: var(--color-primary-white);
-    // Высота Header (54-40 padding-top + 40-22 padding-bottom) + дополнительный отступ
-    @include magicAdapt('padding-top', 148, 94); // ~54+40+54 / ~40+22+32
-    @include magicAdapt('padding-bottom', 80, 40);
+}
+
+.box {
+    padding: 32px;
 }
 
 .container {
@@ -16,10 +17,18 @@
 
 .imageSection {
     width: 100%;
+    padding-bottom: 30px;
 }
 
 .infoSection {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+
+.bookingButton {
+    padding: 19px 145px;
 }
 
 .hotelInfo {
@@ -43,14 +52,51 @@
 
 .amenitiesSection {
     width: 100%;
+    padding-bottom: 42px;
+}
+
+.descriptionSection {
+    width: 100%;
+    padding-bottom: 32px;
+}
+
+// Горизонтальное расположение для двух блоков
+.horizontalBlocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    width: 100%;
+    padding-bottom: 32px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
 }
 
 .reviewsSection {
     width: 100%;
+    padding-bottom: 45px;
 }
 
 .pricesSection {
     width: 100%;
+}
+
+.partnerOffersSection {
+    width: 100%;
+    padding-bottom: 32px;
+}
+
+.offersGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+
+    @media (max-width: 768px) {
+        gap: 16px;
+    }
 }
 
 .bookingSection {
