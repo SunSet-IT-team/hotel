@@ -1,1 +1,1 @@
-export { Header } from './ui/Header';
+export { HeaderWrapper } from './ui/HeaderWrapper';

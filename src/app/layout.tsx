@@ -1,7 +1,7 @@
 import { type FC, type ReactNode } from 'react';
 
 import { Footer } from '@/widgets/Footer';
-import { Header } from '@/widgets/Header';
+import { HeaderWrapper } from '@/widgets/Header';
 
 import { Providers } from './providers';
 
@@ -16,8 +16,10 @@ const Layout: FC<Props> = ({ children }) => {
         <html lang="ru">
             <body>
                 <Providers>
-                    <Header />
-                    <main>{children}</main>
+                    <div style={{ position: 'relative' }}>
+                        <HeaderWrapper />
+                        <main>{children}</main>
+                    </div>
                     <Footer />
                 </Providers>
             </body>
