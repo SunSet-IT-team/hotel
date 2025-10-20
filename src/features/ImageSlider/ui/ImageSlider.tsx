@@ -26,14 +26,8 @@ export const ImageSlider: FC<ImageSliderProps> = ({ className, alt, hotelName, .
                 const imageAlt = alt || `${hotelName ? `${hotelName} - ` : ''}Фото ${i + 1}`;
 
                 return (
-                    <SwiperSlide className={styles.slide} key={slide}>
-                        <Image
-                            src={slide}
-                            alt={imageAlt}
-                            priority={i === 0}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 498px, 498px"
-                        />
+                    <SwiperSlide className={styles.slide} key={`${slide}-${i}`}>
+                        <Image src={slide} alt={imageAlt} priority={i === 0} fill />
                     </SwiperSlide>
                 );
             }}

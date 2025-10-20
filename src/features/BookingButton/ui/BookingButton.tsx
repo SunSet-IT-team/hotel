@@ -2,6 +2,7 @@
 
 import { type FC } from 'react';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/shared/ui';
 
@@ -14,6 +15,7 @@ import styles from './BookingButton.module.scss';
  * При клике либо вызывает callback, либо перенаправляет на страницу бронирования
  */
 export const BookingButton: FC<BookingButtonProps> = ({ hotelId, className, onBooking }) => {
+    const router = useRouter();
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
@@ -21,8 +23,7 @@ export const BookingButton: FC<BookingButtonProps> = ({ hotelId, className, onBo
         if (onBooking) {
             onBooking(hotelId);
         } else {
-            // Дефолтное поведение - переход на страницу бронирования
-            // router.push(ROUTES.BOOKING(hotelId));
+            router.push(`/hotel?id=${hotelId}`);
         }
     };
 
