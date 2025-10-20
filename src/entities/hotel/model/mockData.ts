@@ -18,11 +18,9 @@ export const mockHotels: Hotel[] = [
             'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop',
             'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
         ],
         prices: [
             { price: 2.341, website: 'part1.com' },

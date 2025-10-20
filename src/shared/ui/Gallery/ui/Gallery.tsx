@@ -1,9 +1,11 @@
 'use client';
 
-import React, { type FC } from 'react';
+import { type FC } from 'react';
 import clsx from 'clsx';
+import Image from 'next/image';
 
-import { Image } from '../../Image';
+import { PhotoIcon } from '@/shared/assets/icons';
+
 import { Typography } from '../../Typography';
 
 import styles from './Gallery.module.scss';
@@ -72,22 +74,21 @@ export const Gallery: FC<Props> = ({ images, alt = 'Gallery image', onImageClick
                             }
                         }}
                     >
-                        <Image src={image} alt={`${alt} ${index + 1}`} className={styles.image} />
+                        <Image
+                            src={image}
+                            alt={`${alt} ${index + 1}`}
+                            className={styles.image}
+                            fill
+                        />
                         {hasMore && (
                             <div className={styles.overlay} onClick={handleOpenSlider}>
-                                <Typography
-                                    variant="h2"
-                                    color="white"
-                                    className={styles.overlayText}
-                                >
-                                    +{remainingCount}
-                                </Typography>
+                                <PhotoIcon className={styles.photoIcon} />
                                 <Typography
                                     variant="h3"
                                     color="white"
                                     className={styles.viewAllText}
                                 >
-                                    Смотреть все фото
+                                    Посмотреть все фото
                                 </Typography>
                             </div>
                         )}

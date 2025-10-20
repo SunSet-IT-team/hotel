@@ -3,10 +3,11 @@
 .root {
     width: 100%;
     display: grid;
-    gap: 30px;
+
     overflow: hidden;
     // box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    height: 409px;
+    @include magicAdapt('gap', 30, 5, 1920, 768);
+    @include magicAdapt('height', 409, 200, 1920, 768);
 
     // @include magicAdapt('height', 600, 300);
     @media (max-width: #{$md+px}) {
@@ -21,9 +22,16 @@
     grid-template-rows: repeat(2, 1fr);
 }
 
+.photoIcon {
+    aspect-ratio: 1/1;
+    @include magicAdapt('width', 43, 24, 1920, 768);
+}
 // Сложная сетка для 5+ картинок
 .complexGrid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: minmax(150px, 409px) minmax(150px, 405px) minmax(150px, 405px) minmax(
+            100px,
+            305px
+        );
     grid-template-rows: repeat(2, 1fr);
 }
 
@@ -112,6 +120,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 7px;
     z-index: 1;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -145,6 +154,7 @@
 }
 
 .viewAllText {
-    font-weight: 600;
+    font-weight: 400;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    @include magicAdapt('font-size', 20, 12, 1920, 768);
 }
