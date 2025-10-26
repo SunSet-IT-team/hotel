@@ -1,19 +1,5 @@
 @use '../../../shared/assets/styles/index' as *;
 
 .root {
-    white-space: nowrap;
-    padding: 13px 60px;
-
-    @media (max-width: #{$lg+px}) {
-        padding: 12px 50px;
-    }
-
-    @media (max-width: #{$md+px}) {
-        width: 100%;
-        padding: 13px 40px;
-    }
-
-    @media (max-width: #{$sm+px}) {
-        padding: 12px 30px;
-    }
+    @include magicAdapt(font-size, 36, 18);
 }

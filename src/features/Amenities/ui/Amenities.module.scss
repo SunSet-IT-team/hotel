@@ -3,12 +3,20 @@
 .root {
     width: 100%;
     padding: 45px;
+
+    @media (max-width: #{$md+px}) {
+        padding: 12px;
+    }
 }
 
 .title {
     margin-bottom: 32px;
     font-family: var(--font-family-heading);
     font-weight: 600;
+
+    @media (max-width: #{$md+px}) {
+        @include magicAdapt(margin-bottom, 32, 10, $md);
+    }
 }
 
 .amenitiesGrid {

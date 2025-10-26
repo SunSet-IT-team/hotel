@@ -4,6 +4,7 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
+import { useIsMobile } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 
 import { type BookingButtonProps } from '../model/types';
@@ -15,6 +16,8 @@ import styles from './BookingButton.module.scss';
  * При клике либо вызывает callback, либо перенаправляет на страницу бронирования
  */
 export const BookingButton: FC<BookingButtonProps> = ({ hotelId, className, onBooking }) => {
+    const isMobile = useIsMobile();
+
     const router = useRouter();
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -30,7 +33,7 @@ export const BookingButton: FC<BookingButtonProps> = ({ hotelId, className, onBo
     return (
         <Button
             variant="cyan"
-            size="big"
+            size={isMobile ? 'medium' : 'big'}
             onClick={handleClick}
             className={clsx(styles.root, className)}
             aria-label={`Забронировать отель ${hotelId}`}

@@ -1,2 +1,2 @@
-export type { ImageSliderProps } from './model/types';
+export type { ImageSliderProps } from './ui/ImageSlider';
 export { ImageSlider } from './ui/ImageSlider';
