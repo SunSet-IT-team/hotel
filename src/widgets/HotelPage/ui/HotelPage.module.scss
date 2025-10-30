@@ -7,6 +7,16 @@
 
 .box {
     padding: 32px;
+    box-shadow:
+        -2px -2px 4px rgba(255, 255, 255, 0.25),
+        1px 2px 3.9px rgba(9, 25, 20, 0.28),
+        inset 2px 1px 4px rgba(14, 47, 32, 0.23),
+        inset -2px -3px 4px rgba(255, 255, 255, 0.5);
+
+    // Крупные телефоны и протативные планшеты //
+    @media (max-width: #{480+px}) {
+        padding: 22px 13px;
+    }
 }
 
 .container {
@@ -18,6 +28,12 @@
 .imageSection {
     width: 100%;
     padding-bottom: 30px;
+
+    .imageSlider {
+        @media (min-width: 481px) {
+            margin: 0 -16px;
+        }
+    }
 }
 
 .infoSection {
@@ -25,14 +41,32 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 30px;
-}
 
-.bookingButton {
-    padding: 19px 145px;
+    .bookingButton {
+        flex: 0 1 530px;
+        margin-left: 40px;
+
+        @media (min-width: 1024px) {
+            padding: 20px 40px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        flex-wrap: wrap;
+
+        .bookingButton {
+            flex: 0 1 480px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width: #{$md+px}) {
+    }
 }
 
 .hotelInfo {
-    width: 100%;
+    flex: 0 0 auto;
 }
 
 .descriptionSection {

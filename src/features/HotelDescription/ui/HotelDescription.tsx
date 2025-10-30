@@ -3,11 +3,21 @@ import clsx from 'clsx';
 
 import { Box, Typography } from '@/shared/ui';
 
-import { type HotelDescriptionProps } from '../model/types';
+import { type HotelDescriptionItem } from '../model/types';
 
 import styles from './HotelDescription.module.scss';
 
-export const HotelDescription: FC<HotelDescriptionProps> = ({ title, description, className }) => {
+interface Props {
+    /** Заголовок секции */
+    title: string;
+    /** Описание отеля */
+    description: HotelDescriptionItem[];
+
+    /** Дополнительные CSS классы */
+    className?: string;
+}
+
+export const HotelDescription: FC<Props> = ({ title, description, className }) => {
     return (
         <Box className={clsx(styles.root, className)}>
             <div className={styles.container}>

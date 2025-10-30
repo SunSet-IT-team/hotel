@@ -1,7 +1,8 @@
 'use client';
 
-import { type ReactNode } from 'react';
-import { Swiper, type SwiperProps, SwiperSlide } from 'swiper/react';
+import { type ReactNode,type RefObject } from 'react';
+import type SwiperClass from 'swiper';
+import { Swiper, type SwiperProps, type SwiperRef, SwiperSlide } from 'swiper/react';
 
 import styles from './Slider.module.scss';
 
@@ -10,6 +11,13 @@ import 'swiper/css/pagination';
 
 interface BaseProps extends SwiperProps {
     children?: ReactNode;
+
+    ref?: React.Ref<SwiperRef>;
+
+    /**
+     * Ref-объект для получения instance класса Swiper
+     */
+    instanceRef?: RefObject<SwiperClass | null>;
 }
 
 interface WithRenderSlide<S> {
@@ -33,7 +41,14 @@ interface WithoutRenderSlide {
 export type Props<S> = BaseProps & (WithRenderSlide<S> | WithoutRenderSlide);
 
 /** Компонент слайдера ui-кита */
-export const Slider = <S,>({ slides, renderSlide, children, ...rest }: Props<S>) => {
+export const Slider = <S,>({
+    slides,
+    renderSlide,
+    children,
+    instanceRef,
+    onBeforeInit,
+    ...rest
+}: Props<S>) => {
     // Определяем, достаточно ли слайдов для loop mode
     // Loop требует минимум slidesPerView * 2 слайдов
     const slidesPerView = typeof rest.slidesPerView === 'number' ? rest.slidesPerView : 1;
@@ -45,7 +60,15 @@ export const Slider = <S,>({ slides, renderSlide, children, ...rest }: Props<S>)
     const shouldLoop = rest.loop !== undefined ? rest.loop : hasEnoughSlidesForLoop;
 
     return (
-        <Swiper className={styles.root} loop={shouldLoop} {...rest}>
+        <Swiper
+            className={styles.root}
+            loop={shouldLoop}
+            onBeforeInit={(swiper) => {
+                if (instanceRef) instanceRef.current = swiper;
+                onBeforeInit?.(swiper);
+            }}
+            {...rest}
+        >
             {slides.map((slide, i) => {
                 if (renderSlide) return renderSlide(slide as S, i);
                 return <SwiperSlide key={slide?.toString()}>{slide as ReactNode}</SwiperSlide>;

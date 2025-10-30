@@ -3,6 +3,11 @@
 .root {
     padding: 0 !important;
     border-radius: 24px;
+    box-shadow:
+        -2px -2px 4px rgba(255, 255, 255, 0.25),
+        1px 2px 3.9px rgba(9, 25, 20, 0.28),
+        inset 2px 1px 4px rgba(14, 47, 32, 0.23),
+        inset -2px -3px 4px rgba(255, 255, 255, 0.5);
 }
 
 // Верхний блок: слайдер + информация

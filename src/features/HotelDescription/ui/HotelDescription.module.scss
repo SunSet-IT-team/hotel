@@ -18,7 +18,6 @@
     font-weight: 700;
     line-height: 0.9;
     @include magicAdapt('margin-bottom', 12, 8, 1920, 430);
-    @include magicAdapt('padding-right', 150, 100, 1920, 430);
 }
 
 .subtitle {
