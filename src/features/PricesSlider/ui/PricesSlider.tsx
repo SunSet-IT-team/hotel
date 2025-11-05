@@ -32,7 +32,7 @@ export const PricesSlider: FC<PricesSliderProps> = ({
                 spaceBetween={32}
                 slidesPerView={1}
                 slidesPerGroup={1}
-                loop={false}
+                loop={true}
                 slides={prices}
                 breakpoints={{
                     0: {

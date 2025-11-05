@@ -1,48 +1,29 @@
-import { type ComponentProps, type ElementType, type JSX } from 'node_modules/@types/react';
+// src/shared/ui/Button/model/types.ts
+import { type ComponentProps, type ElementType } from 'react';
 
-type AllHtmlTags = {
-    [K in keyof JSX.IntrinsicElements]: K;
-};
+export type SupportedHtmlTags = 'a' | 'button';
 
-/** Html-теги, которые поддерживает кнопка */
-type SupportedHtmlTags = AllHtmlTags['a' | 'button'];
+/** Компонент может быть: тегом или React-компонентом */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ButtonComponent = SupportedHtmlTags | ElementType<any>;
 
-/**
- * Html-теги, которые поддерживает кнопка + кастомные React компоненты
- */
-/* eslint-disable */
-export type ButtonComponent = ElementType<any, SupportedHtmlTags>;
-
-/** Дефолтный тег, используемый кнопкой */
-export type DefaultButtonComponent = Extract<ButtonComponent, 'button'>;
+/** Дефолтный тег */
+export type DefaultButtonComponent = 'button';
 
 /** Специфичные пропсы именно для кнопки (независимые от тега в пропсе as) */
 export interface BaseProps<T extends ButtonComponent = DefaultButtonComponent> {
-    /**
-     * Вариация кнопки
-     */
+    /** Вариация кнопки */
     variant?: 'cyan' | 'white' | 'glass';
 
-    /**
-     * Размер кнопки (влияет на внутренние отступы и размер шрифта)
-     */
+    /** Размер кнопки */
     size?: 'small' | 'medium' | 'big';
 
-    /**
-     * Растягивать ли компонент на всю ширину родителя
-     */
+    /** Растягивать ли компонент на всю ширину */
     fullWidth?: boolean;
 
-    /**
-     * В виде какого HTML-тега представлять компонент на странице
-     * @default "button"
-     */
+    /** Какой элемент рендерить */
     as?: T;
 }
 
-/** Тип пропсов для ui-компонента Button */
 export type Props<T extends ButtonComponent> = BaseProps<T> &
     Omit<ComponentProps<T>, keyof BaseProps>;
-
-// Работает это так: берем все базовые пропсы BaseProps + добавляем все остальные пропсы, относящиеся
-// к конкретному тегу компонента. При этом мы из этих остальных пропсов исключаем все базовые.

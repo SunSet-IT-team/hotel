@@ -1,7 +1,8 @@
-import { type FC, memo } from 'react';
+import { type FC, memo, useState } from 'react';
 import clsx from 'clsx';
 
 import { Box, Container, NoResults } from '@/shared/ui';
+import { ImageSlider } from '@/shared/ui/ImageSlider/ui/ImageSlider';
 
 import {
     useAmenitiesWithIcons,
@@ -34,6 +35,7 @@ const HotelPageComponent: FC<HotelPageProps> = ({ hotelId, className }) => {
     const accommodationDescriptionItems = useDescriptionItems(hotel.accommodationDescription);
     const importantInfoItems = useDescriptionItems(hotel.importantInfo);
     const partnerOffers = usePartnerOffers(hotel);
+    const [isOpenSlider, setIsOpenSlider] = useState<boolean>(false);
 
     if (!hotel) {
         return <NoResults />;
@@ -43,7 +45,15 @@ const HotelPageComponent: FC<HotelPageProps> = ({ hotelId, className }) => {
         <div className={clsx(styles.root, className)}>
             <Container className={styles.container}>
                 <Box className={styles.box}>
-                    <HotelGallerySection hotel={hotel} />
+                    <ImageSlider
+                        images={hotel.images}
+                        isOpen={isOpenSlider}
+                        onClose={() => setIsOpenSlider(false)}
+                    />
+                    <HotelGallerySection
+                        hotel={hotel}
+                        handleOpenSlider={() => setIsOpenSlider(true)}
+                    />
                     <HotelInfoSection hotel={hotel} />
                     <HotelAmenitiesSection amenities={amenitiesWithIcons} />
                     <HotelReviewsSection reviews={hotel.reviews} />

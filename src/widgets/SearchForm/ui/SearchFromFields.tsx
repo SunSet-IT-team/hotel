@@ -41,11 +41,11 @@ export const SearchFormFields: FC<Props> = ({
         <form className={styles.form} onSubmit={onSubmit}>
             <div className={clsx(styles.form__body, styles.formBody)}>
                 <SearchLocation
-                    value={formData.query}
+                    value={formData.query ?? ''}
                     onChange={onChangeQuery}
                     onSelect={onSelectDestination}
                     className={clsx(styles.formBody__item, styles.formBody__item_searchLocation)}
-                    placeholder="Город или отель"
+                    placeholder="Город и отель"
                     fetchData={fetchMockData1}
                 />
 

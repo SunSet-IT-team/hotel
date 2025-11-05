@@ -8,10 +8,14 @@ import { type HotelGallerySectionProps } from './types';
 
 import styles from '../HotelPage.module.scss';
 
+interface Props extends HotelGallerySectionProps {
+    handleOpenSlider?: () => void;
+}
+
 /**
  * Секция галереи отеля
  */
-export const HotelGallerySection: FC<HotelGallerySectionProps> = memo(({ hotel }) => {
+export const HotelGallerySection: FC<Props> = memo(({ hotel, handleOpenSlider }) => {
     const isMobile = useIsMobile();
 
     return (
@@ -23,7 +27,11 @@ export const HotelGallerySection: FC<HotelGallerySectionProps> = memo(({ hotel }
                     rootClassName={styles.imageSlider}
                 />
             ) : (
-                <Gallery images={hotel.images} alt={hotel.name} />
+                <Gallery
+                    images={hotel.images}
+                    alt={hotel.name}
+                    handleOpenSlider={handleOpenSlider}
+                />
             )}
         </section>
     );

@@ -29,7 +29,7 @@
 
 // Вариант default
 .location[data-variant='default'] {
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: nowrap;
     @include magicAdapt('gap', 8, 4, 1920, 430);
 

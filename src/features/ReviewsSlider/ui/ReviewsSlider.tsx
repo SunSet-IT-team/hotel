@@ -25,7 +25,7 @@ export const ReviewsSlider: FC<ReviewsSliderProps> = ({ reviews, className, ...r
                 modules={[Pagination]}
                 className={clsx(styles.root, className)}
                 spaceBetween={32}
-                loop={false}
+                loop={true}
                 slides={reviews}
                 pagination={{
                     clickable: true,

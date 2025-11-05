@@ -20,14 +20,20 @@ interface Props {
      * Callback при клике на изображение
      * Передает индекс кликнутого изображения
      */
-    onImageClick?: (index: number) => void;
+    // onImageClick?: (index: number) => void;
+    handleOpenSlider?: () => void;
     /**
      * Дополнительный CSS класс
      */
     className?: string;
 }
 
-export const Gallery: FC<Props> = ({ images, alt = 'Gallery image', onImageClick, className }) => {
+export const Gallery: FC<Props> = ({
+    images,
+    alt = 'Gallery image',
+    handleOpenSlider,
+    className,
+}) => {
     const totalImages = images.length;
 
     // Определяем сколько картинок показывать и сколько скрыто
@@ -46,14 +52,13 @@ export const Gallery: FC<Props> = ({ images, alt = 'Gallery image', onImageClick
         gridLayout = 'complexGrid';
     }
 
-    const handleImageClick = (index: number) => {
-        onImageClick?.(index);
+    const handleImageClick = (_index: number) => {
+        // onImageClick?.(index);
     };
 
-    const handleOpenSlider = () => {
-        // TODO: Открыть слайдер на весь экран
-        console.info('Open fullscreen slider with', totalImages, 'images');
-    };
+    // const handleOpenSlider = () => {
+    //     handleOpenSlider();
+    // };
 
     return (
         <div className={clsx(styles.root, styles[gridLayout], className)}>
@@ -81,7 +86,14 @@ export const Gallery: FC<Props> = ({ images, alt = 'Gallery image', onImageClick
                             fill
                         />
                         {hasMore && (
-                            <div className={styles.overlay} onClick={handleOpenSlider}>
+                            <div
+                                className={styles.overlay}
+                                onClick={() => {
+                                    if (handleOpenSlider) {
+                                        handleOpenSlider();
+                                    }
+                                }}
+                            >
                                 <PhotoIcon className={styles.photoIcon} />
                                 <Typography
                                     variant="h3"
@@ -93,7 +105,14 @@ export const Gallery: FC<Props> = ({ images, alt = 'Gallery image', onImageClick
                             </div>
                         )}
                         {!hasMore && isLast && totalImages > 6 && (
-                            <div className={styles.viewAllOverlay} onClick={handleOpenSlider}>
+                            <div
+                                className={styles.viewAllOverlay}
+                                onClick={() => {
+                                    if (handleOpenSlider) {
+                                        handleOpenSlider();
+                                    }
+                                }}
+                            >
                                 <Typography
                                     variant="h3"
                                     color="white"

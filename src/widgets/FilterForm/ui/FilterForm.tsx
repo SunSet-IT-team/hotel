@@ -23,9 +23,9 @@ const prices: PriceRange = {
 };
 
 const items: PriceSelectOption[] = [
-    { value: '0', label: 'цена за номер/ночь (без налогов и сборов)' },
-    { value: '1', label: 'цена за номер/ночь (вкл. налоги и сборы)' },
-    { value: '3', label: 'итого (в т.ч. налоги и сборы)' },
+    { value: '0', label: 'Цена за номер/ночь (без налогов и сборов)' },
+    { value: '1', label: 'Цена за номер/ночь (вкл. налоги и сборы)' },
+    { value: '3', label: 'Итого (в т.ч. налоги и сборы)' },
 ];
 
 const rangeItems: PriceRangePreset[] = [

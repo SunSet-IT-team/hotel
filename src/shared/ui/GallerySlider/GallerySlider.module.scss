@@ -1,0 +1,47 @@
+.root {
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: relative; /* для next/image fill */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 36px; /* ваш радиус */
+    overflow: hidden; /* обрезаем всё за радиусом */
+    background: #000; /* опционально, чтобы края выглядели аккуратно на тёмном фоне */
+}
+
+/* если включён zoom — контейнер тоже делаем "округлым" и обрезающим */
+.slide :global(.swiper-zoom-container) {
+    position: relative; /* чтобы Image(fill) цеплялся к нему при зуме */
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+    border-radius: inherit; /* сглаживает края у самого img */
+}
+
+:global(.swiper-slide-thumb-active) .thumbWrap {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.empty {
+    display: grid;
+    place-items: center;
+    min-height: 200px;
+    opacity: 0.7;
+}

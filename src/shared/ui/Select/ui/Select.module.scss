@@ -75,7 +75,7 @@
     z-index: 20;
     background: var(--color-primary-white);
     border-radius: 12px;
-    padding: 12px;
+    padding: 13px;
     box-shadow:
         1px 2px 3.9px 0px rgba(9, 25, 20, 0.28),
         -2px -3px 4px 0px rgba(255, 255, 255, 0.5);
@@ -84,7 +84,7 @@
 
 .option {
     list-style: none;
-    padding: 10px 12px;
+    padding: 5px 0;
     border-radius: 8px;
     cursor: pointer;
     user-select: none;

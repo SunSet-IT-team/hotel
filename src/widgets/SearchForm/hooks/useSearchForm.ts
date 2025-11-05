@@ -22,7 +22,7 @@ const defaultValues: FormData = {
         startDate: null,
         endDate: null,
     },
-    peoplesCount: { adults: 1, children: 0 },
+    peoplesCount: { adults: 0, children: 0 },
 };
 
 // Хук поиска: принимает стартовые значения (например, из URL) и сливает их с Redux

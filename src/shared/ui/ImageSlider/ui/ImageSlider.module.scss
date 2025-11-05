@@ -1,0 +1,27 @@
+.root {
+}
+
+.imageSlider {
+    height: 100%;
+}
+
+.navigationBlock {
+    $buttonsGap: 8px;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 100%;
+    padding: 0 100px;
+
+    // @media (max-width: #{$md+px}) {
+    //     width: calc(100% + $buttonsGap * 2);
+    //     left: -$buttonsGap;
+    // }
+}
+
+.container {
+    height: 100%;
+}

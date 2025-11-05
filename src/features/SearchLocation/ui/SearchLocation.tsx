@@ -192,7 +192,7 @@ export const SearchLocation = <T extends LocationOption>({
                     <Box className={styles.searchMenu} padding={20}>
                         {/* Заголовок меню */}
                         <Typography color="blue" className={styles.searchMenu__title}>
-                            Город или страна
+                            {placeholder}
                         </Typography>
 
                         {/* Контейнер результатов поиска */}

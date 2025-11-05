@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 
 import { Button, Container, Typography } from '@/shared/ui';
 
@@ -13,37 +13,54 @@ import { SearchFormFields } from './SearchFromFields';
 
 import styles from './SearchForm.module.scss';
 
-export const SearchForm: FC<{
+interface Props {
     initialValues?: Partial<FormData> | ParsedFormFromURL;
-    collapsedInitially?: boolean;
+    /** Контролируемое состояние: активен ли компактный режим */
+    active?: boolean;
+    /** Начальное значение для неконтролируемого режима */
+    defaultActive?: boolean;
+    /** Сообщить родителю об изменении */
+    onActiveChange?: (next: boolean) => void;
     title?: string;
-}> = ({ initialValues, collapsedInitially, title = 'Открой мир и путешествуй легко' }) => {
+}
+
+export const SearchForm: FC<Props> = ({
+    initialValues,
+    active,
+    defaultActive = false,
+    onActiveChange,
+    title = 'Открой мир и путешествуй легко',
+}) => {
+    // локальный стейт, если внешнее value не передано
+    const [innerActive, setInnerActive] = useState(defaultActive);
+    const isActive = active ?? innerActive;
+
+    const setActive = (next: boolean) => {
+        if (onActiveChange) onActiveChange(next);
+        if (active === undefined) setInnerActive(next);
+    };
+
+    const toggleActive = () => setActive(!isActive);
+
     const hook = useSearchForm(initialValues);
-    const [collapsed, setCollapsed] = useState<boolean>(() => !!collapsedInitially);
-
-    // Синхронизируем collapsed, если пропс явно поменялся
-    useEffect(() => {
-        if (collapsedInitially !== undefined) setCollapsed(!!collapsedInitially);
-    }, [collapsedInitially]);
-
     const summary = useMemo(() => buildFormSummary(hook.formData), [hook.formData]);
 
     return (
         <div className={styles.root}>
             <Container variant="header">
-                {!collapsed && (
+                {isActive && (
                     <Typography color="white" variant="h1" as="h1" className={styles.root__title}>
                         {title}
                     </Typography>
                 )}
 
-                {collapsed ? (
-                    // Свёрнутый режим: показываем одну большую кнопку с резюме
+                {!isActive ? (
                     <Button
                         type="button"
                         className={`${styles.formBody__item} ${styles.formBody__item_searchAllBtn}`}
-                        onClick={() => setCollapsed(false)}
+                        onClick={toggleActive}
                         aria-label="Развернуть поиск"
+                        aria-expanded={!isActive}
                         variant="white"
                     >
                         <Typography variant="h2" as="span" color="inherit">
@@ -60,7 +77,7 @@ export const SearchForm: FC<{
                         onChangeDateRange={hook.onChangeDateRange}
                         onChangePeoplesCount={hook.onChangePeoplesCount}
                         onSubmit={(e) => {
-                            setCollapsed(true);
+                            setActive(false); // включаем компактный режим
                             return hook.handleSubmit(e);
                         }}
                     />
