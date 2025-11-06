@@ -1,17 +1,22 @@
+'use client';
+
 import { LogoIcon } from '@/shared/assets/icons';
+import { useTranslation } from '@/shared/hooks';
 import { Container } from '@/shared/ui/Container';
 import { Typography } from '@/shared/ui/Typography';
 
 import styles from './Footer.module.scss';
 
 export const Footer = () => {
+    const translate = useTranslation();
+
     return (
         <footer className={styles.footer}>
             <Container>
                 <div className={styles.grid}>
                     <div className={styles.container}>
                         <Typography variant="h1" as="h2" color="white" className={styles.title}>
-                            Присоединяйся к тысячам путешественников
+                            {translate.footer.title}
                         </Typography>
                     </div>
                     <div className={styles.container}>
@@ -25,7 +30,7 @@ export const Footer = () => {
                             className={styles.navLink}
                             {...{ href: '#' }}
                         >
-                            Политика использования файлов cookie
+                            {translate.footer.cookiePolicy}
                         </Typography>
                         <Typography
                             variant="h2"
@@ -34,7 +39,7 @@ export const Footer = () => {
                             className={styles.navLink}
                             {...{ href: '#' }}
                         >
-                            Политика конфиденциальности
+                            {translate.footer.privacyPolicy}
                         </Typography>
                         <Typography
                             variant="h2"
@@ -43,7 +48,7 @@ export const Footer = () => {
                             className={styles.navLink}
                             {...{ href: '#' }}
                         >
-                            Наши контакты
+                            {translate.footer.contacts}
                         </Typography>
                     </div>
                 </div>

@@ -1,7 +1,10 @@
+'use client';
+
 import { type FC } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 
+import { useTranslation } from '@/shared/hooks';
 import { useIsMobile } from '@/shared/hooks/useMediaQuery';
 import { Box, Button, Typography } from '@/shared/ui';
 import { StarRating } from '@/shared/ui/StarRating';
@@ -20,6 +23,8 @@ export const PartnerOffers: FC<PartnerOffersProps> = ({
     className,
 }) => {
     const isMobile = useIsMobile();
+    const translate = useTranslation();
+
     return (
         <Box className={clsx(styles.root, className)}>
             <div className={styles.imageContainer}>
@@ -62,7 +67,7 @@ export const PartnerOffers: FC<PartnerOffersProps> = ({
                             color="blue"
                             className={styles.price}
                         >
-                            Цена:
+                            {translate.partnerOffers.price}
                         </Typography>
                         <Typography
                             variant="h2"
@@ -75,7 +80,7 @@ export const PartnerOffers: FC<PartnerOffersProps> = ({
                     </div>
                     <Button variant="cyan" fullWidth className={styles.button} as="a" href={link}>
                         <Typography variant="h2" as="span" color="#FFFFFF">
-                            Забронировать
+                            {translate.partnerOffers.booking}
                         </Typography>
                     </Button>
                 </div>

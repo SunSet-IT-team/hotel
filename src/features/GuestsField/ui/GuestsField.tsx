@@ -3,11 +3,11 @@
 import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { useIsMobile, useOutsideClick } from '@/shared/hooks';
+import { useIsMobile, useOutsideClick, useTranslation } from '@/shared/hooks';
 import { Button, Counter, Typography } from '@/shared/ui';
 import { Box } from '@/shared/ui/Box/ui/Box';
 
-import { GUESTS_INFO_TEXT, GUESTS_LIMITS } from '../model/constants';
+import { GUESTS_LIMITS } from '../model/constants';
 import { type GuestsFieldProps } from '../model/types';
 
 import styles from './GuestsField.module.scss';
@@ -20,8 +20,11 @@ export const GuestsField: FC<GuestsFieldProps> = ({ value, onChange, className }
     const [isOpen, setIsOpen] = useState(false);
     const [applied, setApplied] = useState(value.adults !== 0 || value.children !== 0);
     const isMobile = useIsMobile();
+    const translate = useTranslation();
 
-    const label = !applied ? 'Кол-во гостей' : `${value.adults} взрос. ${value.children} реб.`;
+    const label = !applied
+        ? translate.guests.label
+        : `${value.adults} ${translate.guests.adultsShort} ${value.children} ${translate.guests.childrenShort}`;
 
     const rootRef = useRef<HTMLDivElement>(null);
     useOutsideClick(rootRef, () => {
@@ -53,10 +56,10 @@ export const GuestsField: FC<GuestsFieldProps> = ({ value, onChange, className }
                                 variant="h2"
                                 color="green"
                             >
-                                Взрослые
+                                {translate.guests.adults}
                             </Typography>
                             <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="green">
-                                18 лет и старше
+                                {translate.guests.adultsDescription}
                             </Typography>
                         </div>
                         <Counter
@@ -78,10 +81,10 @@ export const GuestsField: FC<GuestsFieldProps> = ({ value, onChange, className }
                                 variant="h2"
                                 color="blue"
                             >
-                                Дети
+                                {translate.guests.children}
                             </Typography>
                             <Typography as="p" variant={isMobile ? 'h2' : 'h3'} color="dark">
-                                от 0 до 17 лет
+                                {translate.guests.childrenDescription}
                             </Typography>
                         </div>
                         <Counter
@@ -102,7 +105,7 @@ export const GuestsField: FC<GuestsFieldProps> = ({ value, onChange, className }
                             variant={isMobile ? 'h2' : 'h3'}
                             color="dark"
                         >
-                            {GUESTS_INFO_TEXT}
+                            {translate.guests.infoText}
                         </Typography>
                     </div>
 
@@ -118,7 +121,7 @@ export const GuestsField: FC<GuestsFieldProps> = ({ value, onChange, className }
                             fullWidth
                         >
                             <Typography as="p" variant="h2" color="white">
-                                Применить
+                                {translate.common.apply}
                             </Typography>
                         </Button>
                     </div>

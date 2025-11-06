@@ -1,8 +1,8 @@
 'use client';
 
-import { type FC } from 'react';
+import { type FC, useMemo } from 'react';
 
-import { useIsMobile } from '@/shared/hooks';
+import { useIsMobile, useTranslation } from '@/shared/hooks';
 import { Container } from '@/shared/ui';
 import { Button } from '@/shared/ui/Button';
 import { Typography } from '@/shared/ui/Typography';
@@ -18,11 +18,23 @@ interface Props {
 
 export const BookingButtons: FC<Props> = ({ className }) => {
     const isMobile = useIsMobile();
+    const translate = useTranslation();
+
+    // Маппинг переводов на элементы
+    const translatedItems = useMemo(
+        () => [
+            { label: translate.booking.cars, href: items[0].href },
+            { label: translate.booking.flights, href: items[1].href },
+            { label: translate.booking.tours, href: items[2].href },
+            { label: translate.booking.esim, href: items[3].href },
+        ],
+        [translate],
+    );
 
     return (
         <section className={className}>
             <Container variant="header" className={styles.root}>
-                {items.map((it) => (
+                {translatedItems.map((it) => (
                     <Button
                         key={it.label}
                         as="a"

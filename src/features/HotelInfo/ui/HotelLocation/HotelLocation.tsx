@@ -1,7 +1,9 @@
+'use client';
+
 import { type FC } from 'react';
 
 import { MapIcon } from '@/shared/assets/icons';
-import { useIsMobile } from '@/shared/hooks';
+import { useIsMobile, useTranslation } from '@/shared/hooks';
 import { Typography } from '@/shared/ui';
 
 import styles from './HotelLocation.module.scss';
@@ -13,6 +15,7 @@ interface HotelLocationProps {
 
 export const HotelLocation: FC<HotelLocationProps> = ({ address, variant = 'default' }) => {
     const isMobile = useIsMobile();
+    const translate = useTranslation();
     const yandexMapLink = `https://yandex.ru/maps/?text=${encodeURIComponent(address)}`;
 
     return (
@@ -30,7 +33,7 @@ export const HotelLocation: FC<HotelLocationProps> = ({ address, variant = 'defa
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {isMobile ? 'На карте' : 'Посмотреть на карте'}
+                {isMobile ? translate.hotelCard.onMap : translate.hotelCard.viewOnMap}
             </Typography>
         </div>
     );

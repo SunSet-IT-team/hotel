@@ -3,10 +3,11 @@
 import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
 
+import { useLanguage, useTranslation } from '@/shared/hooks';
 import { Button, Calendar, Typography } from '@/shared/ui';
 import type { DateRange as DateRangeType } from '@/shared/ui/Calendar';
 import { Popup } from '@/shared/ui/Popup';
-import { formatDateRuShort } from '@/shared/utils/date/formatDate';
+import { formatDateShort } from '@/shared/utils/date/formatDate';
 import { toISODate } from '@/shared/utils/date/isoDate';
 import { normalizeDate } from '@/shared/utils/date/normalizeDate';
 
@@ -20,6 +21,8 @@ import styles from './DateRange.module.scss';
  */
 export const DateRange: FC<DateRangeProps> = ({ value, onChange, className }) => {
     const rootRef = useRef(null); // Родительский компонент
+    const translate = useTranslation();
+    const language = useLanguage();
 
     // Состояние модального окна с выбором даты
     const [isOpen, setIsOpen] = useState(false);
@@ -33,8 +36,12 @@ export const DateRange: FC<DateRangeProps> = ({ value, onChange, className }) =>
         endDate: value?.endDate ? normalizeDate(value.endDate) : null,
     };
 
-    const startDateLabel = !startDate ? 'Дата заезда' : formatDateRuShort(startDate);
-    const endDateLabel = !endDate ? 'Дата выезда' : formatDateRuShort(endDate);
+    const startDateLabel = !startDate
+        ? translate.dateRange.checkIn
+        : formatDateShort(startDate, language);
+    const endDateLabel = !endDate
+        ? translate.dateRange.checkOut
+        : formatDateShort(endDate, language);
 
     const handleDateRangeChange = ({ startDate, endDate }: DateRangeType) => {
         onChange({
@@ -84,7 +91,7 @@ export const DateRange: FC<DateRangeProps> = ({ value, onChange, className }) =>
                     isUseContainer
                 >
                     <Calendar
-                        language="ru"
+                        language={language}
                         dateRange={{ startDate, endDate }}
                         onChange={handleDateRangeChange}
                         className={styles.panel}

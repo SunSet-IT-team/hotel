@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Pagination } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
 
+import { useTranslation } from '@/shared/hooks';
 import { Box, NavigationBlock, Slider, Typography } from '@/shared/ui';
 
 import { type ReviewsSliderProps } from '../model/types';
@@ -16,10 +17,12 @@ import styles from './ReviewsSlider.module.scss';
  * Отображает только текст отзывов
  */
 export const ReviewsSlider: FC<ReviewsSliderProps> = ({ reviews, className, ...rest }) => {
+    const translate = useTranslation();
+
     return (
         <Box>
             <Typography variant="h5" color="green">
-                Отзывы
+                {translate.hotelCard.reviews}
             </Typography>
             <Slider
                 modules={[Pagination]}
@@ -36,7 +39,7 @@ export const ReviewsSlider: FC<ReviewsSliderProps> = ({ reviews, className, ...r
                             className={styles.slide}
                             key={`${review.authorName}-${review.date}`}
                             role="article"
-                            aria-label="Отзыв"
+                            aria-label={translate.hotelCard.review}
                         >
                             <div className={styles.reviewCard}>
                                 <Typography variant="p" color="dark" className={styles.reviewText}>

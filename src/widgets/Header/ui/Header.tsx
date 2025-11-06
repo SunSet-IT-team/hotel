@@ -4,6 +4,8 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 
 import { LogoIcon } from '@/shared/assets/icons';
+import { useAppDispatch, useTranslation } from '@/shared/hooks';
+import { toggleLanguage } from '@/shared/lib/i18n';
 import { Container, Typography } from '@/shared/ui';
 
 import styles from './Header.module.scss';
@@ -33,11 +35,18 @@ export const Header: FC<HeaderProps> = ({ className, variant = 'transparent' }) 
     );
 };
 
-// @TODO: В дальнейшем реализовываем фичу менюшки с выбором языков
+/** Компонент переключения языка */
 const ChangeLaguageMenu = () => {
+    const dispatch = useAppDispatch();
+    const translate = useTranslation();
+
+    const handleToggleLanguage = () => {
+        dispatch(toggleLanguage());
+    };
+
     return (
-        <Typography color="white" className={styles.langMenu}>
-            RU/EN
+        <Typography color="white" className={styles.langMenu} onClick={handleToggleLanguage}>
+            {translate.header.langMenu}
         </Typography>
     );
 };

@@ -4,6 +4,7 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 import { SwiperSlide } from 'swiper/react';
 
+import { useTranslation } from '@/shared/hooks';
 import { formatPrice } from '@/shared/lib/formatting';
 import { Box, NavigationBlock, Slider, Typography } from '@/shared/ui';
 
@@ -21,10 +22,12 @@ export const PricesSlider: FC<PricesSliderProps> = ({
     className,
     ...rest
 }) => {
+    const translate = useTranslation();
+
     return (
         <Box className={styles.container}>
             <Typography variant="h5" color="green">
-                Цены
+                {translate.hotelCard.prices}
             </Typography>
             <Slider
                 modules={[]}

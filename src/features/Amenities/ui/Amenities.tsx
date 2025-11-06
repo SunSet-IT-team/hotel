@@ -3,7 +3,7 @@
 import { type FC, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { useIsMobile } from '@/shared/hooks';
+import { useIsMobile, useTranslation } from '@/shared/hooks';
 import { Box, Button, Convenience, Popup, Typography } from '@/shared/ui';
 
 import { AMENITIES_PREVIEW_COUNT, AMENITIES_SHOW_MORE_THRESHOLD } from '../model/constants';
@@ -15,11 +15,13 @@ import styles from './Amenities.module.scss';
  * Компонент отображения удобств отеля
  * Показывает превью удобств с возможностью открыть полный список в модальном окне
  */
-export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобства', className }) => {
+export const Amenities: FC<AmenitiesProps> = ({ amenities, title, className }) => {
+    const translate = useTranslation();
     const rootRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
     const isMobile = useIsMobile();
 
+    const displayTitle = title ?? translate.hotel.amenities;
     const previewAmenities = amenities.slice(0, AMENITIES_PREVIEW_COUNT);
     const hasMoreAmenities = amenities.length > AMENITIES_SHOW_MORE_THRESHOLD;
 
@@ -31,7 +33,7 @@ export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобст
                 color="blue"
                 className={styles.title}
             >
-                {title}
+                {displayTitle}
             </Typography>
 
             <div className={styles.amenitiesGrid} ref={rootRef}>
@@ -49,7 +51,8 @@ export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобст
                         onClick={() => setIsOpen(true)}
                     >
                         <Typography variant="h3" as="span" color="white">
-                            +{amenities.length - AMENITIES_PREVIEW_COUNT} еще
+                            +{amenities.length - AMENITIES_PREVIEW_COUNT}{' '}
+                            {translate.hotel.amenitiesMore}
                         </Typography>
                     </Button>
                 )}
@@ -65,7 +68,7 @@ export const Amenities: FC<AmenitiesProps> = ({ amenities, title = 'Удобст
                 >
                     <Box className={styles.popupContent}>
                         <Typography variant="h4" color="blue" className={styles.popupTitle}>
-                            Все удобства
+                            {translate.hotel.amenitiesAll}
                         </Typography>
                         <div className={styles.allAmenitiesGrid}>
                             {amenities.map((amenity) => (

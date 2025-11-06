@@ -1,5 +1,8 @@
+'use client';
+
 import { useCallback, useRef, useState } from 'react';
 
+import { useTranslation } from '@/shared/hooks';
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick';
 import { Box, Button, RangeList, SearchInput, Typography } from '@/shared/ui';
 import { type RangeListOption } from '@/shared/ui/RangeList';
@@ -18,12 +21,14 @@ import styles from './LocationFilter.module.scss';
  */
 
 export const LocationFilter = ({
-    title = 'Расположение',
+    title,
     popularPresets,
     selectedLocation,
     onLocationChange,
     className,
 }: LocationFilterProps) => {
+    const translate = useTranslation();
+    const displayTitle = title ?? translate.filters.location;
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [searchResults, setSearchResults] = useState<RangeListOption[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -75,7 +80,7 @@ export const LocationFilter = ({
         <div className={`${className || ''}`} ref={rootRef}>
             <div className={styles.title}>
                 <Typography variant="h5" as="span" color="blue" className={styles.titleText}>
-                    {title}
+                    {displayTitle}
                 </Typography>
             </div>
             <div className={styles.selectContainer}>
@@ -87,7 +92,7 @@ export const LocationFilter = ({
                     }, [])}
                     onLoadingChange={setIsLoading}
                     value={searchValue}
-                    placeholder="район/локация"
+                    placeholder={translate.filters.locationPlaceholder}
                     className={styles.searchInput}
                     onFocus={handleInputFocus}
                     onClick={handleInputFocus}
@@ -97,7 +102,7 @@ export const LocationFilter = ({
                     <div ref={menuRef} className={styles.searchMenu}>
                         <Box className={styles.searchMenuBox}>
                             <Typography color="blue" className={styles.searchMenu__title}>
-                                Результаты поиска
+                                {translate.filters.searchResults}
                             </Typography>
                             <div className={styles.searchMenu__resultOptions}>
                                 {isShowResults &&
@@ -114,7 +119,9 @@ export const LocationFilter = ({
                                         </Button>
                                     ))}
 
-                                {isZeroResults && <Typography>Ничего не нашлось</Typography>}
+                                {isZeroResults && (
+                                    <Typography>{translate.filters.noResults}</Typography>
+                                )}
                             </div>
                         </Box>
                     </div>

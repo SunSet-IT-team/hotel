@@ -2,11 +2,12 @@
 
 import { type FC, useMemo, useState } from 'react';
 
+import { useTranslation } from '@/shared/hooks';
 import { Button, Container, Typography } from '@/shared/ui';
 
 import { useSearchForm } from '../hooks/useSearchForm';
 import { type FormData } from '../model/types';
-import { buildFormSummary } from '../utils/buildFormSummary';
+import { createBuildFormSummaryWithTranslations } from '../utils/buildFormSummary';
 import { type ParsedFormFromURL } from '../utils/parseSearchParams';
 
 import { SearchFormFields } from './SearchFromFields';
@@ -29,8 +30,11 @@ export const SearchForm: FC<Props> = ({
     active,
     defaultActive = false,
     onActiveChange,
-    title = 'Открой мир и путешествуй легко',
+    title,
 }) => {
+    const translate = useTranslation();
+    const defaultTitle = title ?? translate.search.title;
+
     // локальный стейт, если внешнее value не передано
     const [innerActive, setInnerActive] = useState(defaultActive);
     const isActive = active ?? innerActive;
@@ -43,14 +47,15 @@ export const SearchForm: FC<Props> = ({
     const toggleActive = () => setActive(!isActive);
 
     const hook = useSearchForm(initialValues);
-    const summary = useMemo(() => buildFormSummary(hook.formData), [hook.formData]);
+    const buildSummary = createBuildFormSummaryWithTranslations(translate);
+    const summary = useMemo(() => buildSummary(hook.formData), [hook.formData, buildSummary]);
 
     return (
         <div className={styles.root}>
             <Container variant="header">
                 {isActive && (
                     <Typography color="white" variant="h1" as="h1" className={styles.root__title}>
-                        {title}
+                        {defaultTitle}
                     </Typography>
                 )}
 
@@ -59,12 +64,12 @@ export const SearchForm: FC<Props> = ({
                         type="button"
                         className={`${styles.formBody__item} ${styles.formBody__item_searchAllBtn}`}
                         onClick={toggleActive}
-                        aria-label="Развернуть поиск"
+                        aria-label={translate.search.expandSearch}
                         aria-expanded={!isActive}
                         variant="white"
                     >
                         <Typography variant="h2" as="span" color="inherit">
-                            {summary || 'Поиск'}
+                            {summary || translate.search.search}
                         </Typography>
                     </Button>
                 ) : (

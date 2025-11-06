@@ -1,0 +1,6 @@
+@use '../../shared/assets/styles/index' as *;
+.mainPage {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-primary-white);
+}

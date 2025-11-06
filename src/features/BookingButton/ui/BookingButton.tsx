@@ -4,7 +4,7 @@ import { type FC } from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
-import { useIsMobile } from '@/shared/hooks';
+import { useIsMobile, useTranslation } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 
 import { type BookingButtonProps } from '../model/types';
@@ -17,6 +17,7 @@ import styles from './BookingButton.module.scss';
  */
 export const BookingButton: FC<BookingButtonProps> = ({ hotelId, className, onBooking }) => {
     const isMobile = useIsMobile();
+    const translate = useTranslation();
 
     const router = useRouter();
     const handleClick = (e: React.MouseEvent) => {
@@ -36,9 +37,9 @@ export const BookingButton: FC<BookingButtonProps> = ({ hotelId, className, onBo
             size={isMobile ? 'medium' : 'big'}
             onClick={handleClick}
             className={clsx(styles.root, className)}
-            aria-label={`Забронировать отель ${hotelId}`}
+            aria-label={`${translate.hotel.booking} ${hotelId}`}
         >
-            Забронировать
+            {translate.hotel.booking}
         </Button>
     );
 };

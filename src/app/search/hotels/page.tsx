@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { mockHotels } from '@/entities/hotel';
 import HeaderBg from '@/shared/assets/img/header-bg.png';
+import { useTranslation } from '@/shared/hooks';
 import { Container, Typography } from '@/shared/ui';
 import { FilterForm, FilterFormSkeleton } from '@/widgets/FilterForm';
 import { HotelCard, HotelCardSkeleton } from '@/widgets/HotelCard';
@@ -16,6 +17,7 @@ import styles from './SearchHotels.module.scss';
 
 const SearchHotelsContent = () => {
     const searchParams = useSearchParams();
+    const translate = useTranslation();
 
     // единый источник правды для режима "активного поиска"
     const [activeSearch, setActiveSearch] = useState(false);
@@ -74,7 +76,7 @@ const SearchHotelsContent = () => {
             {activeSearch && (
                 <div
                     role="button"
-                    aria-label="Закрыть расширенный поиск"
+                    aria-label={translate.hotels.closeExtendedSearch}
                     aria-hidden={false}
                     tabIndex={0}
                     onClick={() => setActiveSearch(false)}
@@ -92,7 +94,7 @@ const SearchHotelsContent = () => {
             <Container>
                 {!activeSearch && (
                     <Typography variant="h1" color="green" className={styles.headerText}>
-                        Открой мир и путешествуй легко
+                        {translate.search.title}
                     </Typography>
                 )}
 

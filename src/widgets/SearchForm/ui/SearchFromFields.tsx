@@ -7,6 +7,7 @@ import { DateRange } from '@/features/DateRange';
 import { GuestsField } from '@/features/GuestsField';
 import type { LocationOption as SearchLocationOption } from '@/features/SearchLocation';
 import { SearchLocation } from '@/features/SearchLocation';
+import { useTranslation } from '@/shared/hooks';
 import { fetchMockData1 } from '@/shared/mocks/searchLocation';
 import type { ISODate } from '@/shared/types/global.types';
 import { Button, Typography } from '@/shared/ui';
@@ -37,6 +38,8 @@ export const SearchFormFields: FC<Props> = ({
     onChangePeoplesCount,
     onSubmit,
 }) => {
+    const translate = useTranslation();
+
     return (
         <form className={styles.form} onSubmit={onSubmit}>
             <div className={clsx(styles.form__body, styles.formBody)}>
@@ -45,7 +48,7 @@ export const SearchFormFields: FC<Props> = ({
                     onChange={onChangeQuery}
                     onSelect={onSelectDestination}
                     className={clsx(styles.formBody__item, styles.formBody__item_searchLocation)}
-                    placeholder="Город и отель"
+                    placeholder={translate.search.placeholder}
                     fetchData={fetchMockData1}
                 />
 
@@ -67,7 +70,7 @@ export const SearchFormFields: FC<Props> = ({
                     className={clsx(styles.formBody__item, styles.formBody__item_searchBtn)}
                 >
                     <Typography variant="h2" as="span" color="inherit">
-                        {isSubmitting ? 'Поиск...' : 'Поиск'}
+                        {isSubmitting ? translate.search.searching : translate.search.search}
                     </Typography>
                 </Button>
             </div>
